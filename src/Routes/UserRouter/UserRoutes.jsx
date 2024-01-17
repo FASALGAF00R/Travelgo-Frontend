@@ -3,8 +3,7 @@ import {Routes,Route} from 'react-router-dom'
 import React from 'react'
 import Usersignup from '../../Components/Usercomponents/Usersignupcomponent/Usersignup'
 import Login from '../../Components/Usercomponents/Userlogincomponent/Login'
-import { Link } from 'react-router-dom'
-
+import Verification from '../../Components/Usercomponents/Userlogincomponent/Verification'
 function UserRoutes() {
 
 
@@ -16,6 +15,8 @@ function UserRoutes() {
 <Route path="/" element={<Home/>}/>
 <Route path="/signup" element={<Usersignup/>}/>
 <Route path="/login" element={<Login/>}/>
+<Route path="/verify/:token" element={<Verification/>}/>
+
 
   </Routes>
  

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { signupData } from '../../../Api/Userapi';
-import { Link, useNavigate } from 'react-router-dom'
+import {  signupData } from '../../../Api/Userapi';
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate  } from 'react-router-dom';
 
 const Usersignup = () => {
   const navigate = useNavigate()
+  // const { token } = useParams();
+
   const [user, setuser] = useState({
     userName: '',
     email: '',
@@ -44,19 +46,27 @@ const Usersignup = () => {
     e.preventDefault();
     try {
       console.log("4");
-      const res = await signupData(user)
-      console.log(res.data, "dataoooooooooooo");
+      const userData = await signupData(user);
+        toast(userData.data.message)
+        console.log(userData,'000000000000000000');
+  
 
-      const { success, message } = res.data;
-      if (success) {
-        console.log("8");
-        handleSucces(message);
-        setTimeout(() => {
-          navigate('/login');
-        }, 3000)
-      } else {
-        handleError(message);
-      }
+      // const { success, message } = res.data;
+      // if (success) {
+      //   console.log("8");
+      //   handleSucces(message);
+      
+        // navigate(`/verify/${token}`);    
+  // setTimeout(() => {
+  //         navigate('/login');
+  //       }, 3000)
+  //       // navigate('/login')   
+      // } else {
+      //   // setTimeout(() => {
+      //   //   navigate('/signup');
+      //   // }, 3000)
+      //   handleError(message);
+      // }
     } catch (err) {
       console.log(err);
       handleError("An error occurred");

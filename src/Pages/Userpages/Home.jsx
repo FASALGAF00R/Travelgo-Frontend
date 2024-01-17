@@ -3,7 +3,6 @@ import {NavbarSimple} from '../../Components/Usercomponents/Userhomecomponent/Na
 import Content from '../../Components/Usercomponents/Userhomecomponent/content'
 
 
-
 function Home() {
   return (
     <>

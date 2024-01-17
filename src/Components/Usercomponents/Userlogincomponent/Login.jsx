@@ -11,7 +11,7 @@ const Login = () => {
     email: '',
     password: '',
   });
-  console.log(formData, "form data");
+  console.log(formData, " 1 form data");
   const { email, password } = formData;
 
   const handleChange = (e) => {
@@ -44,16 +44,16 @@ const Login = () => {
     e.preventDefault();
     try {
      const res=   await Userlogin(formData)
-        console.log('Login form submitted:',res.data);  
+        console.log('Login form submitted:',res);  
 
-        const { success, message } = res.data;
-        if (success) {
+        const { success, message } = res;
+        if (res.data.Data.isVerified) {
           console.log("8");
 
             handleSuccess(message);
             setTimeout(() => {
               navigate("/");
-            }, 1000);
+            }, 2000);
           } else {
             handleError(message);
           }
@@ -110,6 +110,7 @@ const Login = () => {
           </button>
         </div>
       </form>
+      <ToastContainer/>
     </div>
   );
 };
