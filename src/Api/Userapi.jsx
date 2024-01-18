@@ -8,6 +8,19 @@ baseURL:'http://localhost:3000'
 })
 
 
+const token = localStorage.getItem('token')
+
+
+
+
+const Configtoken= {
+    headers :{
+        "Content-Type":"application/json",
+        Authorization :"Bearer"+token
+    }
+
+}
+
 
 export   async function signupData(data){
     console.log("5");
@@ -43,5 +56,20 @@ export async function UserVerify(token){
         console.log(error);
     } 
 }
+
+// goole login 
+
+export async function  Googledata(googledata){
+    console.log(googledata,"oooooooooo");
+    try {
+        const result =userapi.post('/googlelogin',googledata)
+        console.log(result,"uuuuuu");
+return result
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
 
 

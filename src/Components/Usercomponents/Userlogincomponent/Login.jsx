@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Userlogin } from '../../../Api/Userapi';
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+import { Googledata } from '../../../Api/Userapi'; 
 
 const Login = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+const [user, setUser] = useState([])
+console.log(user,"ppppppppppppppp");
 
   const [formData, setFormData] = useState({
- 
+
     email: '',
     password: '',
   });
@@ -34,40 +39,81 @@ const Login = () => {
       position: "bottom-left",
     });
 
+const Googlelogin = useGoogleLogin({
+  onSuccess: (codeResponse) => setUser(codeResponse),
+  onError: (error) => console.log('Login Failed:', error)
+  
+})
 
 
 
 
+useEffect(
+ 
+  ()  => {
+    const fetchdata =async () =>{
+      console.log("useeffect");
+      if (user) {
+          
+        axios .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                  headers: {
+                      Authorization: `Bearer ${user.access_token}`,
+                      Accept: 'application/json'
+                  }
+              })
+              .then((res)  =>  {
+                  // setProfile(res.data);
+                  // console.log(res.data,"lllllllllll");
+                        Googledata(res.data).then((res)=>{
 
-  const handleSubmit =async (e) => {
+                          if(res.data.success===true){
+                            navigate("/");
+                          }else{
+                            console.log("errorr  got");
+                          }
+                        })
+              })
+              .catch((err) => console.log(err));
+      }
+  }
+  fetchdata()
+  },
+  [ user ]
+
+);
+
+
+
+  const handleSubmit = async (e) => {
     console.log("4");
     e.preventDefault();
     try {
-     const res=   await Userlogin(formData)
-        console.log('Login form submitted:',res);  
+      const res = await Userlogin(formData)
+      console.log('Login form submitted:', res);
 
-        const { success, message } = res;
-        if (res.data.Data.isVerified) {
-          console.log("8");
+      const { success, message } = res;
+      if (res.data.Data.isVerified) {
+        console.log("8");
 
-            handleSuccess(message);
-            setTimeout(() => {
-              navigate("/");
-            }, 2000);
-          } else {
-            handleError(message);
-          }
+        handleSuccess(message);
+        setTimeout(() => {
+          localStorage.setItem('token', res.data.Data.token)
+          navigate("/");
+        }, 2000);
+      } else {
+        handleError(message);
+      }
     } catch (error) {
-        console.log(error);
-        handleError("An error occurred");
+      console.log(error);
+      handleError("An error occurred");
 
     }
     setFormData({
-        ...formData,
-        email: '',
-        password: '',
+      ...formData,
+      email: '',
+      password: '',
     })
-  
+
   };
 
   return (
@@ -110,7 +156,12 @@ const Login = () => {
           </button>
         </div>
       </form>
-      <ToastContainer/>
+     
+        <div onClick={()=>Googlelogin()}>
+          <h2> Google Login</h2>
+       
+      </div>
+      <ToastContainer />
     </div>
   );
 };
