@@ -71,5 +71,15 @@ return result
 }
 
 
+// agent sigin up
+export async function Signupdata(data){
+    try {
+        const Agent =userapi.post('/signup',data)
+        console.log(Agent,"ttttttttttttt");
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 
