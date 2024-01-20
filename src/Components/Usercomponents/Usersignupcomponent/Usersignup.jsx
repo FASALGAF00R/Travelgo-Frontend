@@ -49,23 +49,6 @@ const Usersignup = () => {
         toast(userData.data.message)
         console.log(userData,'000000000000000000');
   
-
-      // const { success, message } = res.data;
-      // if (success) {
-      //   console.log("8");
-      //   handleSucces(message);
-      
-        // navigate(`/verify/${token}`);    
-  // setTimeout(() => {
-  //         navigate('/login');
-  //       }, 3000)
-  //       // navigate('/login')   
-      // } else {
-      //   // setTimeout(() => {
-      //   //   navigate('/signup');
-      //   // }, 3000)
-      //   handleError(message);
-      // }
     } catch (err) {
       console.log(err);
       handleError("An error occurred");

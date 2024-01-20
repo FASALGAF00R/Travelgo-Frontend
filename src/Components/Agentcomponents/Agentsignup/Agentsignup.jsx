@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { ToastContainer, toast } from "react-toastify";
-import { Signupdata } from '../../../Api/Userapi';
+import { Signupdata } from '../../../Api/Agentapi.jsx';
 
 
 function Agentsignup() {
@@ -41,7 +41,7 @@ const formdata =async(val)=>{
   val.preventDefault();
   try {
     const res = await Signupdata(Data)
-      console.log(res.data,"rrrrrrrrrrrrr");
+      console.log(res,"rrrrrrrrrrrrr");
     
 
 

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Userlogin } from '../../../Api/Userapi';
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { Googledata } from '../../../Api/Userapi'; 
+import { Googledata } from '../../../Api/Userapi';
+import { useLocation } from 'react-router-dom';
+import { Agentlogin } from '../../../Api/Agentapi';
+import { Userlogin } from '../../../Api/Userapi';
 
 const Login = () => {
-  const navigate = useNavigate();
-const [user, setUser] = useState([])
-console.log(user,"ppppppppppppppp");
 
+  const Location = useLocation()
+  console.log(Location.state, "ooooooooo");
+  const navigate = useNavigate();
+  const [user, setUser] = useState([])
   const [formData, setFormData] = useState({
 
     email: '',
@@ -34,85 +37,88 @@ console.log(user,"ppppppppppppppp");
     toast.error(err, {
       position: "bottom-left",
     });
-  const handleSuccess = (msg) =>
-    toast.success(msg, {
-      position: "bottom-left",
-    });
 
-const Googlelogin = useGoogleLogin({
-  onSuccess: (codeResponse) => setUser(codeResponse),
-  onError: (error) => console.log('Login Failed:', error)
-  
-})
+
+  const Googlelogin = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log('Login Failed:', error)
+
+  })
 
 
 
-~
-useEffect(
- 
-  ()  => {
-    const fetchdata =async () =>{
+
+  useEffect(() => {
+    const fetchdata = async () => {
       console.log("useeffect");
       if (user) {
-          
-        axios .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                  headers: {
-                      Authorization: `Bearer ${user.access_token}`,
-                      Accept: 'application/json'
-                  }
-              })
-              .then((res)  =>  {
-                  // setProfile(res.data);
-                  // console.log(res.data,"lllllllllll");
-                        Googledata(res.data).then((res)=>{
+        const res = axios.post(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+            Accept: 'application/json'
+          }
+        })
+          .then((res) => {
+            // setProfile(res.data);
+            Googledata(res.data).then((res) => {
 
-                          if(res.data.success===true){
-                            navigate("/");
-                          }else{
-                            console.log("errorr  got");
-                          }
-                        })
-              })
-              .catch((err) => console.log(err));
+              if (res.data.success === true) {
+                navigate("/");
+              } else {
+                console.log("errorr  got");
+              }
+            })
+          })
+          .catch((err) => console.log(err));
       }
-  }
-  fetchdata()
+    }
+    fetchdata()
   },
-  [ user ]
+    [user]
 
-);
+  );
 
 
 
   const handleSubmit = async (e) => {
-    console.log("4");
-    e.preventDefault();
     try {
-      const res = await Userlogin(formData)
-      console.log('Login form submitted:', res);
-
-      const { success, message } = res;
-      if (res.data.Data.isVerified) {
+      e.preventDefault();
+      console.log('pspsps');
+      console.log(Location.state);
+      if (Location.state === "user") {
+        console.log("jjjjjjjjjjj");
+        const res = await Userlogin(formData)
+        const { message } = res;
         console.log("8");
-
-        handleSuccess(message);
-        setTimeout(() => {
-          localStorage.setItem('token', res.data.Data.token)
-          navigate("/");
-        }, 2000);
-      } else {
-        handleError(message);
+        if (res.data.Data.isVerified) {
+          handleSuccess(message);
+          setTimeout(() => {
+            localStorage.setItem('token', res.data.Data.token)
+            navigate("/");
+          }, 2000);
+        }
+      } else if (Location.state == "agent") {
+        console.log('ooooooo=====');
+        const response = await Agentlogin(formData)
+        console.log(response, "hhhhhhhhh");
+        if (response.data.Agent.isVerified) {
+          toast.success(response.data.message)
+          setTimeout(() => {
+            localStorage.setItem('token', response.data.Agent.token)
+            navigate("/home");
+          }, 2000);
+        } else {
+         toast.error(response.data.message)
+        }
       }
+
+
     } catch (error) {
       console.log(error);
       handleError("An error occurred");
 
     }
-    setFormData({
-      ...formData,
-      email: '',
-      password: '',
-    })
+
 
   };
 
@@ -156,10 +162,10 @@ useEffect(
           </button>
         </div>
       </form>
-     
-        <div onClick={()=>Googlelogin()}>
-          <h2> Google Login</h2>
-       
+
+      <div onClick={() => Googlelogin()}>
+        <h2> Google Login</h2>
+
       </div>
       <ToastContainer />
     </div>

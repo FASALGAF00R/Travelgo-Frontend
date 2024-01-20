@@ -36,7 +36,7 @@ export   async function signupData(data){
 
 export async function Userlogin(logindata){
     try {
-        console.log("5");
+        console.log("5888888888888");
        const  Data= userapi.post('/login',logindata)
        console.log(Data,"yyyyyyyy");
        return Data
@@ -71,15 +71,6 @@ return result
 }
 
 
-// agent sigin up
-export async function Signupdata(data){
-    try {
-        const Agent =userapi.post('/signup',data)
-        console.log(Agent,"ttttttttttttt");
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 
 

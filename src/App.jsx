@@ -1,9 +1,10 @@
-import React from 'react'
+import React ,{useState}from 'react'
 import { BrowserRouter as Router, Routes,Route } from 'react-router-dom'
 import UserRoutes from './Routes/UserRouter/userRoutes'
 import AgentRoutes from './Routes/AgentRouter/AgentRoutes'
 
 function App() {
+    const [userType, setUserType] = useState('');
     return (
         <div className='App'>
          
