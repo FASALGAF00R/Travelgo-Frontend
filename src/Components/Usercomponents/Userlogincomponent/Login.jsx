@@ -11,7 +11,7 @@ import { Userlogin } from '../../../Api/Userapi';
 const Login = () => {
 
   const Location = useLocation()
-  console.log(Location.state, "ooooooooo");
+  console.log(Location.state, "ooooooooodddd");
   const navigate = useNavigate();
   const [user, setUser] = useState([])
   const [formData, setFormData] = useState({
@@ -19,18 +19,17 @@ const Login = () => {
     email: '',
     password: '',
   });
-  console.log(formData, " 1 form data");
   const { email, password } = formData;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, "2");
-    console.log(e.target, "3");
     setFormData({
       ...formData,
       [name]: value,
     });
   };
+
+
 
 
   const handleError = (err) =>
@@ -52,25 +51,21 @@ const Login = () => {
     const fetchdata = async () => {
       console.log("useeffect");
       if (user) {
-        const res = axios.post(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+       const Google=  axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
           headers: {
             Authorization: `Bearer ${user.access_token}`,
             Accept: 'application/json'
           }
         })
-          .then((res) => {
-            // setProfile(res.data);
-            Googledata(res.data).then((res) => {
-
-              if (res.data.success === true) {
+        console.log(Google,"google");
+       const result=await  Googledata(Google)
+       toast(result.data.alert);
+              if (result.data.success === true) {
                 navigate("/");
               } else {
                 console.log("errorr  got");
               }
-            })
-          })
-          .catch((err) => console.log(err));
-      }
+                }
     }
     fetchdata()
   },
@@ -83,7 +78,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log('pspsps');
       console.log(Location.state);
       if (Location.state === "user") {
         console.log("jjjjjjjjjjj");
@@ -91,7 +85,7 @@ const Login = () => {
         const { message } = res;
         console.log("8");
         if (res.data.Data.isVerified) {
-          handleSuccess(message);
+          toast.success(res.data.message)
           setTimeout(() => {
             localStorage.setItem('token', res.data.Data.token)
             navigate("/");
@@ -161,6 +155,12 @@ const Login = () => {
             Log In
           </button>
         </div>
+        <span className="justify-center text-sm text-center text-gray-500 flex-items-center dark:text-gray-400">
+            Does'nt  have a account ?
+            <a href="/signup" target="_blank" className="text-sm text-blue-500 underline hover:text-blue-700">
+              Sign up
+            </a>
+          </span>
       </form>
 
       <div onClick={() => Googlelogin()}>

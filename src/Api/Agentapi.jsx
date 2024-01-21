@@ -42,7 +42,7 @@ export async function  Verify(token) {
 
 export async  function Agentlogin(data){
     console.log(data,";;;;;;;;;");
-    try {
+    try {   
         const Login = await agentapi.post('/loginagent',data)
         console.log(Login,"oooooooooooosdfgaaaaaaaaaaaf");
         return Login

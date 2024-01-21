@@ -15,8 +15,8 @@ function NavList() {
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a href="#" className="flex items-center hover:text-blue-500 transition-colors">
-          Pages
+        <a href="/login" className="flex items-center hover:text-white transition-colors">
+          Login
         </a>
       </Typography>
       <Typography
@@ -25,8 +25,8 @@ function NavList() {
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a href="#" className="flex items-center hover:text-blue-500 transition-colors">
-          Account
+        <a href="/signup" className="flex items-center hover:text-white transition-colors">
+          Sign in
         </a>
       </Typography>
       <Typography
@@ -35,7 +35,7 @@ function NavList() {
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a href="#" className="flex items-center hover:text-blue-500 transition-colors">
+        <a href="#" className="flex items-center hover:text-white transition-colors">
           Blocks
         </a>
       </Typography>
@@ -45,7 +45,7 @@ function NavList() {
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a href="#" className="flex items-center hover:text-blue-500 transition-colors">
+        <a href="#" className="flex items-center hover:text-white transition-colors">
           Docs
         </a>
       </Typography>
@@ -69,7 +69,7 @@ function NavbarSimple() {
  
   return (
     <Navbar className="bg-pink-200 mx-auto max-w-full">
-      <div className=" flex items-center justify-between text-blue-gray-900 font-serif font-bold">
+      <div className=" flex items-center justify-between text-white  font-extrabold">
         {/* <Typography> */}
       
         

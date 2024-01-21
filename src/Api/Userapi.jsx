@@ -25,7 +25,7 @@ const Configtoken= {
 export   async function signupData(data){
     console.log("5");
     try{
- const userdata= userapi.post('/signup',data)
+ const userdata=await  userapi.post('/signup',data)
  console.log(userdata,"kkkkkkkkkk");
  return userdata
 }catch(err){
@@ -37,7 +37,7 @@ export   async function signupData(data){
 export async function Userlogin(logindata){
     try {
         console.log("5888888888888");
-       const  Data= userapi.post('/login',logindata)
+       const  Data=await  userapi.post('/login',logindata)
        console.log(Data,"yyyyyyyy");
        return Data
     } catch (error) {
@@ -49,7 +49,7 @@ export async function Userlogin(logindata){
 export async function UserVerify(token){
     console.log(token,"uuuuuuuuuu");
     try {
-       const Data=userapi.post(`/verify/${token}`)
+       const Data=await userapi.post(`/verify/${token}`)
        console.log(Data,"yyyyyyyrrrrrrrry");
        return Data
     } catch (error) {
@@ -62,7 +62,7 @@ export async function UserVerify(token){
 export async function  Googledata(googledata){
     console.log(googledata,"oooooooooo");
     try {
-        const result =userapi.post('/googlelogin',googledata)
+        const result = await userapi.post('/googlelogin',googledata)
         console.log(result,"uuuuuu");
 return result
     } catch (error) {
