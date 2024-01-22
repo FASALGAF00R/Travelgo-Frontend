@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import React from 'react'
 import { useParams,useNavigate } from 'react-router-dom'
-import { ToastContainer, toast } from "react-toastify";
 import { Verify } from '../../../Api/Agentapi'
 
 function Agentverify() {
@@ -14,12 +13,10 @@ useEffect(() => {
         try { 
        const Data = await Verify(token)
         if (Data.data.success) {
-          alert('User verification success')
+          alert('agent verification success')
             setTimeout(() => {
-              navigate('/login',{ state :'agent'})
+              navigate('/agent/login')
             }, 2000);
-          }else{
-          alert('User verification not succes')
           }
          } catch (error) {
             console.log(error)
@@ -31,7 +28,7 @@ useEffect(() => {
 
   return (
     <div>Agent is verifying  may take some time ........
-< ToastContainer/>
+
   </div>
   )
 }

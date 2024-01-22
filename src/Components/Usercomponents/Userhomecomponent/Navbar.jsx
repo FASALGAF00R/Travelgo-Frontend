@@ -35,8 +35,8 @@ function NavList() {
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a href="#" className="flex items-center hover:text-white transition-colors">
-          Blocks
+        <a href="/destinations" className="flex items-center hover:text-white transition-colors">
+          Destinations
         </a>
       </Typography>
       <Typography

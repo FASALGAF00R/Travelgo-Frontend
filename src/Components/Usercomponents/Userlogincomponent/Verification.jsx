@@ -14,7 +14,7 @@ function Verification() {
         if (result.status == 200) {
           toast.success('User verification success');
           setTimeout(() => {
-            navigate('/login',{ state :'user'})
+            navigate('/login')
           }, 4000);
         }
       } catch (error) {
@@ -23,8 +23,6 @@ function Verification() {
     }
     verifyUser();
   }, [token]);
-
-
 
 
   return (

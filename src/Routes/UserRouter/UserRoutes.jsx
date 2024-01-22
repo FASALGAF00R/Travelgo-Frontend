@@ -4,6 +4,9 @@ import React from 'react'
 import Usersignup from '../../Components/Usercomponents/Usersignupcomponent/Usersignup'
 import Login from '../../Components/Usercomponents/Userlogincomponent/Login'
 import Verification from '../../Components/Usercomponents/Userlogincomponent/Verification'
+import Destination from '../../Pages/Userpages/Destination'
+
+
 function UserRoutes() {
 
 
@@ -14,8 +17,9 @@ function UserRoutes() {
  
 <Route path="/" element={<Home/>}/>
 <Route path="/signup" element={<Usersignup/>}/>
-<Route path="/login" element={<Login/>}/>
+<Route path="/login" element={<Login/>}/> 
 <Route path="/verify/:token" element={<Verification/>}/>
+<Route path="/destinations" element={<Destination/>}/>
 
 
   </Routes>

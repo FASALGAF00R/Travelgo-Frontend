@@ -4,14 +4,13 @@ import { ToastContainer, toast } from "react-toastify";
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { Googledata } from '../../../Api/Userapi';
-import { useLocation } from 'react-router-dom';
-import { Agentlogin } from '../../../Api/Agentapi';
+// import { useLocation } from 'react-router-dom';
 import { Userlogin } from '../../../Api/Userapi';
 
 const Login = () => {
 
-  const Location = useLocation()
-  console.log(Location.state, "ooooooooodddd");
+  // const Location = useLocation()
+  // console.log(Location.state);
   const navigate = useNavigate();
   const [user, setUser] = useState([])
   const [formData, setFormData] = useState({
@@ -49,7 +48,6 @@ const Login = () => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      console.log("useeffect");
       if (user) {
        const Google=  axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
           headers: {
@@ -67,6 +65,9 @@ const Login = () => {
               }
                 }
     }
+
+
+
     fetchdata()
   },
     [user]
@@ -78,12 +79,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log(Location.state);
-      if (Location.state === "user") {
-        console.log("jjjjjjjjjjj");
         const res = await Userlogin(formData)
         const { message } = res;
-        console.log("8");
         if (res.data.Data.isVerified) {
           toast.success(res.data.message)
           setTimeout(() => {
@@ -91,21 +88,6 @@ const Login = () => {
             navigate("/");
           }, 2000);
         }
-      } else if (Location.state == "agent") {
-        console.log('ooooooo=====');
-        const response = await Agentlogin(formData)
-        console.log(response, "hhhhhhhhh");
-        if (response.data.Agent.isVerified) {
-          toast.success(response.data.message)
-          setTimeout(() => {
-            localStorage.setItem('token', response.data.Agent.token)
-            navigate("/home");
-          }, 2000);
-        } else {
-         toast.error(response.data.message)
-        }
-      }
-
 
     } catch (error) {
       console.log(error);

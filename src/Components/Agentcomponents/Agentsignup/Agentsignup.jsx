@@ -10,7 +10,8 @@ function Agentsignup() {
     userName: '',
     email: '',
     phone: '',
-    password: ''
+    password: '',
+    ConfirmPassword :''
   })
 
 
@@ -23,18 +24,8 @@ const handlechange = (e)=>{
     [name]:value
   })
 }
-console.log(Data,"''''''''''''''''''''''");
-
-const handleError = (err) =>
-toast.error(err, {
-  position: "bottom-left"
-})
 
 
-const handleSucces = (msg) =>
-toast.success(msg, {
-  postion: "bottom-right"
-})
 
 
 const formdata =async(val)=>{
@@ -42,20 +33,13 @@ const formdata =async(val)=>{
   try {
     const res = await Signupdata(Data)
       console.log(res,"rrrrrrrrrrrrr");
-    
-
-
+    if(res.data.success){
+      toast(res.data.message)
+    }
   } catch (error) {
     console.log(error);
   }
 
-setData ({
-  ...Data,
-  userName: '',
-    email: '',
-    phone: '',
-    password: ''
-})
 
 
 }
@@ -164,8 +148,8 @@ setData ({
               <div className="mt-2">
                 <input
                   id="password"
-                  name="password"
-                  value={Data.password}
+                  name="ConfirmPassword"
+                  value={Data.ConfirmPassword}
                   onChange={handlechange}
                   type="password"
                   autoComplete="current-password"
@@ -178,12 +162,13 @@ setData ({
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-pink-300 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-pink-300 my-8 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
               </button>
             </div>
           </form>
+          <ToastContainer />
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Already have an account?{' '}
