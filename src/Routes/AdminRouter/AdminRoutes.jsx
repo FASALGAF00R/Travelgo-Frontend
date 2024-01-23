@@ -1,21 +1,24 @@
 import React from 'react'
-import { Routes,Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Login from '../../Components/Admincomponents/Adminlogin/Login'
 import Home from '../../Pages/Adminpages/Home'
 import Users from '../../Pages/Adminpages/Users'
 import Agents from '../../Pages/Adminpages/Agents'
+import Adminlayout from '../../Pages/Adminpages/Adminlayout/Adminlayout'
 
 function AdminRoutes() {
   return (
     <div>
-             <Routes>
-<Route path='/login' element ={<Login/>}/>
-<Route path='/home' element ={<Home/>}/>
-<Route path='/users' element ={<Users/>}/>
-<Route path='/agents' element ={<Agents/>}/>
+      <Routes>
+        <Route path='/login' element={<Login />} />
+        <Route path='/home' element={<Home />} />
+        <Route element={<Adminlayout />}>
+          <Route path='/users' element={<Users />} />
+          <Route path='/agents' element={<Agents />} />
+        
+          </Route>
 
-
-        </Routes>
+      </Routes>
     </div>
   )
 }
