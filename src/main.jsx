@@ -4,9 +4,11 @@ import App from './App.jsx'
 import './index.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { GoogleOAuthProvider } from '@react-oauth/google';
+const clientId = '838351538381-10s01g3jir7rof8rrlk588rkdshiocn1.apps.googleusercontent.com';
+console.log(clientId,"ooooooooooo");
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <GoogleOAuthProvider clientId='838351538381-10s01g3jir7rof8rrlk588rkdshiocn1.apps.googleusercontent.com'>
+  <GoogleOAuthProvider clientid={clientId}>
   <React.StrictMode>
  
       <App />

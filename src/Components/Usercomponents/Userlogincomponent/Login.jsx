@@ -4,13 +4,13 @@ import { ToastContainer, toast } from "react-toastify";
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { Googledata } from '../../../Api/Userapi';
-// import { useLocation } from 'react-router-dom';
 import { Userlogin } from '../../../Api/Userapi';
+
+
 
 const Login = () => {
 
-  // const Location = useLocation()
-  // console.log(Location.state);
+
   const navigate = useNavigate();
   const [user, setUser] = useState([])
   const [formData, setFormData] = useState({
@@ -38,7 +38,9 @@ const Login = () => {
 
 
   const Googlelogin = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
+    onSuccess: (codeResponse) =>{
+     setUser(codeResponse)
+    },
     onError: (error) => console.log('Login Failed:', error)
 
   })
@@ -48,14 +50,15 @@ const Login = () => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      if (user) {
-       const Google=  axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+      if (user && user.access_token) {
+        try{
+       const Google=await  axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
           headers: {
             Authorization: `Bearer ${user.access_token}`,
             Accept: 'application/json'
           }
         })
-        console.log(Google,"google");
+        console.log(Google.data,"googlefhdh");
        const result=await  Googledata(Google)
        toast(result.data.alert);
               if (result.data.success === true) {
@@ -63,6 +66,9 @@ const Login = () => {
               } else {
                 console.log("errorr  got");
               }
+            }catch (error) {
+              console.error("Error fetching Google data:", error);
+            }
                 }
     }
 
@@ -70,7 +76,7 @@ const Login = () => {
 
     fetchdata()
   },
-    [user]
+    [user,navigate]
 
   );
 
