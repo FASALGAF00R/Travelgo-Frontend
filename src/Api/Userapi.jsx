@@ -60,11 +60,11 @@ export async function UserVerify(token){
 // goole login 
 
 export async function  Googledata(googledata){
-    console.log(googledata,"oooooooooo");
+    console.log(googledata,"frontend");
     try {
         const result = await userapi.post('/googlelogin',googledata)
-        console.log(result,"uuuuuu");
-return result
+        console.log(result,"backend");
+        return result
     } catch (error) {
         console.log(error)
     }
