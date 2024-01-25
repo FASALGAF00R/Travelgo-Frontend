@@ -26,7 +26,7 @@ function NavList() {
         className="p-1 font-medium"
       >
         <a href="/signup" className="flex items-center hover:text-white transition-colors">
-          Sign in
+          Sign up
         </a>
       </Typography>
       <Typography

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
@@ -11,7 +11,6 @@ import loginpic from '../../../Assests/Images/loginpic.jpg'
 
 
 const Login = () => {
-
 
   const navigate = useNavigate();
   const [user, setUser] = useState([])
@@ -113,11 +112,11 @@ const Login = () => {
   return (
     <div className='flex justify-center items-center'>
       <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
-        <div className='flex justify-center items-center w-[50%] h-full'>
+        <div className='flex  justify-center items-center w-[50%] h-full'>
 
           <img className="w-5/6 h-5/6  rounded-l-md" src={loginpic} alt="loginimage" />
         </div>
-        
+
         <div className="flex items-center justify-center shadow-2xl h-auto 2xl:mr-16">
 
           <form className="bg-#db8c8c  rounded px-8 pt-6 pb-8 mb-4 w-96 " onSubmit={handleSubmit}>
@@ -160,18 +159,12 @@ const Login = () => {
             </div>
             <br>
             </br>
-            <span className="justify-center text-sm text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
-              Does'nt  have a account ?
-              <a href="/signup" target="_blank" className="text-sm  ml-3 text-pink-800 underline hover:text-blue-700">
+            <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
+              Doesn't have an account?  
+              <Link to ="/signup" className="text-sm  ml-3 text-pink-800 underline hover:text-blue-700">
                 Sign up
-              </a>
+              </Link>
             </span>
-
-
-            {/* <div className=' flex mt-4  justify-center' onClick={() => Googleauth()}>
-              <h2> Google Login</h2>
-            </div> */}
-
             <div class="px-6 sm:px-0 max-w-sm" onClick={() => Googleauth()}>
               <button type="button" class="  text-white w-50% mt-4 -ml-35 bg-[#dc5151] hover:bg-pink-400 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 "><svg class="mr-2 -ml-1 w-4 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>Login with Google<div></div></button>
             </div>
