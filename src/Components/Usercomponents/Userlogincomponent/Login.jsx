@@ -8,6 +8,8 @@ import { Userlogin } from '../../../Api/Userapi';
 
 
 
+
+
 const Login = () => {
 
 
@@ -37,9 +39,11 @@ const Login = () => {
     });
 
 
-  const Googlelogin = useGoogleLogin({
-    onSuccess: (codeResponse) =>{
-     setUser(codeResponse)
+  const Googleauth = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      console.log(user.access_token, "token");
+      setUser(codeResponse)
+
     },
     onError: (error) => console.log('Login Failed:', error)
 
@@ -47,36 +51,38 @@ const Login = () => {
 
 
 
-
   useEffect(() => {
     const fetchdata = async () => {
-      if (user && user.access_token) {
-        try{
-       const Google=await  axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            Accept: 'application/json'
-          }
-        })
-        console.log(Google.data,"googlefhdh");
-       const result=await  Googledata(Google)
-       toast(result.data.alert);
-              if (result.data.success === true) {
-                navigate("/");
-              } else {
-                console.log("errorr  got");
-              }
-            }catch (error) {
-              console.error("Error fetching Google data:", error);
+      if (user) {
+        console.log(user, "iiiiiiiiiii");
+
+        try {
+          const Google = axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: 'application/json'
             }
-                }
+          })
+          console.log(Google, "googlefhdh");
+
+          const result = await Googledata(Google)
+          console.log(result.data,"result");
+
+          // toast(result.data.alert);
+          if (result.data.success === true) {
+            navigate("/");
+          } else {
+            console.log("errorr  got");
+          }
+        } catch (error) {
+          console.error("Error fetching Google data:", error);
+        }
+      }
     }
-
-
 
     fetchdata()
   },
-    [user,navigate]
+    [user, navigate]
 
   );
 
@@ -85,15 +91,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-        const res = await Userlogin(formData)
-        const { message } = res;
-        if (res.data.Data.isVerified) {
-          toast.success(res.data.message)
-          setTimeout(() => {
-            localStorage.setItem('token', res.data.Data.token)
-            navigate("/");
-          }, 2000);
-        }
+      const res = await Userlogin(formData)
+      const { message } = res;
+      if (res.data.Data.isVerified) {
+        toast.success(res.data.message)
+        setTimeout(() => {
+          localStorage.setItem('token', res.data.Data.token)
+          navigate("/");
+        }, 2000);
+      }
 
     } catch (error) {
       console.log(error);
@@ -144,14 +150,14 @@ const Login = () => {
           </button>
         </div>
         <span className="justify-center text-sm text-center text-gray-500 flex-items-center dark:text-gray-400">
-            Does'nt  have a account ?
-            <a href="/signup" target="_blank" className="text-sm text-blue-500 underline hover:text-blue-700">
-              Sign up
-            </a>
-          </span>
+          Does'nt  have a account ?
+          <a href="/signup" target="_blank" className="text-sm text-blue-500 underline hover:text-blue-700">
+            Sign up
+          </a>
+        </span>
       </form>
 
-      <div onClick={() => Googlelogin()}>
+      <div onClick={() => Googleauth()}>
         <h2> Google Login</h2>
 
       </div>
