@@ -13,10 +13,9 @@ useEffect(() => {
         try { 
        const Data = await Verify(token)
         if (Data.data.success) {
-          alert('agent verification success')
             setTimeout(() => {
               navigate('/agent/login')
-            }, 8000);
+            }, 3000);
           }
          } catch (error) {
             console.log(error)

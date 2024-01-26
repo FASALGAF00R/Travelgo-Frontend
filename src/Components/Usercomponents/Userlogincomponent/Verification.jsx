@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserVerify } from '../../../Api/Userapi';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Verification() {
   const { token } = useParams();
@@ -12,10 +12,11 @@ function Verification() {
       try {
         const result = await UserVerify(token);
         if (result.status === 200) {
-          toast.success('User verification success');
           setTimeout(() => {
+            toast.success('User verification success');
             navigate('/login');
-          }, 10000);
+          }, 3000);
+
         }
       } catch (error) {
         console.log(error);
@@ -52,6 +53,7 @@ function Verification() {
           You will be redirected to the login page shortly.
         </p>
       </div>
+      <ToastContainer/>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { signupData } from '../../../Api/Userapi';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer,toast } from "react-toastify";
 import { Link, useNavigate } from 'react-router-dom';
 import signupic from '../../../Assests/Images/signupic.png'
 
@@ -136,7 +136,7 @@ const Usersignup = () => {
                   </button>
                 </div>
               </form>
-              <ToastContainer />
+              <ToastContainer/>
 
             </div>
           </div>

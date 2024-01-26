@@ -22,10 +22,10 @@ const Configtoken= {
 
 // agent sign up
 export async function Signupdata(data){
-    console.log(data,"data");
+    console.log(data,"yyyyyyyyyyyyyyyyyyyy");
     try {
         const Agent =await  agentapi.post('/agentsignup',data)
-        console.log(Agent,"agent");
+        console.log(Agent,"agentttttttt");
         return Agent
     } catch (error) {
         console.log(error);

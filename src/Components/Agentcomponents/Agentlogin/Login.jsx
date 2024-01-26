@@ -2,10 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import { Formdata } from '../../../Api/Agentapi'
 import { useNavigate } from 'react-router-dom'
-import { ToastContainer ,toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { Link } from 'react-router-dom';
 
 function Login() {
 const navigate=useNavigate()
+
     const [agent, setagent] = useState({
         email:'',
         password:'',
@@ -26,11 +28,12 @@ const handlesubmitdata= async (e)=>{
     try {
         e.preventDefault();
         const res =await Formdata(agent)
+        
         if(res.data.message){
             toast.success(res.data.message)
             setTimeout(() => {
                 localStorage.setItem('token', res.data.Agent.token)
-                navigate('/home');
+                navigate('/agent/home');
               }, 2000);
         }
     } catch (error) {
@@ -41,76 +44,69 @@ const handlesubmitdata= async (e)=>{
 
     return (
         <>
+   <div className='flex justify-center items-center'>
+      <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
+        <div className='flex  justify-center gap-4 font-semibold text-lg items-center w-[50%] h-full'>
 
-            <div className="flex min-h-full flex-1  my-10 flex-col justify-center px-6 py-10 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                        Login  to your account
-                    </h2>
-                </div>
 
-                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form onSubmit={handlesubmitdata} >
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                                Email address
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    id="email"
-                                    name="email"
-                                    value={agent.email}
-                                    onChange={handlechange}
-                                    autoComplete="email"
-                                    required
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                            </div>
-                        </div>
-                    
-                        <div>
-                            <div className="flex items-center justify-between">
-                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Password
-                                </label>
-                                <div className="text-sm">
-                                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                                    
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="mt-2">
-                                <input
-                                    id="password"
-                                    name="password"
-                                    value={agent.password}
-                                    onChange={handlechange}
-                                    type="password"
-                                    autoComplete="current-password"
-                                    required
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                            </div>
-                        </div>
+          {/* <img className="w-5/6 h-5/6  rounded-l-md" src={} alt="loginimage" /> */}
+        </div>
 
-                        <div>
-                            <button
-                                type="submit"
-                                className="flex w-full justify-center rounded-md bg-pink-300 px-3 py-1.5 my-5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            >
-                                Sign in
-                            </button>
-                        </div>
-                    </form>
-                    <ToastContainer/>
-                    <p className="mt-10 text-center text-sm text-gray-500">
-                        Already have an account?{' '}
-                        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+        <div className="flex items-center justify-center shadow-2xl h-auto 2xl:mr-16">
 
-                        </a>
-                    </p>
-                </div>
+          <form className="bg-#db8c8c  rounded px-8 pt-6 pb-8 mb-4 w-96 " onSubmit={handlesubmitdata}>
+            <div className="md-4  text-gray-900  font-extrabold"  >
+             Agent login
+              <label className="block text-gray-900 text-sm mt-8 font-light mb-2" htmlFor="email">
+                Email
+              </label>
+              <input
+                className="shadow appearance-none border-pink-500  w-full py-2 px-3 text-gray-700 leading-tight font-light rounded-full"
+                id="email"
+                type="text"
+                name="email"
+                value={agent.email}
+                onChange={handlechange}
+                placeholder="Enter your email"
+              />
             </div>
+            <div className="mb-6">
+              <label className="block text-gray-800 text-sm mt-6 font-light mb-2" htmlFor="password">
+                Password
+              </label>
+              <input
+                className="shadow appearance-none  border-pink-500  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline rounded-full"
+                id="password"
+                type="password"
+                name="password"
+                value={agent.password}
+                onChange={handlechange}
+                placeholder="Enter your password"
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                className=" bg-[#dc5151] hover:bg-pink-400 text-white  mt-2 font-light py-1 px-20 ml-12 rounded-full  "
+                type="submit"
+              >
+                Log In
+              </button>
+            </div>
+            <br>
+            </br>
+            <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
+              Doesn't have an account?
+              <Link to="/agent/signup" className="text-sm  ml-3 text-pink-800 underline hover:text-blue-700">
+                Sign up
+              </Link>
+            </span>
+            <div class="px-6 sm:px-0 max-w-sm" >
+              <button type="button" class="  text-white w-50% mt-4 -ml-35 bg-[#dc5151] hover:bg-pink-400 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 "><svg class="mr-2 -ml-1 w-4 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>Login with Google<div></div></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
         </>
     )
