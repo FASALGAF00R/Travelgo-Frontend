@@ -11,7 +11,6 @@ const Usersignup = () => {
     userName: '',
     email: '',
     password: '',
-    ConfirmPassword: ''
 
   });
 
@@ -26,37 +25,46 @@ const Usersignup = () => {
   };
 
 
+  const handleError = (err) => toast.error(err, { position: "top-left" });
 
-  const handleError = (err) =>
-    toast.error(err, {
-      position: "bottom-left"
-    })
 
+  const validatePassword = (password) => {
+    const minLength = 6;
+    const hasNumber = /\d/.test(password);
+    const hasLetter = /[a-zA-Z]/.test(password);
+
+    return (
+      password.length >= minLength &&
+      hasNumber &&
+      hasLetter
+    );
+  };
 
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("4");
+  
+      if(!user.userName || !user.email || !user.password ){
+        toast.error("fields empty")
+     } else if (!validatePassword(password)) {
+      toast.error("Password must be at least 6 characters long and contain both letters and numbers");
+    } else{
+
       const userData = await signupData(user);
-      toast(userData.data.message)
-      console.log(userData, '000000000000000000');
+      toast.success(userData.data.message)
+   
+     }
 
     } catch (err) {
 
-      handleError("An error occurred");
+     handleError("An error occurred");
 
     }
-    console.log(user, "user");
 
-    setuser({
-      ...user,
-      userName: '',
-      email: '',
-      password: '',
-      ConfirmPassword: ''
-    });
+
+
   };
   return (
     <>
@@ -118,19 +126,7 @@ const Usersignup = () => {
                     />
                   </div>
                 </div>
-                <div className="flex flex-col mb-2">
-                  <div className="relative">
-                    <input
-                      type="password"
-                      id="create-account-email"
-                      className="rounded-lg border-pink-500 mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                      name="ConfirmPassword"
-                      value={user.ConfirmPassword}
-                      onChange={handleChange}
-                      placeholder="Confirm Password"
-                    />
-                  </div>
-                </div>
+           
                 <div className="flex w-full my-10">
                   <button
                     type="submit"

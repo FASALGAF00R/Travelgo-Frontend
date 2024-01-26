@@ -23,7 +23,7 @@ const Configtoken= {
 
 
 export   async function signupData(data){
-    console.log("5");
+    console.log( data,"dgdsf5");
     try{
  const userdata=await  userapi.post('/signup',data)
  console.log(userdata,"kkkkkkkkkk");
