@@ -4,7 +4,8 @@ import Home from '../Home'
 
 function Adminlayout() {
     return (
-        <div className='flex w-full'>
+        <div className='flex w-full'y
+        >
             <div className='W-[20%] '>
                 <Home />
             </div>

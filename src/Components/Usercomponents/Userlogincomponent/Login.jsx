@@ -10,6 +10,7 @@ import loginpic from '../../../Assests/Images/loginpic.jpg'
 
 
 
+
 const Login = () => {
 
   const navigate = useNavigate();
@@ -97,7 +98,8 @@ const Login = () => {
     }else{
         const res = await Userlogin(formData)
         if(res.data.Data){
-             localStorage.setItem('token', res.data.Data.token)
+             localStorage.setItem('token', res.data.token)
+             console.log(res.data.token,"tokennnnnnnn");
              toast.success(res.data.Data.message)
              navigate("/");
              

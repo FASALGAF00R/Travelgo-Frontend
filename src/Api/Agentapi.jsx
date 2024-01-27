@@ -1,6 +1,7 @@
 import axios  from "axios";
 
 
+
 // backendurl
 const agentapi =axios.create({
     baseURL:'http://localhost:3000/agent'
@@ -52,4 +53,17 @@ export async  function Formdata(agent){
     } catch (error) {
         console.log(error);
     }
+}
+
+
+export async function agentdata(data){
+try {
+    const Google =await agentapi.post('/googlelogin',data)
+    console.log(Google,"zzzzzzzzzzzzzzzzzz");
+    return Google
+    
+} catch (error) {
+    console.log(error);
+}
+
 }
