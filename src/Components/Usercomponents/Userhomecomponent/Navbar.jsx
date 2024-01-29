@@ -41,7 +41,7 @@ navigate('/login')
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a href="/login" className="flex items-center hover:text-white transition-colors">
+        <a href="/login" className="flex items-center hover:text-white text-white">
           login
         </a>
       </Typography>
@@ -51,7 +51,7 @@ navigate('/login')
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a href="/signup" className="flex items-center hover:text-white transition-colors">
+        <a href="/signup" className="flex items-center hover:text-white text-white">
           sign up
         </a>
       </Typography>
@@ -63,7 +63,7 @@ navigate('/login')
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a href="/destinations" className="flex items-center hover:text-white transition-colors">
+        <a href="/destinations" className="flex items-center hover:text-white text-white">
           Destinations
         </a>
       </Typography>
@@ -74,7 +74,7 @@ navigate('/login')
         className="p-1 font-medium"
       >
         <a 
-        href="#" className="flex items-center hover:text-white transition-colors"
+        href="#" className="flex items-center hover:text-black text-white"
           onClick={handlelogout}
           >
           Log out
@@ -139,8 +139,8 @@ function NavbarSimple() {
 
 
   return (
-    <Navbar className="bg-pink-200 mx-auto max-w-full">
-      <div className=" flex items-center justify-between text-white  font-extrabold">
+    <Navbar className="bg-[#ee8e8e] mx-auto max-w-full">
+      <div className=" flex items-center justify-between text-white  font-semibold">
         {/* <Typography> */}
 
 

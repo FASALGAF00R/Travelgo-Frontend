@@ -117,7 +117,7 @@ const Login = () => {
   };
 
   return (
-    <div className='flex justify-center items-center'>
+    <div className='flex justify-center items-center  bg-pink-50'>
       <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
         <div className='flex  justify-center items-center w-[50%] h-full'>
 

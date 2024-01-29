@@ -14,11 +14,9 @@ import {
 function Login() {
   const navigate =useNavigate()
   const [admin, setadmin] = useState({
-    name: "",
     email: "",
     password: ""
   })
-  console.log(admin, "admin");
 
 
   const handleInputChange = (e) => {
@@ -33,10 +31,8 @@ function Login() {
 
   const handleSubmit = async (e) => {
     try {
-      console.log("0000000000000000000000000");
       e.preventDefault();
       const res = await Admindata(admin)
-      console.log(res, ";;;;;;;;;");
       if(res.data.status){
 setTimeout(() => {
   navigate('/admin/home')
@@ -64,20 +60,8 @@ setTimeout(() => {
           </Typography>
           <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit}>
             <div className="mb-1 flex flex-col gap-6">
-              <Typography variant="h6" color="blue-gray" className="-mb-3">
-                Your Name
-              </Typography>
-              <Input
-                size="lg"
-                placeholder="name"
-                name='name'
-                value={admin.name}
-                onChange={handleInputChange}
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
+         
+            
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Your Email
               </Typography>

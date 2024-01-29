@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 function Content() {
 
   return (
-    <div className="w-full h-screen flex justify-center items-center p-7 overflow-hidden">
-      <div className="bg-pink-100 w-full sm:max-w-[80%] h-full overflow-auto rounded-md flex flex-col lg:flex-row justify-center items-center shadow-xl p-5 lg:p-0 gap-5">
+    <div className="w-full h-screen  bg-pink-50 flex justify-center items-center p-7 overflow-hidden">
+      <div className="bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-full sm:max-w-[80%] h-full overflow-auto rounded-md flex flex-col lg:flex-row justify-center items-center shadow-xl p-5 lg:p-0 gap-5">
         {/* Left Section */}
         <div className="lg:w-1/2 hidden lg:flex flex-col justify-center items-center text-center relative">
           <img
@@ -28,7 +28,7 @@ function Content() {
           </div>
 
           <div className="flex justify-center items-center w-full">
-            <Link to="/login"  className="border-t-8 border-pink-200 bg-pink-300 text-white py-2 px-2 my-10 rounded-md mx-10 text-sm hover:bg-pink-600">
+            <Link to="/login"  className="  bg-pink-300 text-white py-2 px-2 my-10 rounded-md mx-10 text-sm hover:bg-pink-600">
            Explore Now
             </Link>
 
