@@ -58,7 +58,7 @@ function Login() {
           console.log(result, "nnnnnnnnnnn")
           if(result.data.success){
             toast(result.data.message)
-            navigate('/agent/home')
+            navigate('/agent/')
           }else{
             toast.error('error got')
           }

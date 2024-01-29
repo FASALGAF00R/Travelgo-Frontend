@@ -35,7 +35,7 @@ function Login() {
       const res = await Admindata(admin)
       if(res.data.status){
 setTimeout(() => {
-  navigate('/admin/home')
+  navigate('/admin/')
 }, 2000);
       }
 

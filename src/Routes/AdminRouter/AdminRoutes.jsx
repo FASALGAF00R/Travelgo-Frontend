@@ -6,19 +6,20 @@ import Users from '../../Pages/Adminpages/Users'
 // import Agents from '../../Pages/Adminpages/Agents'
 import Adminlayout from '../../Pages/Adminpages/Adminlayout/Adminlayout'
 import Approval from '../../Pages/Adminpages/Approval'
+import Dashboard from '../../Pages/Adminpages/Dashboard'
 
 function AdminRoutes() {
   return (
     <div>
       <Routes>
         <Route path='/login' element={<Login />} />
-        <Route path='/home' element={<Home />} />
         <Route element={<Adminlayout />}>
+          <Route path='/' element={<Dashboard />} />
           <Route path='/users' element={<Users />} />
           {/* <Route path='/agents' element={<Agents />} /> */}
-          <Route path='/approval' element={<Approval/>} />
+          <Route path='/approval' element={<Approval />} />
 
-          </Route>
+        </Route>
 
       </Routes>
     </div>

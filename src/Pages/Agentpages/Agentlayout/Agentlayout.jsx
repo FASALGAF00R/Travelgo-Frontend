@@ -1,13 +1,12 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Home from '../Home'
+import AgentSideBar from './AgentSideBar'
 
-function Adminlayout() {
+function Agentlayout() {
     return (
-        <div className='flex w-full'
-        >
+        <div className='flex w-full'>
             <div className='W-[20%] '>
-                <Home />
+                <AgentSideBar />
             </div>
             <div className='W-[80%]'>
                 <Outlet />
@@ -16,4 +15,4 @@ function Adminlayout() {
     )
 }
 
-export default Adminlayout
+export default Agentlayout
