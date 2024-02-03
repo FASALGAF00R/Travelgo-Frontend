@@ -15,7 +15,7 @@ const navigate =useNavigate()
 
  const  handlelogout = () =>{
 {
-  localStorage.removeItem('token')
+  localStorage.removeItem('accesToken') 
 }
 navigate('/login')
  }
@@ -91,7 +91,6 @@ function NavbarSimple() {
   const [loggedin, setloggedin] = useState(false)
   const [userName, setuserName] = useState("")
 
-  console.log(userName, "pppp");
 
   const handleWindowResize = () =>
     window.innerWidth >= 960 && setOpenNav(false);
@@ -99,18 +98,14 @@ function NavbarSimple() {
   React.useEffect(() => {
     window.addEventListener("resize", handleWindowResize);
 
-    const token = localStorage.getItem('token')
-    console.log(token, "ttttttttttt");
-
+    const token = localStorage.getItem('accesToken')
 
     if (token) {
       try {
 
         const decodedtoken = jwtDecode(token)
-        console.log(decodedtoken, "decoded");
-
         const user = decodedtoken.userName
-        console.log(user, "user");
+      
 
         setloggedin(true);
         setuserName(user);

@@ -5,8 +5,8 @@ function Service() {
         <>
 
             <div className="flex bg-pink-50  justify-center text-3xl font-semibold  text-gray-600">Our Services</div>
-            <div className='flex bg-pink-50 items-center justify-center    h-screen'>
-            <div className='bg-[#ee8e8e] shadow-cyan-300 shadow-xl text-white my-1 p-10 mb-60 w-[90%] h-[50%] '>
+            <div className='flex bg-pink-50 items-center justify-center   h-screen'>
+            <div className='bg-[#ee8e8e] shadow-cyan-300 rounded-xl  shadow-xl text-white my-1 p-10 mb-60 w-[90%] h-[50%] '>
                     <div className="flex  items-start mb-1 ml-15 my-5 gap-5">
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

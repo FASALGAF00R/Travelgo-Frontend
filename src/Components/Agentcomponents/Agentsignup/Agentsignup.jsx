@@ -58,10 +58,10 @@ function Agentsignup() {
         } else {
           const res = await Signupdata(Data)
           console.log(res, "ppppppppppppppppp");
-          if (res.data.message) {
+          if(res.data.newagent ){
             toast.success(res.data.message)
-          } else {
-            toast.success(res.data.message)
+          }else{
+              toast.error(res.data.message)
           }
         }
       } catch (error) {

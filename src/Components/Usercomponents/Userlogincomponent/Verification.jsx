@@ -26,7 +26,7 @@ function Verification() {
   }, [token]);
 
   return (
-    <div className="flex items-center justify-center h-screen  bg-[#dd8072aa]">
+    <div className="flex items-center justify-center h-screen  bg-[#e2a39aaa]">
       <div className="bg-white p-8 rounded-md  px-5 shadow-md">
         <h2 className="text-3xl font-light text-gray-900  mb-6">Email Verification</h2>
         <p className="text-gray-900 mb-4">

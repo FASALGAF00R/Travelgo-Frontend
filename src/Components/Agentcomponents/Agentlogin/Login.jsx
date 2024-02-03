@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Formdata } from '../../../Api/Agentapi'
-import { agentdata } from '../../../Api/Agentapi'; // Make sure to import agentdata
+import { agentdata } from '../../../Api/Agentapi'; 
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from 'react-router-dom';
@@ -94,11 +94,17 @@ function Login() {
         toast.success(res.data.message)
         setTimeout(() => {
           localStorage.setItem('token', res.data.token)
-          navigate('/agent/home');
+          navigate('/agent/');
         }, 2000);
-      }
+      }else{
+        toast(res.data.message)
+
+      }  
+
     } catch (error) {
       console.log(error);
+      toast.error(res.data.message)
+
     }
   }
 

@@ -11,16 +11,15 @@ import loginpic from '../../../Assests/Images/loginpic.jpg'
 
 
 
+
 const Login = () => {
 
   const navigate = useNavigate();
   const [user, setUser] = useState([])
   const [formData, setFormData] = useState({
-
     email: '',
     password: '',
   });
-  const { email, password } = formData;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,16 +45,11 @@ const Login = () => {
 
     },
     onError: (error) => console.log('Login Failed:', error)
-
   })
-
-
 
   useEffect(() => {
     const fetchdata = async () => {
       if (user) {
-        console.log(user, "iiiiiiiiiii");
-
         try {
           const response = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
             headers: {
@@ -86,8 +80,6 @@ const Login = () => {
 
   );
 
-
-
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -98,11 +90,10 @@ const Login = () => {
     }else{
         const res = await Userlogin(formData)
         if(res.data.Data){
-             localStorage.setItem('token', res.data.token)
-             console.log(res.data.token,"tokennnnnnnn");
+             localStorage.setItem('accesToken',res.data.accesToken)
+             console.log(res.data.accesToken,"tokennnnnnnn");
              toast.success(res.data.Data.message)
-             navigate("/");
-             
+             navigate("/");            
            }else{
             toast.error(res.data.message)
            }

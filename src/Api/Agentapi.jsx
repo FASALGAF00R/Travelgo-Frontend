@@ -4,7 +4,9 @@ import axios  from "axios";
 
 // backendurl
 const agentapi =axios.create({
-    baseURL:'http://localhost:3000/agent'
+    baseURL:'http://localhost:3000/agent',
+    withCredentials: true,
+
 })
 
 const token = localStorage.getItem('token')
@@ -18,6 +20,11 @@ const Configtoken= {
     }
 
 }
+
+
+// Attach the headers to the axios instance
+agentapi.defaults.headers =Configtoken.headers
+
 
 
 
