@@ -86,7 +86,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      if (formData.email == '') {
+      if (formData.email == '') {git
         toast.error('please add email')
       } else if (formData.password == '') {
         toast.error('please add password')
@@ -149,9 +149,12 @@ const Login = () => {
                 placeholder="Enter your password"
               />
             </div>
+              <Link to="/forgotpass" className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+              forgot password? 
+              </Link>
             <div className="flex items-center justify-between">
               <button
-                className=" bg-[#dc5151] hover:bg-pink-400 text-white  mt-2 font-light py-1 px-20 ml-12 rounded-full  "
+                className=" bg-[#dc5151] hover:bg-pink-400 text-white  mt-4 font-light py-1 px-20 ml-12 rounded-full  "
                 type="submit"
               >
                 Log In

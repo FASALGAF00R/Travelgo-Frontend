@@ -7,6 +7,7 @@ import Verification from '../../Components/Usercomponents/Userlogincomponent/Ver
 import Destination from '../../Pages/Userpages/Destination'
 import UserLayout from '../../Pages/Userpages/Userlayout/UserLayout'
 import Userpublic from '../../Utils/Protected/Userpublic'
+import Forgotpass from '../../Components/Usercomponents/Userpassword/Forgotpass'
 
 
 function UserRoutes() {
@@ -18,11 +19,11 @@ function UserRoutes() {
       <Routes>
         <Route element={<UserLayout />}>
           <Route path="/destinations" element={<Destination />} />
+          <Route path="/" element={<Home />} />
+
         </Route>
 
-        <Route>
-          <Route path="/" element={<Home />} />
-        </Route>
+  
 
 
         <Route path='/login' element={
@@ -38,7 +39,7 @@ function UserRoutes() {
         } />
 
         <Route path="/verify/:token" element={<Verification />} />
-
+       <Route path='/forgotpass' element={<Forgotpass/>}/>
       </Routes>
 
     </div>
