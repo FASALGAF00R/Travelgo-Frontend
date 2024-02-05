@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import {  ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { Googledata } from '../../../Api/Userapi';
 import { Userlogin } from '../../../Api/Userapi';
 import loginpic from '../../../Assests/Images/loginpic.jpg'
+import { jwtDecode } from "jwt-decode";
 
 
 
@@ -66,7 +67,7 @@ const Login = () => {
             navigate("/");
           } else {
             console.log("errorr  got");
-            
+
           }
         } catch (error) {
           console.error("Error fetching Google data:", error);
@@ -80,30 +81,31 @@ const Login = () => {
 
   );
 
+
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-    if(formData.email==''){
-      toast.error('please add email')
-    }else if(formData.password==''){
-      toast.error('please add password')
-    }else{
+      if (formData.email == '') {
+        toast.error('please add email')
+      } else if (formData.password == '') {
+        toast.error('please add password')
+      } else {
         const res = await Userlogin(formData)
-        if(res.data.Data){
-             localStorage.setItem('accesToken',res.data.accesToken)
-             console.log(res.data.accesToken,"tokennnnnnnn");
-             toast.success(res.data.Data.message)
-             navigate("/");            
-           }else{
-            toast.error(res.data.message)
-           }
-          
-          }
+        if (res.data.Data) {
+          localStorage.setItem('accesToken', res.data.accesToken)  
+          toast.success(res.data.Data.message)       
+          navigate('/')
+      
+        } else {
+          toast.error(res.data.message)
+        }
+
+      }
     } catch (error) {
       console.log(error);
 
     }
-
 
   };
 
@@ -167,7 +169,7 @@ const Login = () => {
               <button type="button" class="  text-white w-50% mt-4 -ml-35 bg-[#dc5151] hover:bg-pink-400 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 "><svg class="mr-2 -ml-1 w-4 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>Login with Google<div></div></button>
             </div>
           </form>
-          <ToastContainer/>
+          <ToastContainer />
         </div>
       </div>
     </div>

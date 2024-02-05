@@ -16,14 +16,8 @@ function AgentRoutes() {
         <Route path='/verify/:token' element={<Agentverify />} />
         <Route path='/signup' element={<Agentsignup />} />
         <Route element={<Agentlayout />}>
-        <Route path='/' element={< DashBoard/>}/>
-        <Route path='/places' element={< Places/>}/>
-
-      
-
-
-
-
+          <Route path='/' element={< DashBoard />} />
+          <Route path='/places' element={< Places />} />
         </Route>
 
 

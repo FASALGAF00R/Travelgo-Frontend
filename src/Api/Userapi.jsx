@@ -1,4 +1,8 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+
+
+
 
 // backend data url
 const userapi=axios.create({
@@ -6,9 +10,9 @@ baseURL:'http://localhost:3000',
 withCredentials: true,
 })
 
-
 // stored token in local
-const token = localStorage.getItem('accesToken')
+const token = localStorage.getItem("accesToken")
+console.log(token,"api token");
 
 
 // Set up headers with the token
@@ -19,6 +23,7 @@ const Configtoken= {
     }
 
 }
+
 
 
 

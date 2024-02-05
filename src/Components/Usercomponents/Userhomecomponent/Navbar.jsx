@@ -11,14 +11,14 @@ import { useNavigate } from "react-router-dom";
 
 
 function NavList({ userName }) {
-const navigate =useNavigate()
+  const navigate = useNavigate()
 
- const  handlelogout = () =>{
-{
-  localStorage.removeItem('accesToken') 
-}
-navigate('/login')
- }
+  const handlelogout = () => {
+    {
+      localStorage.removeItem('accesToken')
+    }
+    navigate('/login')
+  }
 
 
 
@@ -33,30 +33,30 @@ navigate('/login')
         >
           {userName}
         </Typography>
-  ):(
-    <>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <a href="/login" className="flex items-center hover:text-white text-white">
-          login
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <a href="/signup" className="flex items-center hover:text-white text-white">
-          sign up
-        </a>
-      </Typography>
-      </>
-  )}
+      ) : (
+        <>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-medium"
+          >
+            <a href="/login" className="flex items-center hover:text-white text-white">
+              login
+            </a>
+          </Typography>
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-medium"
+          >
+            <a href="/signup" className="flex items-center hover:text-white text-white">
+              sign up
+            </a>
+          </Typography>
+        </>
+      )}
       <Typography
         as="li"
         variant="small"
@@ -73,10 +73,10 @@ navigate('/login')
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a 
-        href="#" className="flex items-center hover:text-black text-white"
+        <a
+          href="#" className="flex items-center hover:text-black text-white"
           onClick={handlelogout}
-          >
+        >
           Log out
         </a>
       </Typography>
@@ -105,7 +105,7 @@ function NavbarSimple() {
 
         const decodedtoken = jwtDecode(token)
         const user = decodedtoken.userName
-      
+
 
         setloggedin(true);
         setuserName(user);
@@ -142,10 +142,10 @@ function NavbarSimple() {
         Travel Go
         {/* </Typography> */}
         <div className="hidden lg:block">
-        <NavList userName={userName} />
+          <NavList userName={userName} />
         </div>
 
-          {/* {loggedin ? (
+        {/* {loggedin ? (
             <Typography variant="small" color="blue-gray" className="p-1 font-medium">
 
               {userName}
@@ -173,7 +173,7 @@ function NavbarSimple() {
           <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
             {userName}
           </ul>) : ( */}
-          <NavList userName={userName} />
+        <NavList userName={userName} />
       </Collapse>
     </Navbar>
   );
