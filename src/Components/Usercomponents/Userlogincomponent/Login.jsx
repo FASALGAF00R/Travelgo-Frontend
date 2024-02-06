@@ -86,7 +86,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      if (formData.email == '') {git
+      if (formData.email == '') {
         toast.error('please add email')
       } else if (formData.password == '') {
         toast.error('please add password')

@@ -1,22 +1,53 @@
 import React from 'react'
+import { useState } from 'react'
 
 
 
 function Forgotpass() {
+    const [formdata, setformdata] = useState({
+        email: '',
+    })
+
+
+    const handlechange = (e) => {
+        console.log("hii");
+        const { name, value } = e.target
+        setformdata({
+            [name]: value,
+        }
+        )
+    }
+
+
+
+    const Formsubmission = async (e) => {
+        try {
+            const Res = await Forgotpass(formdata)
+
+        } catch (error) {
+
+        }
+
+    }
+
+
+
+
     return (
         <div className='bg-pink-50 h-screen flex items-center justify-center'>
             <div className="max-w-lg mx-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
                 <h1 className="text-xl font-semibold mb-4">Reset password</h1>
                 <p className="text-slate-500">Fill up the form to reset the password</p>
 
-                <form action="" className="my-6 mx-6">
+                <form onSubmit={Formsubmission}>
                     <div className="flex flex-col space-y-5">
                         <label htmlFor="email" className="pb-2">
                             <p className="font-medium text-slate-700">Email address</p>
                             <input
                                 id="email"
                                 name="email"
-                                type="email"
+                                value={formdata.email}
+                                onChange={handlechange}
                                 className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
                                 placeholder="Enter email address"
                             />
