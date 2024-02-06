@@ -150,7 +150,7 @@ const Login = () => {
               />
             </div>
               <Link to="/forgotpass" className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
-              forgot password? 
+              Forgot password  ? 
               </Link>
             <div className="flex items-center justify-between">
               <button

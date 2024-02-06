@@ -1,25 +1,24 @@
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 
 
 
 
 // backend data url
-const userapi=axios.create({
-baseURL:'http://localhost:3000',
-withCredentials: true,
+const userapi = axios.create({
+    baseURL: 'http://localhost:3000',
+    withCredentials: true,
 })
 
 // stored token in local
 const token = localStorage.getItem("accesToken")
-console.log(token,"api token");
+
 
 
 // Set up headers with the token
-const Configtoken= {
-    headers :{
-        "Content-Type":"application/json",
-        Authorization : "Bearer " + token
+const Configtoken = {
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token
     }
 
 }
@@ -28,51 +27,45 @@ const Configtoken= {
 
 
 // Attach the headers to the axios instance 
-userapi.defaults.headers =Configtoken.headers
+userapi.defaults.headers = Configtoken.headers
 
 
 
 
-export   async function signupData(data){
-    try{
- const userdata= await  userapi.post('/signup',data)
- return userdata
-}catch(err){
-    console.log(err);
-}
-}
-
-
-export async function Userlogin(logindata){
+export async function signupData(data) {
     try {
-       const  Data=await  userapi.post('/login',logindata)
-       console.log(Data,"backend res");
-       return Data
-     
+        const userdata = await userapi.post('/signup', data)
+        return userdata
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+export async function Userlogin(logindata) {
+    try {
+        const Data = await userapi.post('/login', logindata)
+        return Data
     } catch (error) {
         console.log(error);
     }
 }
 
 
-export async function UserVerify(token){
-    console.log(token,"uuuuuuuuuu");
+export async function UserVerify(token) {
     try {
-       const Data=await userapi.post(`/verify/${token}`)
-       console.log(Data,"yyyyyyyrrrrrrrry");
-       return Data
+        const Data = await userapi.post(`/verify/${token}`)
+        return Data
     } catch (error) {
         console.log(error);
-    } 
+    }
 }
 
 // goole login 
 
-export async function  Googledata(googledata){
-    console.log(googledata,"frontend");
+export async function Googledata(googledata) {
     try {
-        const result = await userapi.post('/googlelogin',googledata)
-        console.log(result,"backend");
+        const result = await userapi.post('/googlelogin', googledata)
         return result
     } catch (error) {
         console.log(error)
@@ -80,6 +73,18 @@ export async function  Googledata(googledata){
 }
 
 
+
+// forgot pass
+export async function Forgot(forgotpassdata) {
+    console.log(forgotpassdata,";;;;;;;;;;;;;;;;;"); 
+    try {
+        const result = await userapi.post('/forgotpass', forgotpassdata)
+        console.log(result,"ggggggggggggggggggggg");
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 
