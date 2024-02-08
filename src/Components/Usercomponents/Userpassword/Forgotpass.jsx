@@ -30,8 +30,10 @@ function Forgotpass() {
             }else{
             const Res = await Forgot(formdata)         
             if (Res.data.userdata) {
+             setTimeout(()=>{
                 toast.success(Res.data.message)
                 navigate('/otpverify')
+             },3000)
             }else{
                 toast.error(Res.data.message)
             }

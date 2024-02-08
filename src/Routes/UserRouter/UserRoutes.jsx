@@ -9,6 +9,7 @@ import UserLayout from '../../Pages/Userpages/Userlayout/UserLayout'
 import Userpublic from '../../Utils/Protected/Userpublic'
 import Forgotpass from '../../Components/Usercomponents/Userpassword/Forgotpass'
 import Otppass from '../../Components/Usercomponents/Userpassword/Otppass'
+import Newpass from '../../Components/Usercomponents/Userpassword/Newpass'
 
 
 function UserRoutes() {
@@ -42,6 +43,7 @@ function UserRoutes() {
         <Route path="/verify/:token" element={<Verification />} />
        <Route path='/forgotpass' element={<Forgotpass/>}/>
        <Route path='/otpverify' element={<Otppass/>}/>
+       <Route path='/newpass' element={<Newpass/>}/>
       </Routes>
 
     </div>

@@ -87,4 +87,23 @@ export async function Forgot(forgotpassdata) {
 }
 
 
+// otpverfication 
 
+export async function Otpdata(verifydata){
+   try {
+    const result = await userapi.get(`/otpverify/${verifydata}`,)
+    console.log(result,"ooiiiooioo");
+    return result
+   } catch (error) {
+    console.log(error);
+   }
+}
+
+export async function Newpassword(password){
+    try {
+        const result =await userapi.put('/newpass',password)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
