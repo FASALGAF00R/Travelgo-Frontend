@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { Otpdata } from '../../../Api/Userapi'
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Otppass() {
-  const navigate = useNavigate()
+  const location = useLocation()
+  const {email}  = location.state
+
+   const navigate = useNavigate()
 
   const [otp, setOtp] = useState('')
 
@@ -17,7 +20,7 @@ function Otppass() {
       const Otp = await Otpdata(otp)
       if (Otp.data.success === true) {
         toast.success(Otp.data.message)
-        navigate('/newpass')
+        navigate('/newpass',{state:{email}})
       } else {
         toast.error(Otp.data.message)
       }

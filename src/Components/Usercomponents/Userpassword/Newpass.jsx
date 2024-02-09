@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { ToastContainer, toast } from "react-toastify";
 import { Newpassword } from '../../../Api/Userapi';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Newpass() {
+    const location = useLocation()
+    const {email}  = location.state
+
     const navigate = useNavigate()
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -17,10 +20,8 @@ function Newpass() {
             toast.error("password and confirmPassword don't match");
         } else {
             try {
-                const Req = await Newpassword({ password, confirmPassword });
-                console.log(Req, "oo");
-                if (Req.data.success === true) {
-                    console.log("lklkl");
+                const Req = await Newpassword({ password, email });     
+                if (Req.data.success === true) {             
                     toast.success(Req.data.message);
                     navigate('/login');
                 }

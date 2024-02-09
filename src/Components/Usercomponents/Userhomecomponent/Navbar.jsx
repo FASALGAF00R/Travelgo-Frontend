@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import {
   Navbar,
   Collapse,
@@ -7,9 +9,9 @@ import {
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
 
 
+// small thing
 function NavList({ userName }) {
   const navigate = useNavigate()
 
@@ -29,7 +31,9 @@ function NavList({ userName }) {
           as="li"
           variant="small"
           color="blue-gray"
-          className="p-1 font-medium"
+          className="p-1 font-medium cursor-pointer"
+          onClick={() => navigate('/profile')} 
+
         >
           {userName}
         </Typography>
@@ -87,9 +91,11 @@ function NavList({ userName }) {
 
 
 function NavbarSimple() {
+  
   const [openNav, setOpenNav] = useState(false);
   const [loggedin, setloggedin] = useState(false)
   const [userName, setuserName] = useState("")
+
 
 
   const handleWindowResize = () =>
@@ -126,10 +132,6 @@ function NavbarSimple() {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
-
-
-
-
 
 
 

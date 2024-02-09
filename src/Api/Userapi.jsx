@@ -99,11 +99,33 @@ export async function Otpdata(verifydata){
    }
 }
 
-export async function Newpassword(password){
+export async function Newpassword(data){
     try {
-        const result =await userapi.put('/newpass',password)
+        const result =await userapi.put('/newpass',data)
         return result
     } catch (error) {
         console.log(error);
     }
 }
+
+
+
+export async function Profile(data){
+    console.log(data,"/////////////////");
+    try {
+        const result =await userapi.post('/profile',data,{
+            headers : {
+                "Content-Type":"multipart/form-data",
+            },
+        } )
+    console.log(result,"resdult");
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
+

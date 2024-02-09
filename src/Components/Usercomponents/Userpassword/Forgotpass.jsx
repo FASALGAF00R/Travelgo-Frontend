@@ -32,7 +32,7 @@ function Forgotpass() {
             if (Res.data.userdata) {
              setTimeout(()=>{
                 toast.success(Res.data.message)
-                navigate('/otpverify')
+                navigate('/otpverify',{state:{email:formdata.email}})
              },3000)
             }else{
                 toast.error(Res.data.message)
