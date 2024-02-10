@@ -11,21 +11,19 @@ function Userprofile() {
     e.preventDefault()
     try {
       const file = e.target.files[0];
-      console.log(file,";;;;;;;");
       const formData = new FormData();
-      formData.append('image', file);
-      console.log(formData,"kkk");
+      formData.append('profilepic', file);
       const Response = await Profile(formData)
-    setimage(file)
-      }catch (error) {
-        console.error(error);
-      }
+      console.log(Response, "thachathin athallathine");
+      const Url = Response.data.imageUrl;
+      setimage(Url)
+    } catch (error) {
+      console.error(error);
     }
-
-
-  const handleImageupload = () => {
-
   }
+
+
+
 
   return (
 
@@ -36,7 +34,7 @@ function Userprofile() {
       <div className="w-full md:w-[30%] bg-white shadow-md  shadow-pink-600 p-6 rounded-3xl">
         <div className="flex justify-center items-center">
           {image ? (
-            <img className="w-32 h-32 mt-10 overflow-hidden rounded-full"  src={URL.createObjectURL(image)}alt="Profile" />
+            <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={image} alt="Profile" />
           ) : (
             <label htmlFor="upload" className="cursor-pointer">
               <input
@@ -51,7 +49,6 @@ function Userprofile() {
                 <span className="text-blue-gray-900">Upload Image</span>
               </div>
             </label>
-
           )}
         </div>
         <h2 className="text-lg font-extralight uppercase text-center mt-3">fasalu</h2>
@@ -60,11 +57,11 @@ function Userprofile() {
           <h2 className="gap-3 mb-5">fasalgafoor@gmail.com</h2>
         </div>
         <span className='font-serif text-cyan-800'>Change password</span>
-        <br/>
+        <br />
         <form className="pl-2 font-semibold flex   flex-col mt-4">
           <label className='font-light' htmlFor="password">Current Password:</label>
           <input type="password" id="password" name="password" className="border border-gray-300 rounded-md px-3 py-2 mt-1" />
-          <label className='font-light '  htmlFor="newPassword">New Password:</label>
+          <label className='font-light ' htmlFor="newPassword">New Password:</label>
           <input type="password" id="newPassword" name="newPassword" className="border border-gray-300 rounded-md px-3 py-2 mt-1" />
           <button type="submit" className="bg-[#dc5151] hover:bg-pink-400 text-white font-thin py-2 px-4 rounded-lg mt-4 self-center">Change Password</button>
         </form>
