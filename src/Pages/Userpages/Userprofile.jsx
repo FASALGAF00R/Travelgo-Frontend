@@ -1,10 +1,24 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import { Profile } from '../../Api/Userapi';
-
-
+import { jwtDecode } from 'jwt-decode';
+import { resetPassword } from '../../Api/Userapi';
 function Userprofile() {
+  const token = localStorage.getItem('accesToken')
+  const decodedtoken = jwtDecode(token)
+  const user = decodedtoken.userName
+  const email = decodedtoken.email
 
-  const [image, setimage] = useState(null)
+
+
+  const [formData, setFormData] = useState({
+    image: null,
+    password:'',
+    newPassword:'',
+  })
+
+
+
+ 
 
 
   const handleImageChange = async (e) => {
@@ -14,15 +28,34 @@ function Userprofile() {
       const formData = new FormData();
       formData.append('profilepic', file);
       const Response = await Profile(formData)
-      console.log(Response, "thachathin athallathine");
       const Url = Response.data.imageUrl;
-      setimage(Url)
+      setFormData({ ...formData, image: Url });
     } catch (error) {
       console.error(error);
     }
   }
+  
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
 
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+    try {   
+      const response = await resetPassword({email,formData});
+      console.log('Password reset successful:', response);
+    } catch (error) {
+      console.error('Error resetting password:', error);
+    }
+  }
+  
 
 
   return (
@@ -33,8 +66,8 @@ function Userprofile() {
       </h1>
       <div className="w-full md:w-[30%] bg-white shadow-md  shadow-pink-600 p-6 rounded-3xl">
         <div className="flex justify-center items-center">
-          {image ? (
-            <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={image} alt="Profile" />
+          {formData.image ? (
+            <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={formData.image} alt="Profile" />
           ) : (
             <label htmlFor="upload" className="cursor-pointer">
               <input
@@ -51,19 +84,19 @@ function Userprofile() {
             </label>
           )}
         </div>
-        <h2 className="text-lg font-extralight uppercase text-center mt-3">fasalu</h2>
+        <h2 className="text-lg font-light  text-center mt-3">{user}</h2>
         <div className="pl-9 font-light flex-row flex gap-2 mt-2">
           <label htmlFor="">Email :</label>
-          <h2 className="gap-3 mb-5">fasalgafoor@gmail.com</h2>
+          <h2 className="gap-3 mb-5">{email}</h2>
         </div>
         <span className='font-serif text-cyan-800'>Change password</span>
         <br />
-        <form className="pl-2 font-semibold flex   flex-col mt-4">
+        <form className="pl-2 font-semibold flex   flex-col mt-4" onSubmit={handleSubmit} >
           <label className='font-light' htmlFor="password">Current Password:</label>
-          <input type="password" id="password" name="password" className="border border-gray-300 rounded-md px-3 py-2 mt-1" />
+          <input type="password" id="password" name="password" className="border border-gray-300 rounded-md px-3 py-2 mt-1"  value={formData.password} onChange={handleChange}/>
           <label className='font-light ' htmlFor="newPassword">New Password:</label>
-          <input type="password" id="newPassword" name="newPassword" className="border border-gray-300 rounded-md px-3 py-2 mt-1" />
-          <button type="submit" className="bg-[#dc5151] hover:bg-pink-400 text-white font-thin py-2 px-4 rounded-lg mt-4 self-center">Change Password</button>
+          <input type="password" id="newPassword" name="newPassword" className="border border-gray-300 rounded-md px-3 py-2 mt-1"  value={formData.newPassword} onChange={handleChange}/>
+          <button type="submit" className="bg-[#dc5151] hover:bg-pink-400 text-white font-thin py-2 px-4 rounded-lg mt-4 self-center" >Change Password</button>
         </form>
       </div>
     </div>

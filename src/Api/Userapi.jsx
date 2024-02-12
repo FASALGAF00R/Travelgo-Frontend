@@ -126,6 +126,17 @@ export async function Profile(data){
 }
 
 
-
+export async function  resetPassword(data){
+    console.log("okkkkkkkkkkkkkkkkk",data);
+    try {
+        console.log("ethii");
+        const response =await userapi.post('/resetpass',data)
+        console.log(response,"....");
+        return response
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 

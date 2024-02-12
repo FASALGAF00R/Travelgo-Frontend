@@ -94,7 +94,7 @@ const Login = () => {
         const res = await Userlogin(formData)
         if (res.data.Data) {
           localStorage.setItem('accesToken', res.data.accesToken)  
-          toast.success(res.data.Data.message)       
+          toast.success(res.data.Data.message)   
           navigate('/')
       
         } else {
