@@ -1,24 +1,50 @@
-import React, {  useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Profile } from '../../Api/Userapi';
 import { jwtDecode } from 'jwt-decode';
 import { resetPassword } from '../../Api/Userapi';
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
+import { getuser } from '../../Api/Userapi';
+
 function Userprofile() {
-  const token = localStorage.getItem('accesToken')
-  const decodedtoken = jwtDecode(token)
+  const navigate = useNavigate()
+  const [image, setimage] = useState(null)
+
+
+  const Axcesstoken = localStorage.getItem('accesToken')
+  const decodedtoken = jwtDecode(Axcesstoken)
+  const Userid = decodedtoken.id
   const user = decodedtoken.userName
   const email = decodedtoken.email
+  console.log(Userid, "jjjjjj")
 
+
+  useEffect(() => {
+    const fetchuser = async () => {
+      try {
+        const response = await getuser(Userid)
+        console.log(response, "mm");
+        setimage(response.data.image)
+      } catch (error) {
+        console.log("error while fetching user", error);
+      }
+    }
+    fetchuser()
+  }, [Userid])
+
+
+  // const axcesstoken = localStorage.getItem('newaccessToken')
+
+  // const decodedaxcesstoken = jwtDecode(axcesstoken)
+  // const user = decodedtoken.userName
+  // const email = decodedtoken.email
 
 
   const [formData, setFormData] = useState({
     image: null,
-    password:'',
-    newPassword:'',
+    password: '',
+    newPassword: '',
   })
-
-
-
- 
 
 
   const handleImageChange = async (e) => {
@@ -34,7 +60,6 @@ function Userprofile() {
       console.error(error);
     }
   }
-  
 
   const handleChange = (e) => {
     setFormData({
@@ -44,18 +69,26 @@ function Userprofile() {
   };
 
 
-
+  console.log({ email, formData }, "llllll");
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
-    try {   
-      const response = await resetPassword({email,formData});
-      console.log('Password reset successful:', response);
+    e.preventDefault();
+    try {
+
+      const response = await resetPassword({ email, formData });
+      console.log('uiuiuiuiu:', response);
+      if (response.data.success === true) {
+        toast.success("updated")
+        navigate('/')
+      } else {
+        toast.error(response.data.message)
+      }
+
     } catch (error) {
       console.error('Error resetting password:', error);
     }
   }
-  
+
 
 
   return (
@@ -66,9 +99,9 @@ function Userprofile() {
       </h1>
       <div className="w-full md:w-[30%] bg-white shadow-md  shadow-pink-600 p-6 rounded-3xl">
         <div className="flex justify-center items-center">
-          {formData.image ? (
-            <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={formData.image} alt="Profile" />
-          ) : (
+        
+            <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={image} alt="Profile" />
+     
             <label htmlFor="upload" className="cursor-pointer">
               <input
                 type="file"
@@ -82,7 +115,7 @@ function Userprofile() {
                 <span className="text-blue-gray-900">Upload Image</span>
               </div>
             </label>
-          )}
+  
         </div>
         <h2 className="text-lg font-light  text-center mt-3">{user}</h2>
         <div className="pl-9 font-light flex-row flex gap-2 mt-2">
@@ -93,12 +126,13 @@ function Userprofile() {
         <br />
         <form className="pl-2 font-semibold flex   flex-col mt-4" onSubmit={handleSubmit} >
           <label className='font-light' htmlFor="password">Current Password:</label>
-          <input type="password" id="password" name="password" className="border border-gray-300 rounded-md px-3 py-2 mt-1"  value={formData.password} onChange={handleChange}/>
+          <input type="password" id="password" name="password" className="border border-gray-300 rounded-md px-3 py-2 mt-1" value={formData.password} onChange={handleChange} />
           <label className='font-light ' htmlFor="newPassword">New Password:</label>
-          <input type="password" id="newPassword" name="newPassword" className="border border-gray-300 rounded-md px-3 py-2 mt-1"  value={formData.newPassword} onChange={handleChange}/>
+          <input type="password" id="newPassword" name="newPassword" className="border border-gray-300 rounded-md px-3 py-2 mt-1" value={formData.newPassword} onChange={handleChange} />
           <button type="submit" className="bg-[#dc5151] hover:bg-pink-400 text-white font-thin py-2 px-4 rounded-lg mt-4 self-center" >Change Password</button>
         </form>
       </div>
+      <ToastContainer />
     </div>
 
 

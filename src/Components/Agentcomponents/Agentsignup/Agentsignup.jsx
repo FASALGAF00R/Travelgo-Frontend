@@ -21,7 +21,6 @@ function Agentsignup() {
   const handlechange = (e) => {
 
     const { name, value } = e.target
-    console.log(name, value, "ooooooooooo");
 
     if (name === 'phone' && !/^\d{0,10}$/.test(value)) {
       return;
@@ -57,7 +56,6 @@ function Agentsignup() {
           toast.error("Password must be at least 6 characters long and contain both letters and numbers");
         } else {
           const res = await Signupdata(Data)
-          console.log(res, "ppppppppppppppppp");
           if(res.data.newagent ){
             toast.success(res.data.message)
           }else{

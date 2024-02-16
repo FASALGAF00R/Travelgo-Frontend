@@ -5,9 +5,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 function Otppass() {
   const location = useLocation()
-  const {email}  = location.state
+  const { email } = location.state
 
-   const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const [otp, setOtp] = useState('')
 
@@ -19,8 +19,8 @@ function Otppass() {
       }
       const Otp = await Otpdata(otp)
       if (Otp.data.success === true) {
-        toast.success(Otp.data.message)
-        navigate('/newpass',{state:{email}})
+        alert(Otp.data.message)
+        navigate('/newpass', { state: { email } })
       } else {
         toast.error(Otp.data.message)
       }
@@ -32,7 +32,7 @@ function Otppass() {
 
 
   return (
-<div className=' w-full h-full flex items-center justify-center'>
+    <div className=' w-full h-full flex items-center justify-center'>
       <div className='w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4'>
         <div className="flex flex-col justify-center space-y-5 max-w-md mx-auto mt-24">
           <form onSubmit={handlesubmit}>

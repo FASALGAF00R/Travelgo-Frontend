@@ -4,7 +4,6 @@ import { Loadusers } from '../../Api/Adminapi';
 import { Blockuser } from '../../Api/Adminapi';
 function Users() {
   const [users, setUsers] = useState([]);
-
   useEffect(() => {
     Loadusers()
       .then((res) => {
@@ -20,8 +19,8 @@ function Users() {
       await Blockuser({ _id: usersid }).then((res) => {
         if (res.status === 200) {
           setUsers((prevUsers) =>
-            prevUsers.map((users) =>
-              users._id === usersid ? { ...users, block: !users.block } : users
+            prevUsers.map((user) =>
+              user._id === usersid ? { ...user, isBlock: !user.isBlock } : user
             )
           )
         }
@@ -56,16 +55,17 @@ function Users() {
                 <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
                 <td className="border border-gray-300 px-4 py-2">{user.userName}</td>
                 <td className="border border-gray-300 px-4 py-2">{user.email}</td>
-                <td className="border border-gray-300 px-4 py-2">{!user.block ? (
+                <td className="border border-gray-300 px-4 py-2">
+                  {!user.isBlock ? (
                   <button onClick={() => HandleClick(user._id)}
-                    className="bg-green-500 text-white px-2 py-1 rounded-md"
+                    className="bg-red-500 text-white px-2 py-1 rounded-md"
 
                   >
                     <span>Block</span>
                   </button>
                 ) : (
                   <button onClick={() => HandleClick(user._id)}
-                    className="bg-red-500 text-white px-2 py-1 rounded-md"
+                    className="bg-green-500 text-white px-2 py-1 rounded-md"
 
                   >
                     <span>UnBlock</span>

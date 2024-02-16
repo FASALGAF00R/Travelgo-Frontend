@@ -1,33 +1,5 @@
-import axios from "axios";
-
-
-
-
-// backend data url
-const userapi = axios.create({
-    baseURL: 'http://localhost:3000',
-    withCredentials: true,
-})
-
-// stored token in local
-const token = localStorage.getItem("accesToken")
-
-
-
-// Set up headers with the token
-const Configtoken = {
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token
-    }
-
-}
-
-
-
-
-// Attach the headers to the axios instance 
-userapi.defaults.headers = Configtoken.headers
+import Userinterception from '../Interceptors/Userinterceptors.jsx'
+const userapi=Userinterception
 
 
 
@@ -140,3 +112,13 @@ export async function  resetPassword(data){
 }
 
 
+export async function getuser(data){
+    console.log(data);
+    try {
+        const result = await userapi.get(`/user/${data}`)
+            console.log(result);
+        return result        
+    } catch (error) {
+        console.log(error);
+    }
+}

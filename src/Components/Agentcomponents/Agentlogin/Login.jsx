@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import agentloginpic from '../../../Assests/Images/agentloginpic.jpg'
 
 
 function Login() {
@@ -79,28 +80,24 @@ function Login() {
 
 
   const handlesubmitdata = async (e) => {
-    console.log("kerri");
     e.preventDefault();
     try {
-      console.log("kerriiiiiiiiii");
-
       if (!agent.email || !agent.password) {
         toast.error("fields required")
-      }
-
+      }else{
       const res = await Formdata(agent)
       console.log(res, "response");
-      if (res.data.message) {
+      if (res.data.success) {
         toast.success(res.data.message)
         setTimeout(() => {
           localStorage.setItem('token', res.data.token)
           navigate('/agent/');
         }, 2000);
       }else{
-        toast(res.data.message)
+        toast.error(res.data.message)
 
       }  
-
+    }
     } catch (error) {
       console.log(error);
       toast.error(res.data.message)
@@ -116,10 +113,10 @@ function Login() {
           <div className='flex  justify-center gap-4 font-semibold text-lg items-center w-[50%] h-full'>
 
 
-            {/* <img className="w-5/6 h-5/6  rounded-l-md" src={} alt="loginimage" /> */}
+            <img className="w-5/6 h-5/6  rounded-l-md" src={agentloginpic} alt="loginimage" />
           </div>
 
-          <div className="flex items-center justify-center shadow-2xl h-auto 2xl:mr-16">
+          <div className="flex  flex-col items-center justify-center shadow-2xl h-auto 2xl:mr-16">
 
             <form className="bg-#db8c8c  rounded px-8 pt-6 pb-8 mb-4 w-96 " onSubmit={handlesubmitdata}>
               <div className="md-4  text-gray-900  font-extrabold"  >
@@ -151,6 +148,7 @@ function Login() {
                   placeholder="Enter your password"
                 />
               </div>
+              
               <div className="flex items-center justify-between">
                 <button
                   className=" bg-[#dc5151] hover:bg-pink-400 text-white  mt-2 font-light py-1 px-20 ml-12 rounded-full  "
@@ -167,15 +165,19 @@ function Login() {
                   Sign up
                 </Link>
               </span>
-              <div class="px-6 sm:px-0 max-w-sm" onClick={() => Googleauth()}>
-                <button type="button" class="  text-white w-50% mt-4 -ml-35 bg-[#dc5151] hover:bg-pink-400 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 "><svg class="mr-2 -ml-1 w-4 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>Login with Google<div></div></button>
-              </div>
             </form>   
+            <div class="sm:px-0 max-w-sm mb-3 " onClick={() => Googleauth()}>
+              <button className="px-6 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150">
+                <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg " loading="lazy" alt="google logo"></img>
+                <span>Login with Google</span>
+              </button>
+            </div>
+      <ToastContainer />
           </div>
         </div>
       </div>
-      <ToastContainer />
     </>
+ 
   )
 }
 

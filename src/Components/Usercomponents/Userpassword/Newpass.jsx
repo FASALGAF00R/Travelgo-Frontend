@@ -22,7 +22,7 @@ function Newpass() {
             try {
                 const Req = await Newpassword({ password, email });     
                 if (Req.data.success === true) {             
-                    toast.success(Req.data.message);
+                    alert(Req.data.message);
                     navigate('/login');
                 }
             } catch (error) {
