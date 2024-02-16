@@ -83,14 +83,12 @@ export async function Newpassword(data){
 
 
 export async function Profile(data){
-    console.log(data,"/////////////////");
     try {
         const result =await userapi.post('/profile',data,{
             headers : {
                 "Content-Type":"multipart/form-data",
             },
         } )
-    console.log(result,"resdult");
         return result
     } catch (error) {
         console.log(error);

@@ -8,6 +8,11 @@ import { getuser } from '../../Api/Userapi';
 
 function Userprofile() {
   const navigate = useNavigate()
+  const [formData, setFormData] = useState({
+    image: null,
+    password: '',
+    newPassword: '',
+  })
   const [image, setimage] = useState(null)
 
 
@@ -16,14 +21,14 @@ function Userprofile() {
   const Userid = decodedtoken.id
   const user = decodedtoken.userName
   const email = decodedtoken.email
-  console.log(Userid, "jjjjjj")
 
+
+// showing user profil image
 
   useEffect(() => {
     const fetchuser = async () => {
       try {
         const response = await getuser(Userid)
-        console.log(response, "mm");
         setimage(response.data.image)
       } catch (error) {
         console.log("error while fetching user", error);
@@ -33,20 +38,8 @@ function Userprofile() {
   }, [Userid])
 
 
-  // const axcesstoken = localStorage.getItem('newaccessToken')
 
-  // const decodedaxcesstoken = jwtDecode(axcesstoken)
-  // const user = decodedtoken.userName
-  // const email = decodedtoken.email
-
-
-  const [formData, setFormData] = useState({
-    image: null,
-    password: '',
-    newPassword: '',
-  })
-
-
+  // image upload
   const handleImageChange = async (e) => {
     e.preventDefault()
     try {
@@ -55,7 +48,7 @@ function Userprofile() {
       formData.append('profilepic', file);
       const Response = await Profile(formData)
       const Url = Response.data.imageUrl;
-      setFormData({ ...formData, image: Url });
+      setFormData(Url);
     } catch (error) {
       console.error(error);
     }
@@ -69,8 +62,8 @@ function Userprofile() {
   };
 
 
-  console.log({ email, formData }, "llllll");
 
+// for reseting the password
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -99,10 +92,8 @@ function Userprofile() {
       </h1>
       <div className="w-full md:w-[30%] bg-white shadow-md  shadow-pink-600 p-6 rounded-3xl">
         <div className="flex justify-center items-center">
-        
-            <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={image} alt="Profile" />
-     
             <label htmlFor="upload" className="cursor-pointer">
+            <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={formData} alt="Profile" />
               <input
                 type="file"
                 id="upload"
@@ -111,8 +102,8 @@ function Userprofile() {
                 accept="image/*"
                 onChange={handleImageChange}
               />
-              <div className="w-40 h-40 mt-10 overflow-hidden  bg-gray-200 flex justify-center items-center">
-                <span className="text-blue-gray-900">Upload Image</span>
+              <div className=" mt-10 overflow-hidden ml-4  bg-gray-200 flex justify-center items-center">
+                <span className="text-blue-gray-900"></span>
               </div>
             </label>
   

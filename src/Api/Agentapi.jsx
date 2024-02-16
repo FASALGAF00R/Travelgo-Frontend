@@ -2,6 +2,7 @@ import axios  from "axios";
 
 
 
+
 // backendurl
 const agentapi =axios.create({
     baseURL:'http://localhost:3000/agent',
@@ -73,4 +74,16 @@ try {
     console.log(error);
 }
 
+}
+
+console.log("fufufufffu");
+export async function Placedata(data){
+    console.log(data,"//./././././");
+    try {
+        const result = await agentapi.post('/places',data);
+        console.log(result,"LOLOLO");
+        return result
+    } catch (error) {
+        console.log(error);
+    }
 }
