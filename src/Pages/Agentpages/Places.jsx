@@ -23,18 +23,31 @@ function Places() {
 
 
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted')
-    const Response =await Placedata(formdata)
+    try {
+      console.log('Form submitted')
+      const Response = await Placedata(formdata)
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handlechange = (e) => {
+    const { name, value } = e.target
+    if (name === 'image') {
+      setformdata({
+        ...formdata,
+        [name]: e.target.files[0]
+      })
+    } else {
+      setformdata({
+        ...formdata,
+        [name]: value
 
-    setformdata({
-      ...formdata,
-      [e.target.name]: e.target.value,
-    });
+      });
+    }
   };
 
   return (
@@ -57,11 +70,11 @@ function Places() {
             </div>
             <div>
               <label className='text-gray-800 ' htmlFor="image">Upload image:</label>
-              <input className=' w-full ' type="file" id="image" name="image/*" onChange={(e)=> setformdata({...formdata,image:e.target.files[0]})} />
+              <input className=' w-full ' type="file" id="image" name="image" onChange={handlechange} />
             </div>
             <br />
-            <Button type="submit" variant="gradient" color="green" onClick={Modalshow}>
-             Add
+            <Button type="submit" variant="gradient" color="green" >
+              Add
             </Button>
           </form>
         </DialogBody>
