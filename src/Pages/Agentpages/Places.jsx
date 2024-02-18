@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Fetchplaces } from '../../Api/Agentapi';
 import {
   Button,
   Dialog,
@@ -7,32 +8,73 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { Placedata } from '../../Api/Agentapi';
-
+import { UpdatePlace } from '../../Api/Agentapi';
+// Add places
 function Places() {
-
-  const [place, setplace] = useState(false)
+  const [placeModalOpen, setPlaceModalOpen] = useState(false)
   const [formdata, setformdata] = useState({
     place: '',
     description: '',
     image: null
   })
+  const [Places, setPlaces] = useState([])
+  const [editingPlace, setEditingPlace] = useState(null);
+ 
 
-  const Modalshow = () => {
-    setplace(!place)
-  }
+
+  useEffect(() => {
+    try {
+      Fetchplaces()
+        .then((response) => {
+          console.log(response.data, "success");
+          setPlaces(response.data)
+        });
+    } catch (error) {
+      console.log("error while fetching places", error);
+    }
+  }, [])
+
+
+// for opening and closing the modals
+  const openModal = () => {
+    setEditingPlace(null);
+    setPlaceModalOpen(!placeModalOpen);
+
+  };
+  
+
+
+  const handleEdit = (place) => {
+    setEditingPlace(place);
+    setformdata({
+      place: place.Placename,
+      description: place.Description,
+      image: null 
+    });
+    setPlaceModalOpen(true);
+  };
+
 
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log('Form submitted')
-      const Response = await Placedata(formdata)
-
+      if (editingPlace) {
+        await UpdatePlace(editingPlace._id,{Data:formdata}); 
+      }else{
+        await Placedata(formdata);
+      Fetchplaces()
+      .then((response) => {
+        setPlaces(response.data);
+      });
+      setPlaceModalOpen(false);
+    }
     } catch (error) {
       console.log(error);
     }
   };
+
 
   const handlechange = (e) => {
     const { name, value } = e.target
@@ -52,12 +94,15 @@ function Places() {
 
   return (
     <>
+      <span className=' flex justify-center  font-extrabold'>PLACES MANAGEMENT</span>
       <div className='flex p-8'>
-        <button onClick={Modalshow} className="bg-blue-gray-700 p-3 text-cyan-50 rounded-sm">Add places
-        </button>
+        <div className="w-[100%] flex justify-end">
+          <button onClick={openModal} className="bg-blue-gray-700 p-3  text-cyan-50 rounded-lg">Add places
+          </button>
+        </div>
       </div>
-      <Dialog open={place} handler={Modalshow}>
-        <DialogHeader>Enter Place Details</DialogHeader>
+      <Dialog open={placeModalOpen} handler={openModal}>
+        <DialogHeader>{editingPlace ? 'Edit Place' : 'Add Place'}</DialogHeader>
         <DialogBody>
           <form onSubmit={handleSubmit}>
             <div>
@@ -73,14 +118,33 @@ function Places() {
               <input className=' w-full ' type="file" id="image" name="image" onChange={handlechange} />
             </div>
             <br />
-            <Button type="submit" variant="gradient" color="green" >
+            <Button type="submit" variant="gradient" color="green" onClick={openModal} >
               Add
             </Button>
           </form>
         </DialogBody>
       </Dialog>
 
+      <div>
+        <div class="container px-16 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Places && Places.map((place) => (
+            <div key={place._id} onClick={()=>handleEdit(place)} className="bg-gray-600 shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
+              <img
+                src={place.Image}
+                alt='{place.Placename}'
+                class=" object-cover"
+              />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
+                <p class="text-white text-lg font-bold">{place.Placename}</p>
+              </div>
 
+              <div class="bg-gray-500 font-light shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
+                <p>{place.Description} </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Home from '../Home'
+import Adminheader from '../../../Components/Admincomponents/Adminheader'
 
 function Adminlayout() {
     return (
@@ -8,8 +9,11 @@ function Adminlayout() {
             <div className='W-[20%] '>
                 <Home />
             </div>
-            <div className='W-[80%]'>
+            <div className='w-screen'>
+                <Adminheader />
+                {/* <div className='W-[80%]'> */}
                 <Outlet />
+                {/* </div> */}
             </div>
         </div>
     )

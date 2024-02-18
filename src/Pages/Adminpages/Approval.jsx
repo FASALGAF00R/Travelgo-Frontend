@@ -40,7 +40,6 @@ function Approval() {
     }
 
     return (
-        <div className='bg-blue-gray-800  w-[100%] h-[10%] border-t-8 mr-40  p-8 shadow-lg rounded-md'  >
       <div className="flex  justify-center mt-40 mx-40 ">
       <table className=" border border-gray-300 rounded-md overflow-hidden shadow-gray-800 shadow-md" style={{ height: '200px', width: '100p%' }}>
       <thead className='bg-blue-gray-800 text-white'>
@@ -90,7 +89,7 @@ function Approval() {
                 </tbody>
             </table>
             </div>
-        </div>
+     
         
     );
 }

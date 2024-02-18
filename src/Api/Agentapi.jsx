@@ -69,16 +69,34 @@ try {
 
 
 export async function Placedata(data){
-    console.log(data,"//./././././");
     try {
         const result = await agentapi.post('/places',data,{
             headers:{
                 "Content-Type":"multipart/form-data",
-
             }
         });
-        console.log(result,"LOLOLO");
         return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function Fetchplaces(data){
+    
+    try {
+        const result = await agentapi.get('/getplaces',data);
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+export async function UpdatePlace(id,data){
+    console.log(data,"opopopo");
+    try {
+        const  result = await agentapi.put(`/updateplace/${id}`, data)
+        return result;     
     } catch (error) {
         console.log(error);
     }

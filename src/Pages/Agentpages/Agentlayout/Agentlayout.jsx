@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import AgentSideBar from './AgentSideBar'
+import Adminheader from '../../../Components/Admincomponents/Adminheader'
 
 function Agentlayout() {
     return (
@@ -8,9 +9,11 @@ function Agentlayout() {
             <div className='W-[20%] '>
                 <AgentSideBar />
             </div>
-            <div className='W-[80%]'>
-                <Outlet />
+            <div className='w-screen'>
+                <Adminheader/>
+            <Outlet />
             </div>
+
         </div>
     )
 }
