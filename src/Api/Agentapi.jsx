@@ -100,3 +100,41 @@ export async function UpdatePlace(id, data) {
         console.log(error);
     }
 }
+
+
+export async function Addactivity(data) {
+    try {
+        const result = await agentapi.post('/addactivity', data);
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export async function Fetchactivies() {
+
+    try {
+        const result = await agentapi.get('/activities');
+        console.log(result);
+        return result
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+export async function UpdateActivity(id,data) {
+    console.log(id);
+    try {
+        const result = await agentapi.put(`'/updateactivity${id}`,data);
+        console.log(result);
+        return result
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
