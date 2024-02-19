@@ -5,11 +5,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 function Newpass() {
     const location = useLocation()
+    const {type} =location.state
     const {email}  = location.state
+    console.log(type,"ppggggggggggggggggggggggggggggg");
 
     const navigate = useNavigate()
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    console.log("---------------");
 
 
     const handleSubmit = async (e) => {

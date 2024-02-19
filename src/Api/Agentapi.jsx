@@ -126,15 +126,13 @@ export async function Fetchactivies() {
 }
 
 
-export async function UpdateActivity(id,data) {
-    console.log(id);
+export async function UpdateActivity(id, data) {
+   
     try {
-        const result = await agentapi.put(`'/updateactivity${id}`,data);
+        const result = await agentapi.put(`/updateactivity/${id}`, data); // Adjusted URL
         console.log(result);
-        return result
-
+        return result;
     } catch (error) {
         console.log(error);
     }
-
 }

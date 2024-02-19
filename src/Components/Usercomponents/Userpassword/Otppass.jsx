@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 function Otppass() {
   const location = useLocation()
   const { email } = location.state
+  console.log(email,';;;;;;;;;;');
 
   const navigate = useNavigate()
 

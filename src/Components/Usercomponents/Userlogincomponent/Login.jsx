@@ -13,6 +13,7 @@ import { jwtDecode } from "jwt-decode";
 
 
 
+
 const Login = () => {
 
   const navigate = useNavigate();
@@ -109,6 +110,9 @@ const Login = () => {
     }
 
   };
+  const handleForgot=()=>{
+    navigate('/forgotpass',{state:{role:'user'}})
+  }
 
   return (
     <div className='flex justify-center items-center  bg-pink-50'>
@@ -150,9 +154,9 @@ const Login = () => {
                 placeholder="Enter your password"
               />
             </div>
-            <Link to="/forgotpass" className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+            <button onClick={handleForgot}  className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
               Forgot password  ?
-            </Link>
+            </button>
             <div className="flex items-center justify-between">
               <button
                 className=" bg-[#dc5151] hover:bg-pink-400 text-white  mt-4 font-light py-1 px-20 ml-12 rounded-full  "

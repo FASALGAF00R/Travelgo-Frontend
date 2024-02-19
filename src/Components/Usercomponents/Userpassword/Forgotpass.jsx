@@ -2,9 +2,13 @@ import React from 'react'
 import { useState } from 'react'
 import { Forgot } from '../../../Api/Userapi'
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Forgotpass() {
+const location=useLocation()
+    console.log(location,'ccc');
+    const {role}=location.state
+     console.log(role,'cccccccccccc');
     const navigate = useNavigate()
     const [formdata, setformdata] = useState({
         email: '',

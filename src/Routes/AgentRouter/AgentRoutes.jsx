@@ -7,6 +7,7 @@ import Agentlayout from '../../Pages/Agentpages/Agentlayout/Agentlayout'
 import Places from '../../Pages/Agentpages/Places'
 import DashBoard from '../../Pages/Agentpages/DashBoard'
 import Activies from '../../Pages/Agentpages/Activies'
+import Packages from '../../Pages/Agentpages/Packages'
 
 function AgentRoutes() {
 
@@ -20,6 +21,7 @@ function AgentRoutes() {
           <Route path='/' element={< DashBoard />} />
           <Route path='/places' element={< Places />} />
           <Route path='/activites' element={<Activies/>} />
+          <Route path='/packages' element={<Packages/>} />
 
         </Route>
 
