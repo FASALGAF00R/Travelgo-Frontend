@@ -81,10 +81,10 @@ export async function Placedata(data) {
     }
 }
 
-export async function Fetchplaces(data) {
+export async function Fetchplaces() {
 
     try {
-        const result = await agentapi.get('/getplaces', data);
+        const result = await agentapi.get('/getplaces');
         return result
     } catch (error) {
         console.log(error);
