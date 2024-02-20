@@ -7,7 +7,7 @@ import { Googledata } from '../../../Api/Userapi';
 import { Userlogin } from '../../../Api/Userapi';
 import loginpic from '../../../Assests/Images/loginpic.jpg'
 import { jwtDecode } from "jwt-decode";
-
+import { RouteObjects } from '../../../Routes/RouteObject';
 
 
 
@@ -65,7 +65,7 @@ const Login = () => {
           toast(result.data.message)
           console.log(result, "result");
           if (result.data.data.isBlock === true) {
-            navigate("/");
+            navigate(RouteObjects.Home);
           } else {
             console.log("errorr  got");
 
@@ -97,7 +97,7 @@ const Login = () => {
           localStorage.setItem('accesToken', res.data.accesToken)
           localStorage.setItem('refreshToken', res.data.Refreshtoken)
       toast.success(res.data.Data.message)
-          navigate('/')
+          navigate(RouteObjects.UserHome)
 
         } else {
           toast.error(res.data.message)
@@ -111,7 +111,7 @@ const Login = () => {
 
   };
   const handleForgot=()=>{
-    navigate('/forgotpass',{state:{role:'user'}})
+    navigate( RouteObjects.ForgetPassword,{state:{role:'user'}})
   }
 
   return (

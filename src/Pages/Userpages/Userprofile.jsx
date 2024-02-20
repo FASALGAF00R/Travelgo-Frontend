@@ -5,6 +5,7 @@ import { resetPassword } from '../../Api/Userapi';
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import { getuser } from '../../Api/Userapi';
+import { RouteObjects } from '../../Routes/RouteObject';
 
 function Userprofile() {
   const navigate = useNavigate()
@@ -69,10 +70,12 @@ function Userprofile() {
     try {
 
       const response = await resetPassword({ email, formData });
-      console.log('uiuiuiuiu:', response);
       if (response.data.success === true) {
         toast.success("updated")
-        navigate('/')
+        setTimeout(() => {
+          navigate(RouteObjects.UserProfile)
+          
+        }, 1000);
       } else {
         toast.error(response.data.message)
       }

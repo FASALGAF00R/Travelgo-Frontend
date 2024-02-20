@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import React from 'react'
 import { useParams,useNavigate } from 'react-router-dom'
 import { Verify } from '../../../Api/Agentapi'
+import { RouteObjects } from '../../../Routes/RouteObject'
 
 function Agentverify() {
     const {token} = useParams()
@@ -14,7 +15,7 @@ useEffect(() => {
        const Data = await Verify(token)
         if (Data.data.success) {
             setTimeout(() => {
-              navigate('/agent/login')
+              navigate(RouteObjects.Login)
             }, 3000);
           }
          } catch (error) {

@@ -6,19 +6,26 @@ import Adminlayout from '../../Pages/Adminpages/Adminlayout/Adminlayout'
 import Approval from '../../Pages/Adminpages/Approval'
 import Dashboard from '../../Pages/Adminpages/Dashboard'
 import Packagecategory from '../../Pages/Adminpages/Packagecategory'
+import Adminprotect from '../../Utils/Protected/Adminprotect'
 
 function AdminRoutes() {
   return (
     <div>
       <Routes>
-        <Route path='/login' element={<Login />} />
         <Route element={<Adminlayout />}>
           <Route path='/' element={<Dashboard />} />
-          <Route path='/users' element={<Users />} />
-          <Route path='/approval' element={<Approval />} />
-          <Route path='/category' element={<Packagecategory />} />
+          <Route path='/category' element={<Packagecategory />} />          
+                    <Route path='/users' element={<Users />} />
+                    <Route path='/approval' element={<Approval />} />
+          </Route>
+    
 
-        </Route>
+
+        <Route path='/login' element={
+          <Adminprotect>
+            <Login />
+          </Adminprotect>
+        }/>
 
       </Routes>
     </div>

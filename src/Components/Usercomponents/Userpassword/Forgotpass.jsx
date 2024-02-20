@@ -3,11 +3,13 @@ import { useState } from 'react'
 import { Forgot } from '../../../Api/Userapi'
 import { ToastContainer, toast } from "react-toastify";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { RouteObjects } from '../../../Routes/RouteObject';
 
 function Forgotpass() {
 const location=useLocation()
     console.log(location,'ccc');
-    const {role}=location.state
+    const {role}=location.state;
+    console.log();
      console.log(role,'cccccccccccc');
     const navigate = useNavigate()
     const [formdata, setformdata] = useState({
@@ -33,9 +35,13 @@ const location=useLocation()
                 toast.error("fields empty")
             } else {
                 const Res = await Forgot(formdata)
-                if (Res.data.success) {
-                    alert(Res.data.message)
-                    navigate('/otpverify', { state: { email: formdata.email } })
+                console.log(Res,"pop");
+                if (Res.data.success=== true) {
+                    toast.success(Res.data.message)
+                    setTimeout(() => {
+                        navigate(RouteObjects.OTP, { state: { email: formdata.email,role:role } })
+                        
+                    }, 2000);
                 } else {
                     toast.error(Res.data.message)
                 }
@@ -80,8 +86,8 @@ const location=useLocation()
                         </p>
                     </div>
                 </form>
-            </div>
             <ToastContainer />
+            </div>
         </div>
     )
 }

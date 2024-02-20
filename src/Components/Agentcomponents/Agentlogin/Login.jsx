@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import agentloginpic from '../../../Assests/Images/agentloginpic.jpg'
-
+import { RouteObjects } from '../../../Routes/RouteObject';
 
 function Login() {
   const navigate = useNavigate()
@@ -45,7 +45,6 @@ function Login() {
 
     const fetchdata = async () => {
       if (google) {
-        console.log(google, "iiiiiiiiiiiiiiiiiiiiiii");
 
         try {
           const res = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${google.access_token}`, {
@@ -54,12 +53,12 @@ function Login() {
               Accept: 'application/json'
             }
           })
-          console.log(res, "hgfjdgjfghjfgk");
           const result = await agentdata(res)
-          console.log(result, "nnnnnnnnnnn")
           if(result.data.success){
             toast(result.data.message)
-            navigate('/agent/')
+            setTimeout(() => {
+              navigate(RouteObjects.Home)           
+            }, 2000);
           }else{
             toast.error('error got')
           }
@@ -76,7 +75,9 @@ function Login() {
 
   );
 
-
+  const handleForgot=()=>{
+    navigate( RouteObjects.ForgetPassword,{state:{role:'agent'}})
+  }
 
 
   const handlesubmitdata = async (e) => {
@@ -148,6 +149,12 @@ function Login() {
                   placeholder="Enter your password"
                 />
               </div>
+
+              <button onClick={handleForgot}  className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+              Forgot password  ?
+            </button>
+
+
               
               <div className="flex items-center justify-between">
                 <button

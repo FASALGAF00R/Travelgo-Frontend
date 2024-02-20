@@ -3,7 +3,7 @@ import { signupData } from '../../../Api/Userapi';
 import { ToastContainer,toast } from "react-toastify";
 import { Link, useNavigate } from 'react-router-dom';
 import signupic from '../../../Assests/Images/signupic.png'
-
+import { RouteObjects } from '../../../Routes/RouteObject';
 
 const Usersignup = () => {
   const navigate = useNavigate()
@@ -11,6 +11,8 @@ const Usersignup = () => {
     userName: '',
     email: '',
     password: '',
+    confirmpassword:''
+    
 
   });
 
@@ -46,6 +48,9 @@ const Usersignup = () => {
     
     e.preventDefault();
     try {
+      if(user.password != user.confirmpassword){
+        toast.error("password and confirmPassword don't match");
+      }
   
       if(!user.userName || !user.email || !user.password ){
         toast.error("fields empty")
@@ -54,13 +59,21 @@ const Usersignup = () => {
     } else{
 
       const userData = await signupData(user);
-      toast.success(userData.data.message)
+      if(userData.data.success===false){
+        toast.success(userData.data.message)
+
+      }else{
+        setTimeout(() => {
+          navigate(RouteObjects.Login)       
+        }, 2000);
+      }
+      
    
      }
 
     } catch (err) {
 
-     handleError("An error occurred");
+    console.log(err);
 
     }
 
@@ -124,6 +137,20 @@ const Usersignup = () => {
                       value={user.password}
                       onChange={handleChange}
                       placeholder="Password"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col mb-2">
+                  <div className="relative">
+                    <input
+                      type="password"
+                      id="create-account-email"
+                      className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
+                      name="confirmpassword"
+                      value={user.confirmpassword}
+                      onChange={handleChange}
+                      placeholder="confirmpassword"
                     />
                   </div>
                 </div>

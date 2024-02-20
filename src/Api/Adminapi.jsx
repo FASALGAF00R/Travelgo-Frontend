@@ -7,8 +7,10 @@ const Adminapi = axios.create({
 
 
 export async function Admindata(data) {
+    console.log(data);
     try {
         const Data = await Adminapi.post('/login', data)
+        console.log(Data,"..");
         return Data
     } catch (error) {
         console.log(error);

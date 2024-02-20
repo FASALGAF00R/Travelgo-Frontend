@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserVerify } from '../../../Api/Userapi';
 import { ToastContainer, toast } from 'react-toastify';
+import { RouteObjects } from '../../../Routes/RouteObject';
 
 function Verification() {
   const { token } = useParams();
@@ -14,7 +15,7 @@ function Verification() {
         if (result.status === 200) {
           setTimeout(() => {
             toast.success('User verification success');
-            navigate('/login');
+            navigate(RouteObjects.Login);
           }, 3000);
 
         }

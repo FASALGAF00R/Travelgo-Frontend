@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { ToastContainer, toast } from "react-toastify";
 import { Signupdata } from '../../../Api/Agentapi.jsx';
 import { Link, useNavigate } from 'react-router-dom';
+import { RouteObjects } from '../../../Routes/RouteObject.js';
 
 
 function Agentsignup() {
@@ -14,6 +15,7 @@ function Agentsignup() {
     email: '',
     phone: '',
     password: '',
+    confirmpassword: ""
   })
 
 
@@ -42,126 +44,150 @@ function Agentsignup() {
       hasNumber &&
       hasLetter
     );
-    }
-
-
-    const formdata = async (e) => {
-      e.preventDefault();
-      try {
-        if (!Data.userName || !Data.email || !Data.phone || !Data.password) {
-          toast.error('fields required');
-        } else if (!/^\d{10}$/.test(Data.phone)) {
-          toast.error('Phone number must be 10 digits');
-        } else if (!validatePassword(Data.password)) {
-          toast.error("Password must be at least 6 characters long and contain both letters and numbers");
-        } else {
-          const res = await Signupdata(Data)
-          if(res.data.newagent ){
-            toast.success(res.data.message)
-          }else{
-              toast.error(res.data.message)
-          }
-        }
-      } catch (error) {
-        console.log(error);
-      }
-
-    }
-
-    return (
-
-
-      <div className="flex items-center justify-center h-auto bg-gradient-to-r from-[violet]-500  ">
-        <div className='bg-gradient-to-r from-[#a0c0ca] to-[#da8484] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
-          {/* <img
-            className="w-1/3 h-auto  rounded-l-md  object-cover" src={alt="signup image" /> */}
-
-          <div className="flex flex-col bg- [#ee8e8e] rounded-lg mt-3 shadow-2xl dark:bg-gray-800 mr-11 lg:px-10">
-            <div className="self-center mb-5 mt-5 text-xl font-semibold text-black-800 sm:text-2xl dark:text-white">
-           Agent Sign up
-            </div>
-            <span className="justify-center text-sm text-center gap-3 font-thin text-gray-800 flex items-center dark:text-gray-400">
-              Already have an account?
-              <Link to="/agent/login" className="text-sm text-blue-500 underline hover:text-blue-700">
-                Sign in
-              </Link>
-            </span>
-
-            <div className="p-10 py-2 ">
-              <form onSubmit={formdata}>
-                <div className="flex  mb-1">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      id="create-account-pseudo"
-                      className="rounded-lg border-pink-500 flex-1 mt-5 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                      name="userName"
-                      value={Data.userName}
-                      onChange={handlechange}
-                      placeholder="Agent Name"
-                    />
-                  </div>
-                </div>
-                <div className="flex gap-4 mb-2">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      id="create-account-first-name"
-                      className="rounded-lg border-pink-500 mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                      name="email"
-                      value={Data.email}
-                      onChange={handlechange}
-                      placeholder="Email"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col mb-2">
-                  <div className="relative">
-                    <input
-                      type="password"
-                      id="create-account-email"
-                      className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
-                      name="password"
-                      value={Data.password}
-                      onChange={handlechange}
-                      placeholder="Password"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col mb-2">
-                  <div className="relative">
-                    <input
-                      type="tel"
-                      id="create-account-phone"
-                      className="rounded-lg border-pink-500 mt-4 flex-1  border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
-                      name="phone"
-                      value={Data.phone}
-                      onChange={handlechange}
-                      placeholder="Phone"
-                    />
-                  </div>
-                </div>
-                <div className="flex w-full my-10">
-                  <button
-                    type="submit"
-                    className="py-2 px-4 bg-[#dc5151] hover:bg-pink-400 focus:ring-pink-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-thin shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
-                  >
-                    Sign up
-                  </button>
-                </div>
-              </form>
-
-            </div>
-          </div>
-        </div>
-        <ToastContainer />
-      </div>
-
-
-
-    )
   }
 
-  export default Agentsignup
+
+  const formdata = async (e) => {
+    e.preventDefault();
+    try {
+      if (Data.password !== Data.confirmpassword) {
+        toast.error('password incorrect')
+      }
+
+
+      if (!Data.userName || !Data.email || !Data.phone || !Data.password) {
+        toast.error('fields required');
+      } else if (!/^\d{10}$/.test(Data.phone)) {
+        toast.error('Phone number must be 10 digits');
+      } else if (!validatePassword(Data.password)) {
+        toast.error("Password must be at least 6 characters long and contain both letters and numbers");
+      } else {
+        const res = await Signupdata(Data)
+        if (res.data.newagent) {
+          toast.success(res.data.message)
+          setTimeout(() => {
+            navigate(RouteObjects.Login)
+          }, 2000);
+        } else {
+          toast.error(res.data.message)
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  return (
+
+
+    <div className="flex items-center justify-center h-auto bg-gradient-to-r from-[violet]-500  ">
+      <div className='bg-gradient-to-r from-[#a0c0ca] to-[#da8484] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
+        {/* <img
+            className="w-1/3 h-auto  rounded-l-md  object-cover" src={alt="signup image" /> */}
+
+        <div className="flex flex-col bg- [#ee8e8e] rounded-lg mt-3 shadow-2xl dark:bg-gray-800 mr-11 lg:px-10">
+          <div className="self-center mb-5 mt-5 text-xl font-semibold text-black-800 sm:text-2xl dark:text-white">
+            Agent Sign up
+          </div>
+          <span className="justify-center text-sm text-center gap-3 font-thin text-gray-800 flex items-center dark:text-gray-400">
+            Already have an account?
+            <Link to="/agent/login" className="text-sm text-blue-500 underline hover:text-blue-700">
+              Sign in
+            </Link>
+          </span>
+
+          <div className="p-10 py-2 ">
+            <form onSubmit={formdata}>
+              <div className="flex  mb-1">
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="create-account-pseudo"
+                    className="rounded-lg border-pink-500 flex-1 mt-5 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    name="userName"
+                    value={Data.userName}
+                    onChange={handlechange}
+                    placeholder="Agent Name"
+                  />
+                </div>
+              </div>
+              <div className="flex gap-4 mb-2">
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="create-account-first-name"
+                    className="rounded-lg border-pink-500 mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    name="email"
+                    value={Data.email}
+                    onChange={handlechange}
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col mb-2">
+                <div className="relative">
+                  <input
+                    type="password"
+                    id="create-account-email"
+                    className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
+                    name="password"
+                    value={Data.password}
+                    onChange={handlechange}
+                    placeholder="Password"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col mb-2">
+                <div className="relative">
+                  <input
+                    type="password"
+                    id="create-account-email"
+                    className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
+                    name="confirmpassword"
+                    value={Data.confirmpassword}
+                    onChange={handlechange}
+                    placeholder="confirmpassword"
+                  />
+                </div>
+              </div>
+
+
+
+              <div className="flex flex-col mb-2">
+                <div className="relative">
+                  <input
+                    type="tel"
+                    id="create-account-phone"
+                    className="rounded-lg border-pink-500 mt-4 flex-1  border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
+                    name="phone"
+                    value={Data.phone}
+                    onChange={handlechange}
+                    placeholder="Phone"
+                  />
+                </div>
+              </div>
+              <div className="flex w-full my-10">
+                <button
+                  type="submit"
+                  className="py-2 px-4 bg-[#dc5151] hover:bg-pink-400 focus:ring-pink-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-thin shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+                >
+                  Sign up
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+      <ToastContainer />
+    </div>
+
+
+
+  )
+}
+
+export default Agentsignup

@@ -5,8 +5,10 @@ const userapi=Userinterception
 
 
 export async function signupData(data) {
+    console.log(data);
     try {
         const userdata = await userapi.post('/signup', data)
+        console.log(userdata,";");
         return userdata
     } catch (err) {
         console.log(err);

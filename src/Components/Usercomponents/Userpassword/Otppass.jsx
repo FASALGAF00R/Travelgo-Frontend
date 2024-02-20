@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Otpdata } from '../../../Api/Userapi'
 import { ToastContainer, toast } from "react-toastify";
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import { RouteObjects } from '../../../Routes/RouteObject';
 function Otppass() {
   const location = useLocation()
-  const { email } = location.state
-  console.log(email,';;;;;;;;;;');
+  const { email ,role} = location.state
+  
+  console.log(email,';;;;;;;;;;',location);
 
   const navigate = useNavigate()
-
   const [otp, setOtp] = useState('')
 
   const handlesubmit = async (e) => {
@@ -20,8 +20,10 @@ function Otppass() {
       }
       const Otp = await Otpdata(otp)
       if (Otp.data.success === true) {
-        alert(Otp.data.message)
-        navigate('/newpass', { state: { email } })
+        toast.success(Otp.data.message)
+        setTimeout(() => {
+          navigate(RouteObjects.ResetPassword, { state: { email,role } })        
+        }, 2000);
       } else {
         toast.error(Otp.data.message)
       }

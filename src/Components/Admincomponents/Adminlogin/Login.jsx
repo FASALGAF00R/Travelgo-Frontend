@@ -2,6 +2,9 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useState, } from 'react';
 import { Admindata } from '../../../Api/Adminapi';
+import { ToastContainer, toast } from "react-toastify";
+import { RouteObjects } from '../../../Routes/RouteObject';
+
 import {
   Card,
   Input,
@@ -9,10 +12,10 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
- 
+
 
 function Login() {
-  const navigate =useNavigate()
+  const navigate = useNavigate()
   const [admin, setadmin] = useState({
     email: "",
     password: ""
@@ -33,10 +36,13 @@ function Login() {
     try {
       e.preventDefault();
       const res = await Admindata(admin)
-      if(res.data.status){
-setTimeout(() => {
-  navigate('/admin/')
-}, 2000);
+      if (res.data) {
+        toast.success(res.data.message)
+        localStorage.setItem('accesToken', res.data.accesToken)
+        localStorage.setItem('refreshToken', res.data.Refreshtoken)
+        setTimeout(() => {
+          navigate(RouteObjects.Adminhome)
+        }, 2000);
       }
 
 
@@ -60,8 +66,8 @@ setTimeout(() => {
           </Typography>
           <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit}>
             <div className="mb-1 flex flex-col gap-6">
-         
-            
+
+
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Your Email
               </Typography>
@@ -98,6 +104,7 @@ setTimeout(() => {
             </Button>
 
           </form>
+          <ToastContainer />
 
         </Card>
       </div>

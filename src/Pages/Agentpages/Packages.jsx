@@ -43,7 +43,6 @@ function Packages() {
 
         const Response = await fetchActivities();
         setactivity(Response.data)
-        console.log("Activity response:", Response);
 
 
       } catch (error) {

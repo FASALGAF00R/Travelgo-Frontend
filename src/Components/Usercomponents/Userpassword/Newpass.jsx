@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import { ToastContainer, toast } from "react-toastify";
 import { Newpassword } from '../../../Api/Userapi';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { RouteObjects } from '../../../Routes/RouteObject';
 
 function Newpass() {
     const location = useLocation()
-    const {type} =location.state
-    const {email}  = location.state
-    console.log(type,"ppggggggggggggggggggggggggggggg");
+
+    const data = location.state
+    console.log(data.role,"--------------");
 
     const navigate = useNavigate()
     const [password, setPassword] = useState('');
@@ -23,11 +24,32 @@ function Newpass() {
             toast.error("password and confirmPassword don't match");
         } else {
             try {
-                const Req = await Newpassword({ password, email });     
-                if (Req.data.success === true) {             
-                    alert(Req.data.message);
-                    navigate('/login');
+                if(data.role==='user'){
+
+                
+                    const email=data.email
+                    const role=data.role
+                    const Req = await Newpassword({ password, email,role });     
+                    if (Req.data.success === true) {             
+                        toast.success(Req.data.message);
+                        setTimeout(() => {
+                            navigate(RouteObjects.UserLogin);                  
+                        }, 2000);
+                    }
+                }else{
+                    const email=data.email
+                    const role=data.role
+                    const Req = await Newpassword({ password, email,role });     
+                    if (Req.data.success === true) {             
+                        toast.success(Req.data.message);
+                        setTimeout(() => {
+                            navigate(RouteObjects.Login);                  
+                        }, 2000);
+                    }
                 }
+               
+               
+                
             } catch (error) {
                 console.log(error);
             }
