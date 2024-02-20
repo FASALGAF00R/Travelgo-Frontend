@@ -5,13 +5,16 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
-
-
 } from "@material-tailwind/react";
-import { Addpackagedata } from '../../Api/Agentapi';
-
+import {
+  fetchcatgeory,
+  fetchActivities,
+  Addpackagedata
+} from '../../Api/Agentapi';
 
 function Packages() {
+  const [category, setcategory] = useState([])
+  const [activity, setactivity] = useState([])
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     placeName: '',
@@ -32,6 +35,28 @@ function Packages() {
     });
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchcatgeory();
+        setcategory(response.data.Categories);
+
+        const Response = await fetchActivities();
+        setactivity(Response.data)
+        console.log("Activity response:", Response);
+
+
+      } catch (error) {
+        console.log("Error while fetching category/activity:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,13 +66,13 @@ function Packages() {
     });
   };
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-     
-      await Addpackagedata({formData:formData})
+
+      await Addpackagedata({ formData: formData })
     } catch (error) {
-      console.log("error while submitting form",error);
+      console.log("error while submitting form", error);
     }
 
     setFormData({
@@ -77,7 +102,7 @@ function Packages() {
           </button>
         </div>
       </div>
-        <Dialog open={open} handler={handleOpen} size="md" >
+      <Dialog open={open} handler={handleOpen} size="md" >
         <DialogHeader>Add package</DialogHeader>
         <DialogBody className="max-h-80 overflow-y-auto" >
           <form onSubmit={handleSubmit}>
@@ -108,14 +133,19 @@ function Packages() {
 
             <div className="flex flex-col mb-4">
               <label className="mb-2" htmlFor="category">Category:</label>
-              <input
+              <select
                 className="p-2 border border-gray-300 rounded"
                 type="text"
                 id="category"
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-              />
+              >
+                <option value="">Select Category</option>
+                {category.map(cat => (
+                  <option key={cat._id} value={cat._id}>{cat.Name}</option>
+                ))}
+              </select>
             </div>
 
             <div className="flex flex-col mb-4">
@@ -131,14 +161,23 @@ function Packages() {
 
             <div className="flex flex-col mb-4">
               <label className="mb-2" htmlFor="activities">Activities:</label>
-              <input
+
+              <select
                 className="p-2 border border-gray-300 rounded"
                 type="text"
                 id="activities"
                 name="activities"
                 value={formData.activities}
                 onChange={handleChange}
-              />
+              >
+                <option value="">Select Activity</option>
+                {activity.map(act => (
+                  <option key={act._id} value={act._id}>{act.Activity}</option>
+                ))}
+              </select>
+
+
+
             </div>
 
             <div className="flex flex-col mb-4">

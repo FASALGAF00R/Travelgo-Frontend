@@ -148,3 +148,30 @@ export async function Addpackagedata(data) {
         console.log(error);
     }
 }
+
+
+
+export async function fetchcatgeory() {
+    try {
+        const result = await agentapi.get('/getcategories');
+        console.log(result);
+        return result
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+export async function fetchActivities() {
+    try {
+        const result = await agentapi.get('/getactivites');
+        console.log(result,";;");
+        return result
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
