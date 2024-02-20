@@ -13,7 +13,7 @@ import { UpdatePlace } from '../../Api/Agentapi';
 function Places() {
   const [placeModalOpen, setPlaceModalOpen] = useState(false)
   const [formdata, setformdata] = useState({
-    place: '',
+    Destrictname: '',
     description: '',
     image: null
   })
@@ -47,7 +47,7 @@ function Places() {
   const handleEdit = (place) => {
     setEditingPlace(place);
     setformdata({
-      place: place.Placename,
+      Destrictname: place.Destrictname,
       description: place.Description,
       image: null 
     });
@@ -94,7 +94,10 @@ function Places() {
 
   return (
     <>
-      <span className=' flex justify-center  font-extrabold'>PLACES MANAGEMENT</span>
+<div className='flex justify-center'>
+  <span className='font-extrabold text-blue-gray-700'>PLACES</span>
+  <span className='font-extrabold text-gray-600'> MANAGEMENT</span>
+</div>
       <div className='flex p-8'>
         <div className="w-[100%] flex justify-end">
           <button onClick={openModal} className="bg-blue-gray-700 p-3  text-cyan-50 rounded-lg">Add places
@@ -106,8 +109,8 @@ function Places() {
         <DialogBody>
           <form onSubmit={handleSubmit}>
             <div>
-              <label className='text-gray-800 ' htmlFor="placeName">Place Name:</label>
-              <input className=' w-full ' type="text" id="placeName" name="place" value={formdata.place} onChange={handlechange} />
+              <label className='text-gray-800 ' htmlFor="placeName">District Name:</label>
+              <input className=' w-full ' type="text" id="Destrictname" name="Destrictname" value={formdata.Destrictname} onChange={handlechange} />
             </div>
             <div>
               <label className='text-gray-800 ' htmlFor="description">Description:</label>
@@ -131,11 +134,11 @@ function Places() {
             <div key={place._id} onClick={()=>handleEdit(place)} className="bg-gray-600 shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
               <img
                 src={place.Image}
-                alt='{place.Placename}'
+                alt='{place.Destrictname}'
                 class=" object-cover"
               />
               <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                <p class="text-white text-lg font-bold">{place.Placename}</p>
+                <p class="text-white text-lg font-bold">{place.Destrictname}</p>
               </div>
 
               <div class="bg-gray-500 font-light shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">

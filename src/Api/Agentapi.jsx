@@ -136,3 +136,15 @@ export async function UpdateActivity(id, data) {
         console.log(error);
     }
 }
+
+
+export async function Addpackagedata(data) {
+    console.log(data);
+    try {
+        const result = await agentapi.post('/addpackage', data);
+        console.log(result);
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
