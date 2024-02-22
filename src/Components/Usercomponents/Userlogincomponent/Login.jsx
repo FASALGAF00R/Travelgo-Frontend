@@ -110,7 +110,7 @@ const Login = () => {
   }
 
   return (
-    <div className='flex justify-center items-center  bg-pink-50 '>
+    <div className='flex justify-center items-center h-full bg-pink-50 '>
       <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
         <div className='flex  justify-center items-center w-[50%] h-full'>
 
@@ -133,6 +133,7 @@ const Login = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter your email"
+                autoComplete="username"
               />
             </div>
             <div className="mb-6">
@@ -147,6 +148,7 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter your password"
+                autoComplete="current-password"
               />
             </div>
             <button onClick={handleForgot} className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
@@ -171,7 +173,7 @@ const Login = () => {
             <br/>
             <br/>
 
-          <div class="flex justify-center sm:px-0 max-w-sm  " onClick={() => Googleauth()}>
+          <div className="flex justify-center sm:px-0 max-w-sm  " onClick={() => Googleauth()}>
             <button className="px-6 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200  transition duration-150  hover:scale-110">
               <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg " loading="lazy" alt="google logo"></img>
               <span>Login with Google</span>

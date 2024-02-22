@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Formdata } from '../../../Api/Agentapi'
-import { agentdata } from '../../../Api/Agentapi'; 
+import { agentdata } from '../../../Api/Agentapi';
 import { useNavigate } from 'react-router-dom'
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from 'react-router-dom';
@@ -54,12 +54,12 @@ function Login() {
             }
           })
           const result = await agentdata(res)
-          if(result.data.success){
+          if (result.data.success) {
             toast(result.data.message)
             setTimeout(() => {
-              navigate(RouteObjects.Home)           
+              navigate(RouteObjects.Home)
             }, 2000);
-          }else{
+          } else {
             toast.error('error got')
           }
         } catch (error) {
@@ -75,8 +75,8 @@ function Login() {
 
   );
 
-  const handleForgot=()=>{
-    navigate( RouteObjects.ForgetPassword,{state:{role:'agent'}})
+  const handleForgot = () => {
+    navigate(RouteObjects.ForgetPassword, { state: { role: 'agent' } })
   }
 
 
@@ -85,20 +85,20 @@ function Login() {
     try {
       if (!agent.email || !agent.password) {
         toast.error("fields required")
-      }else{
-      const res = await Formdata(agent)
-      console.log(res, "response");
-      if (res.data.success) {
-        toast.success(res.data.message)
-        setTimeout(() => {
-          localStorage.setItem('token', res.data.token)
-          navigate('/agent/');
-        }, 2000);
-      }else{
-        toast.error(res.data.message)
+      } else {
+        const res = await Formdata(agent)
+        console.log(res, "response");
+        if (res.data.success) {
+          toast.success(res.data.message)
+          setTimeout(() => {
+            localStorage.setItem('token', res.data.token)
+            navigate('/agent/');
+          }, 2000);
+        } else {
+          toast.error(res.data.message)
 
-      }  
-    }
+        }
+      }
     } catch (error) {
       console.log(error);
       toast.error(res.data.message)
@@ -109,8 +109,8 @@ function Login() {
 
   return (
     <>
-      <div className='flex justify-center items-center '>
-        <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
+      <div className='flex justify-center h-screen items-center bg-pink-50'>
+        <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center  rounded-md' >
           <div className='flex  justify-center gap-4 font-semibold text-lg items-center w-[50%] h-full'>
 
 
@@ -126,13 +126,15 @@ function Login() {
                   Email
                 </label>
                 <input
-                  className="shadow appearance-none border-pink-500  w-full py-2 px-3 text-gray-700 leading-tight font-light rounded-full"
+                  className="shadow appearance-none border-pink-500  w-full py-2 px-3 text-black leading-tight font-light rounded-lg"
                   id="email"
                   type="text"
                   name="email"
                   value={agent.email}
                   onChange={handlechange}
                   placeholder="Enter your email"
+                  autoComplete="username"
+
                 />
               </div>
               <div className="mb-6">
@@ -140,25 +142,27 @@ function Login() {
                   Password
                 </label>
                 <input
-                  className="shadow appearance-none  border-pink-500  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline rounded-full"
+                  className="shadow appearance-none  border-pink-500  w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline rounded-lg"
                   id="password"
                   type="password"
                   name="password"
                   value={agent.password}
                   onChange={handlechange}
                   placeholder="Enter your password"
+                  autoComplete="current-password"
+
                 />
               </div>
 
-              <button onClick={handleForgot}  className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
-              Forgot password  ?
-            </button>
+              <button onClick={handleForgot} className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+                Forgot password  ?
+              </button>
 
 
-              
+
               <div className="flex items-center justify-between">
                 <button
-                  className=" bg-[#dc5151] hover:bg-pink-400 text-white  mt-2 font-light py-1 px-20 ml-12 rounded-full  "
+                  className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-2 font-light py-1 px-20 ml-12 rounded-full  "
                   type="submit"
                 >
                   Log In
@@ -168,23 +172,24 @@ function Login() {
               </br>
               <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
                 Doesn't have an account?
-                <Link to="/agent/signup" className="text-sm  ml-3 text-pink-800 underline hover:text-blue-700">
+                <Link to="/agent/signup" className="text-sm  ml-3  underline hover:text-blue-700">
                   Sign up
                 </Link>
               </span>
-            </form>   
-            <div class="sm:px-0 max-w-sm mb-3 " onClick={() => Googleauth()}>
-              <button className="px-6 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150">
+              
+            <div class="flex justify-center sm:px-0 max-w-sm mt-5 " onClick={() => Googleauth()}>
+              <button className="px-6 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150 hover:scale-110">
                 <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg " loading="lazy" alt="google logo"></img>
                 <span>Login with Google</span>
               </button>
             </div>
-      <Toaster />
+            </form>
+            <Toaster />
           </div>
         </div>
       </div>
     </>
- 
+
   )
 }
 

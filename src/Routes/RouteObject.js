@@ -13,11 +13,11 @@ export const RouteObjects = {
 
   // ===========AGENT============
 
-  Login: "/agent/login",
-  Home: "/agent/",
-  Places: "/agent/places",
-  Activites: "/agent/activites",
-  Packages:'/agent/packages',
+  // Login: "/agent/login",
+  // Home: "/agent/",
+  // Places: "/agent/places",
+  // Activites: "/agent/activites",
+  // Packages:'/agent/packages',
 
 
   // // ===========ADMIN============
@@ -25,6 +25,7 @@ export const RouteObjects = {
   Adminhome: "/admin/",
   Adminapproval: '/admin/approval',
   UserList: "/admin/users",
+  Agentlist:'/admin/agents',
   Category: "/admin/category",
 
 };

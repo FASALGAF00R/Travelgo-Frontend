@@ -22,16 +22,8 @@ function AgentRoutes() {
           <Route path='/places' element={< Places />} />
           <Route path='/activites' element={<Activies/>} />
           <Route path='/packages' element={<Packages/>} />
-
         </Route>
-
-
-
       </Routes>
-
-
-
-
     </div>
   )
 }

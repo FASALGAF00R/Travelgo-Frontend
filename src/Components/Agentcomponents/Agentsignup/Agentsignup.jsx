@@ -81,18 +81,18 @@ function Agentsignup() {
   return (
 
 
-    <div className="flex items-center justify-center h-auto bg-gradient-to-r from-[violet]-500  ">
-      <div className='bg-gradient-to-r from-[#a0c0ca] to-[#da8484] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
+    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-[violet]-500  bg-pink-50">
+      <div className='bg-gradient-to-r from-[#a0c0ca] to-[#da8484] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center  rounded-md' >
         {/* <img
             className="w-1/3 h-auto  rounded-l-md  object-cover" src={alt="signup image" /> */}
 
-        <div className="flex flex-col bg- [#ee8e8e] rounded-lg mt-3 shadow-2xl dark:bg-gray-800 mr-11 lg:px-10">
+        <div className="flex flex-col bg- [#ee8e8e] rounded-lg  shadow-2xl dark:bg-gray-800 mr-11 lg:px-10">
           <div className="self-center mb-5 mt-5 text-xl font-semibold text-black-800 sm:text-2xl dark:text-white">
             Agent Sign up
           </div>
           <span className="justify-center text-sm text-center gap-3 font-thin text-gray-800 flex items-center dark:text-gray-400">
-            Already have an account?
-            <Link to="/agent/login" className="text-sm text-blue-500 underline hover:text-blue-700">
+            Already have an account  ?
+            <Link to="/agent/login" className="text-sm  underline hover:text-blue-700">
               Sign in
             </Link>
           </span>
@@ -104,11 +104,11 @@ function Agentsignup() {
                   <input
                     type="text"
                     id="create-account-pseudo"
-                    className="rounded-lg border-pink-500 flex-1 mt-5 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    className="rounded-lg border-pink-500 flex-1 mt-5 appearance-none border w-72 py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     name="userName"
                     value={Data.userName}
                     onChange={handlechange}
-                    placeholder="Agent Name"
+                    placeholder="Agent name"
                   />
                 </div>
               </div>
@@ -117,7 +117,7 @@ function Agentsignup() {
                   <input
                     type="text"
                     id="create-account-first-name"
-                    className="rounded-lg border-pink-500 mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    className="rounded-lg border-pink-500 mt-4 flex-1 appearance-none border w-72 py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     name="email"
                     value={Data.email}
                     onChange={handlechange}
@@ -131,7 +131,7 @@ function Agentsignup() {
                   <input
                     type="password"
                     id="create-account-email"
-                    className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
+                    className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
                     name="password"
                     value={Data.password}
                     onChange={handlechange}
@@ -145,11 +145,11 @@ function Agentsignup() {
                   <input
                     type="password"
                     id="create-account-email"
-                    className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
+                    className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
                     name="confirmpassword"
                     value={Data.confirmpassword}
                     onChange={handlechange}
-                    placeholder="confirmpassword"
+                    placeholder="confirm password"
                   />
                 </div>
               </div>
@@ -172,7 +172,7 @@ function Agentsignup() {
               <div className="flex w-full my-10">
                 <button
                   type="submit"
-                  className="py-2 px-4 bg-[#dc5151] hover:bg-pink-400 focus:ring-pink-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-thin shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+                  className="py-2 px-4 bg-[#dc5151] hover:bg-pink-400 focus:ring-pink-500 hover:scale-110 text-white w-full transition ease-in duration-200 text-center text-base font-thin shadow-md focus:outline-none  rounded-lg"
                 >
                   Sign up
                 </button>

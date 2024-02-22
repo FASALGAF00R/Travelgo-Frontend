@@ -15,7 +15,7 @@ function Verification() {
         if (result.status === 200) {
           setTimeout(() => {
             toast.success('User verification success');
-            navigate(RouteObjects.Login);
+            navigate(RouteObjects.UserLogin);
           }, 3000);
 
         }
@@ -54,7 +54,6 @@ function Verification() {
           You will be redirected to the login page shortly.
         </p>
       </div>
-      <Toaster/>
     </div>
   );
 }
