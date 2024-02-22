@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { signupData } from '../../../Api/Userapi';
-import { ToastContainer,toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from 'react-router-dom';
 import signupic from '../../../Assests/Images/signupic.png'
 import { RouteObjects } from '../../../Routes/RouteObject';
@@ -49,13 +49,13 @@ const Usersignup = () => {
     e.preventDefault();
     try {
       if(user.password != user.confirmpassword){
-        toast.error("password and confirmPassword don't match");
+        toast.error("Passwords must match.");
       }
   
       if(!user.userName || !user.email || !user.password ){
-        toast.error("fields empty")
+        toast.error("Please enter all fields")
      } else if (!validatePassword(password)) {
-      toast.error("Password must be at least 6 characters long and contain both letters and numbers");
+      toast.error("Password: 6+ chars, letters & numbers.");
     } else{
 
       const userData = await signupData(user);
@@ -92,8 +92,8 @@ const Usersignup = () => {
               Sign up
             </div>
             <span className="justify-center text-sm text-center gap-3 font-thin text-gray-800 flex items-center dark:text-gray-400">
-              Already have an account?
-              <Link to="/login" className="text-sm text-blue-500 underline hover:text-blue-700">
+              Already have an account ?
+              <Link to="/login" className="text-sm  underline hover:text-blue-700">
                 Sign in
               </Link>
             </span>
@@ -105,11 +105,11 @@ const Usersignup = () => {
                     <input
                       type="text"
                       id="create-account-pseudo"
-                      className="rounded-lg border-pink-500 flex-1 mt-5 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                      className="rounded-lg border-pink-500 flex-1 mt-5 appearance-none border w-72 py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       name="userName"
                       value={user.userName}
                       onChange={handleChange}
-                      placeholder="Full Name"
+                      placeholder="Full name"
                     />
                   </div>
                 </div>
@@ -118,7 +118,7 @@ const Usersignup = () => {
                     <input
                       type="text"
                       id="create-account-first-name"
-                      className="rounded-lg border-pink-500 mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                      className="rounded-lg border-pink-500 mt-4 flex-1 appearance-none border w-72 py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       name="email"
                       value={user.email}
                       onChange={handleChange}
@@ -132,7 +132,7 @@ const Usersignup = () => {
                     <input
                       type="password"
                       id="create-account-email"
-                      className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
+                      className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-72 py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
                       name="password"
                       value={user.password}
                       onChange={handleChange}
@@ -146,25 +146,29 @@ const Usersignup = () => {
                     <input
                       type="password"
                       id="create-account-email"
-                      className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
+                      className="rounded-lg border-pink-500  mt-4 flex-1 appearance-none border w-72  py-2 px-4 bg-white text-black placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600focus:border-transparent"
                       name="confirmpassword"
                       value={user.confirmpassword}
                       onChange={handleChange}
-                      placeholder="confirmpassword"
+                      placeholder="Confirmpassword"
                     />
                   </div>
                 </div>
+
+            
+
+
            
                 <div className="flex w-full my-10">
                   <button
                     type="submit"
-                    className="py-2 px-4 bg-[#dc5151] hover:bg-pink-400 focus:ring-pink-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-thin shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+                    className="py-2 px-4 bg-[#dc5151] hover:bg-pink-400  hover:scale-110 text-white w-[100%] transition ease-in duration-200 text-center text-base font-thin shadow-md focus:outline-none  rounded-lg"
                   >
                     Sign up
                   </button>
                 </div>
               </form>
-              <ToastContainer/>
+              <Toaster/>
 
             </div>
           </div>

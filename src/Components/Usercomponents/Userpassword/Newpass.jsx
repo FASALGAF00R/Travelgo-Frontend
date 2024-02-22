@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { Newpassword } from '../../../Api/Userapi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteObjects } from '../../../Routes/RouteObject';
@@ -98,7 +98,7 @@ function Newpass() {
                             Submit
                         </button>
                     </form>
-                    <ToastContainer />
+                    <Toaster />
                 </div>
             </div>
         )

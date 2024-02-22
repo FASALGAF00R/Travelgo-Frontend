@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Otpdata } from '../../../Api/Userapi'
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteObjects } from '../../../Routes/RouteObject';
 function Otppass() {
@@ -62,7 +62,7 @@ function Otppass() {
             </div>
           </form>
         </div >
-        <ToastContainer />
+        <Toaster />
       </div>
     </div>
 

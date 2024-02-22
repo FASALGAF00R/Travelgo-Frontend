@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { Signupdata } from '../../../Api/Agentapi.jsx';
 import { Link, useNavigate } from 'react-router-dom';
 import { RouteObjects } from '../../../Routes/RouteObject.js';
@@ -182,7 +182,7 @@ function Agentsignup() {
           </div>
         </div>
       </div>
-      <ToastContainer />
+      <Toaster />
     </div>
 
 

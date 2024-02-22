@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Profile } from '../../Api/Userapi';
 import { jwtDecode } from 'jwt-decode';
 import { resetPassword } from '../../Api/Userapi';
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
 import { getuser } from '../../Api/Userapi';
 import { RouteObjects } from '../../Routes/RouteObject';
@@ -47,9 +47,15 @@ function Userprofile() {
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append('profilepic', file);
+      formData.append('userId', Userid);
+      console.log(file,'sssssssssssssssssssss',formData);
       const Response = await Profile(formData)
-      const Url = Response.data.imageUrl;
-      setFormData(Url);
+      if(Response.status === 200) {
+        window.location.reload();
+      }
+      console.log(Response,'oooooooooooooo');
+    
+      // setFormData(Url);
     } catch (error) {
       console.error(error);
     }
@@ -96,7 +102,7 @@ function Userprofile() {
       <div className="w-full md:w-[30%] bg-white shadow-md  shadow-pink-600 p-6 rounded-3xl">
         <div className="flex justify-center items-center">
             <label htmlFor="upload" className="cursor-pointer">
-            <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={formData} alt="Profile" />
+            <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={image} alt="Profile" />
               <input
                 type="file"
                 id="upload"
@@ -126,7 +132,7 @@ function Userprofile() {
           <button type="submit" className="bg-[#dc5151] hover:bg-pink-400 text-white font-thin py-2 px-4 rounded-lg mt-4 self-center" >Change Password</button>
         </form>
       </div>
-      <ToastContainer />
+      <Toaster />
     </div>
 
 

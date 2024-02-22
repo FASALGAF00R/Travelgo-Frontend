@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserVerify } from '../../../Api/Userapi';
-import { ToastContainer, toast } from 'react-toastify';
+import toast, { Toaster } from "react-hot-toast";
 import { RouteObjects } from '../../../Routes/RouteObject';
 
 function Verification() {
@@ -54,7 +54,7 @@ function Verification() {
           You will be redirected to the login page shortly.
         </p>
       </div>
-      <ToastContainer/>
+      <Toaster/>
     </div>
   );
 }

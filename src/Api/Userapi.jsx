@@ -85,6 +85,7 @@ export async function Newpassword(data){
 
 
 export async function Profile(data){
+    console.log(data,"opp33333333333333333p");
     try {
         const result =await userapi.post('/profile',data,{
             headers : {

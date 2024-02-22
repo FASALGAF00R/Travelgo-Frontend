@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { Forgot } from '../../../Api/Userapi'
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteObjects } from '../../../Routes/RouteObject';
 
@@ -86,7 +86,7 @@ const location=useLocation()
                         </p>
                     </div>
                 </form>
-            <ToastContainer />
+            <Toaster />
             </div>
         </div>
     )

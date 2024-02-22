@@ -139,10 +139,14 @@ export async function UpdateActivity(id, data) {
 
 
 export async function Addpackagedata(data) {
-    console.log(data);
+    console.log(data,'iiiiiiiiiiiiiiiiii');
     try {
-        const result = await agentapi.post('/addpackage', data);
-        console.log(result);
+        const result = await agentapi.post('/addpackage', data, {
+            headers : {
+                "Content-Type":"multipart/form-data",
+            }
+            })
+        console.log(result,"ll");
         return result
     } catch (error) {
         console.log(error);

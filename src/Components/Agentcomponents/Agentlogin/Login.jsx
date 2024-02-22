@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Formdata } from '../../../Api/Agentapi'
 import { agentdata } from '../../../Api/Agentapi'; 
 import { useNavigate } from 'react-router-dom'
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { Link } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
@@ -179,7 +179,7 @@ function Login() {
                 <span>Login with Google</span>
               </button>
             </div>
-      <ToastContainer />
+      <Toaster />
           </div>
         </div>
       </div>

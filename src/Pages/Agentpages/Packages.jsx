@@ -55,8 +55,6 @@ function Packages() {
 
 
 
-
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -68,8 +66,10 @@ function Packages() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
-      await Addpackagedata({ formData: formData })
+   
+      console.log(formData,'oooooll');
+   const  res= await Addpackagedata(formData); 
+   console.log(res);
     } catch (error) {
       console.log("error while submitting form", error);
     }
@@ -84,7 +84,7 @@ function Packages() {
     });
     setOpen(false);
   };
-
+console.log(formData,"pp");
 
   return (
     <>
@@ -124,8 +124,7 @@ function Packages() {
                 type="file"
                 id="image"
                 name="image"
-                value={formData.image}
-                onChange={handleChange}
+                onChange={handleImageUpload}
 
               />
             </div>
@@ -142,7 +141,7 @@ function Packages() {
               >
                 <option value="">Select Category</option>
                 {category.map(cat => (
-                  <option key={cat._id} value={cat._id}>{cat.Name}</option>
+                  <option key={cat._id} value={cat.Name}>{cat.Name}</option>
                 ))}
               </select>
             </div>
@@ -171,7 +170,7 @@ function Packages() {
               >
                 <option value="">Select Activity</option>
                 {activity.map(act => (
-                  <option key={act._id} value={act._id}>{act.Activity}</option>
+                  <option key={act._id} value={act.Activity}>{act.Activity}</option>
                 ))}
               </select>
 

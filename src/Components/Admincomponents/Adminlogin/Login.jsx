@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useState, } from 'react';
 import { Admindata } from '../../../Api/Adminapi';
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { RouteObjects } from '../../../Routes/RouteObject';
 
 import {
@@ -104,7 +104,7 @@ function Login() {
             </Button>
 
           </form>
-          <ToastContainer />
+          <Toaster />
 
         </Card>
       </div>
