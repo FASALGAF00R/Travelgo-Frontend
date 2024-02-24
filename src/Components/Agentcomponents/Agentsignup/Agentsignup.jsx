@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Signupdata } from '../../../Api/Agentapi.jsx';
 import { Link, useNavigate } from 'react-router-dom';
 import { RouteObjects } from '../../../Routes/RouteObject.js';
-
+import agentsignupImage from '../../../Assests/Images/agentsignupImage.jpg'
 
 function Agentsignup() {
 
@@ -60,7 +60,7 @@ function Agentsignup() {
       } else if (!/^\d{10}$/.test(Data.phone)) {
         toast.error('Phone number must be 10 digits');
       } else if (!validatePassword(Data.password)) {
-        toast.error("Password must be at least 6 characters long and contain both letters and numbers");
+        toast.error("Password: 6+ chars, letters & numbers.");
       } else {
         const res = await Signupdata(Data)
         if (res.data.newagent) {
@@ -83,8 +83,8 @@ function Agentsignup() {
 
     <div className="flex items-center justify-center h-screen bg-gradient-to-r from-[violet]-500  bg-pink-50">
       <div className='bg-gradient-to-r from-[#a0c0ca] to-[#da8484] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center  rounded-md' >
-        {/* <img
-            className="w-1/3 h-auto  rounded-l-md  object-cover" src={alt="signup image" /> */}
+         <img
+            className="w-2/5 h-5/6  rounded-l-md  object-cover mr-9" src={agentsignupImage} alt="signup image" /> 
 
         <div className="flex flex-col bg- [#ee8e8e] rounded-lg  shadow-2xl dark:bg-gray-800 mr-11 lg:px-10">
           <div className="self-center mb-5 mt-5 text-xl font-semibold text-black-800 sm:text-2xl dark:text-white">

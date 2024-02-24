@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { jwtDecode } from "jwt-decode";
+import { RouteObjects } from "../../../Routes/RouteObject";
 
 
 // small thing
@@ -16,10 +17,10 @@ function NavList({ userName }) {
   const navigate = useNavigate()
 
   const handlelogout = () => {
-    {
+    
       localStorage.removeItem('accesToken')
-    }
-    navigate('/login')
+    
+    navigate(RouteObjects.UserLogin)
   }
 
 

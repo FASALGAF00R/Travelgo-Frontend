@@ -13,7 +13,8 @@ export const RouteObjects = {
 
   // ===========AGENT============
 
-  // Login: "/agent/login",
+  AgentLogin: "/agent/login",
+  Agentverification:"/agent/verify/:token",
   // Home: "/agent/",
   // Places: "/agent/places",
   // Activites: "/agent/activites",
@@ -21,7 +22,7 @@ export const RouteObjects = {
 
 
   // // ===========ADMIN============
-  AdminLogin: "/login",
+  AdminLogin: "/admin/login",
   Adminhome: "/admin/",
   Adminapproval: '/admin/approval',
   UserList: "/admin/users",

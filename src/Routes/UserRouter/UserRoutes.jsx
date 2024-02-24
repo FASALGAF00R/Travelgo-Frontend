@@ -26,7 +26,7 @@ function UserRoutes() {
 
         </Route>
 
-  
+
 
 
         <Route path='/login' element={
@@ -42,10 +42,10 @@ function UserRoutes() {
         } />
 
         <Route path="/verify/:token" element={<Verification />} />
-       <Route path='/forgotpass' element={<Forgotpass/>}/>
-       <Route path='/otpverify' element={<Otppass/>}/>
-       <Route path='/newpass' element={<Newpass/>}/>
-       <Route path='/profile' element={<Userprofile/>}/>
+        <Route path='/forgotpass' element={<Forgotpass />} />
+        <Route path='/otpverify' element={<Otppass />} />
+        <Route path='/newpass' element={<Newpass />} />
+        <Route path='/profile' element={<Userprofile />} />
       </Routes>
 
     </div>

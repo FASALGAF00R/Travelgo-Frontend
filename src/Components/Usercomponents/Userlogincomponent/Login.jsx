@@ -18,6 +18,8 @@ const Login = () => {
     password: '',
   });
 
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -54,7 +56,6 @@ const Login = () => {
               Accept: 'application/json'
             }
           })
-          console.log(response, "googlefhdh");
 
           const result = await Googledata(response)
           toast(result.data.message)
