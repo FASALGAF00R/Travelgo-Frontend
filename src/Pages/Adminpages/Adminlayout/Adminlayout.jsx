@@ -10,10 +10,8 @@ function Adminlayout() {
                 <Home />
             </div>
             <div className='w-screen'>
-                <Adminheader />
-                {/* <div className='W-[80%]'> */}
+                <Adminheader />         
                 <Outlet />
-                {/* </div> */}
             </div>
         </div>
     )

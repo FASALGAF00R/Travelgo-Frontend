@@ -92,7 +92,7 @@ function Login() {
           toast.success(res.data.message)
           setTimeout(() => {
             localStorage.setItem('token', res.data.token)
-            navigate('/agent/');
+            navigate(RouteObjects.AgentHome,{state:{role:'agent'}});
           }, 2000);
         } else {
           toast.error(res.data.message)

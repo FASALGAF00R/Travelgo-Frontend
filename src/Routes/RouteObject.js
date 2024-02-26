@@ -15,10 +15,10 @@ export const RouteObjects = {
 
   AgentLogin: "/agent/login",
   Agentverification:"/agent/verify/:token",
-  // Home: "/agent/",
-  // Places: "/agent/places",
-  // Activites: "/agent/activites",
-  // Packages:'/agent/packages',
+  AgentHome: "/agent/",
+  AgentPlaces: "/agent/places",
+  AgentActivites: "/agent/activites",
+  Packages:'/agent/packages',
 
 
   // // ===========ADMIN============

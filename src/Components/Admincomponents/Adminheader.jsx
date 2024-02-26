@@ -5,9 +5,9 @@ import { RouteObjects } from '../../Routes/RouteObject'
 function Adminheader() {
     let navigate = useNavigate()
 
+
+    
     const handleLogout = () => {
-        console.log("higfxcfh");
-        const Token=localStorage.getItem('accesToken')
         localStorage.removeItem('accesToken')
         navigate(RouteObjects.AdminLogin)
 

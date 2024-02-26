@@ -43,7 +43,7 @@ function Newpass() {
                     if (Req.data.success === true) {             
                         toast.success(Req.data.message);
                         setTimeout(() => {
-                            navigate(RouteObjects.Login);                  
+                            navigate(RouteObjects.AgentLogin);                  
                         }, 2000);
                     }
                 }
