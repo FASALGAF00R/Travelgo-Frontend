@@ -9,7 +9,8 @@ function Adminheader() {
     
     const handleLogout = () => {
         localStorage.removeItem('accesToken')
-        navigate(RouteObjects.AdminLogin)
+        const isAdmin = localStorage.getItem('userRole') === 'admin';
+        navigate(isAdmin ? RouteObjects.AdminLogin : RouteObjects.AgentLogin);
 
     }
 

@@ -35,15 +35,17 @@ function Login() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      if(admin.email ==="" && admin.password ===""){
+      if (admin.email === "" && admin.password === "") {
         toast.error("fields empty")
-      }else{
+      } else {
         const res = await Admindata(admin)
-        if(res.data.success===false){
+        if (res.data.success === false) {
           toast.error(res.data.message)
-        }else{
+        } else {
           localStorage.setItem('accesToken', res.data.accesToken)
           localStorage.setItem('refreshToken', res.data.Refreshtoken)
+          localStorage.setItem('userRole', 'admin');
+
           setTimeout(() => {
             navigate(RouteObjects.Adminhome)
           }, 2000);

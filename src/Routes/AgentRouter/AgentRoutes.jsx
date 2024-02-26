@@ -14,7 +14,7 @@ function AgentRoutes() {
   return (
     <div>
       <Routes>
-        <Route path='/login' element={<Login />} />
+        <Route path='/Login' element={<Login />} />
         <Route path='/verify/:token' element={<Agentverify />} />
         <Route path='/signup' element={<Agentsignup />} />
         <Route element={<Agentlayout />}>
