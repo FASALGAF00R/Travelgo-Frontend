@@ -91,7 +91,8 @@ function Login() {
         if (res.data.success) {
           toast.success(res.data.message)
           setTimeout(() => {
-            localStorage.setItem('token', res.data.token)
+            localStorage.setItem('accesToken', res.data.token)
+            localStorage.setItem('refreshToken', res.data.Refreshtoken)
             localStorage.setItem('userRole', 'agent');
             navigate(RouteObjects.AgentHome, { state: { role: 'agent' } });
           }, 2000);

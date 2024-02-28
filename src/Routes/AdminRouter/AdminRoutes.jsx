@@ -8,27 +8,20 @@ import Dashboard from '../../Pages/Adminpages/Dashboard'
 import Packagecategory from '../../Pages/Adminpages/Packagecategory'
 import Adminprotect from '../../Utils/Protected/Adminprotect'
 import Agents from '../../Pages/Adminpages/Agents'
+import Adminpublic from '../../Utils/Protected/Adminpublic'
 
 function AdminRoutes() {
   return (
     <div>
       <Routes>
-        <Route element={<Adminlayout />}>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='/category' element={<Packagecategory />} />
-          <Route path='/users' element={<Users />} />
-          <Route path='/agents' element={<Agents />} />
-          <Route path='/approval' element={<Approval />} />
+        <Route path='/login' element={<Adminpublic> <Login/> </Adminpublic> }/>
+        <Route element={<Adminprotect>  <Adminlayout /> </Adminprotect>     }>
+          <Route path='/' element={<Adminprotect> <Dashboard/> </Adminprotect>} />
+          <Route path='/category' element={<Adminprotect> <Packagecategory /> </Adminprotect>} />
+          <Route path='/users' element={<Adminprotect>  <Users /> </Adminprotect> } />
+          <Route path='/agents' element={<Adminprotect>  <Agents /> </Adminprotect>} />
+          <Route path='/approval' element={<Adminprotect>  <Approval /> </Adminprotect>  } />
         </Route>
-
-
-
-        <Route path='/login' element={
-          <Adminprotect>
-            <Login />
-          </Adminprotect>
-        } />
-
       </Routes>
     </div>
   )

@@ -1,14 +1,13 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
-function Userpublic(props) {
+function Agentpublic(props) {
     if (localStorage.getItem('accesToken')) {
-        return <Navigate to='/' />
+        return <Navigate to='/agent/' />
     } else {
-        <Navigate to='/login' />
+        <Navigate to='/agent/login' />
         return props.children
     }
-
 }
 
-export default Userpublic
+export default Agentpublic

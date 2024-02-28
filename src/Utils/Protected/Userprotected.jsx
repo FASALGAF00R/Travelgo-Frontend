@@ -1,14 +1,14 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
-function Userpublic(props) {
+function Userprotected(props) {
     if (localStorage.getItem('accesToken')) {
-        return <Navigate to='/' />
-    } else {
-        <Navigate to='/login' />
         return props.children
+    } else {
+
+        return <Navigate to='/' />
     }
 
 }
 
-export default Userpublic
+export default Userprotected

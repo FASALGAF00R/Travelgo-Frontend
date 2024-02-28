@@ -8,20 +8,22 @@ import Places from '../../Pages/Agentpages/Places'
 import DashBoard from '../../Pages/Agentpages/DashBoard'
 import Activies from '../../Pages/Agentpages/Activies'
 import Packages from '../../Pages/Agentpages/Packages'
+import Agentpublic from '../../Utils/Protected/Agentpublic'
+import Agentprotect from '../../Utils/Protected/Agentprotect'
 
 function AgentRoutes() {
 
   return (
     <div>
       <Routes>
-        <Route path='/Login' element={<Login />} />
-        <Route path='/verify/:token' element={<Agentverify />} />
-        <Route path='/signup' element={<Agentsignup />} />
-        <Route element={<Agentlayout />}>
-          <Route path='/' element={< DashBoard />} />
-          <Route path='/places' element={< Places />} />
-          <Route path='/activites' element={<Activies/>} />
-          <Route path='/packages' element={<Packages/>} />
+        <Route path='/Login' element={ <Agentpublic> <Login /></Agentpublic> } />
+        <Route path='/signup' element= { <Agentpublic> <Agentsignup/> </Agentpublic>  } />
+        <Route path='/verify/:token' element={<Agentprotect> <Agentverify />  </Agentprotect>} />
+        <Route element={<Agentprotect> <Agentlayout /> </Agentprotect>}>
+          <Route path='/' element={<Agentprotect>  < DashBoard /> </Agentprotect>} />
+          <Route path='/places' element={ <Agentprotect>  < Places />  </Agentprotect> } />
+          <Route path='/activites' element={<Agentprotect> <Activies/> </Agentprotect>} />
+          <Route path='/packages' element={<Agentprotect>  <Packages/> </Agentprotect>} />
         </Route>
       </Routes>
     </div>

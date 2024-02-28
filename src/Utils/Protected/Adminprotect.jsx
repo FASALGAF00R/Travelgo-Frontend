@@ -3,13 +3,10 @@ import { Navigate } from 'react-router-dom'
 
 function Adminprotect(props) {
     if (localStorage.getItem('accesToken')) {
-
-        return <Navigate to='/admin/' />
-    } else {
-        <Navigate to='/login' />
         return props.children
+    } else {
+        return <Navigate to='/admin/' />
     }
-
 
 }
 
