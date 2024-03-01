@@ -4,26 +4,59 @@ import toast, { Toaster } from "react-hot-toast";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteObjects } from '../../../Routes/RouteObject';
 import { Otpresend } from '../../../Api/Userapi';
+import { useEffect } from 'react';
 
 function Otppass() {
   const location = useLocation()
-  const { email ,role} = location.state
+  const { email, role } = location.state
   const navigate = useNavigate()
   const [otp, setOtp] = useState('')
+  const [minutes, setminutes] = useState(1);
+  const [seconds, setseconds] = useState(30);
 
 
-const ResendOtp=async ()=>{
-  try {
-    if(role==='user'){
-      const Response=await Otpresend({Data:email,role}) 
-    }else{
-      const Response=await Otpresend({Data:email,role}) 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setseconds(seconds - 1);
+      }
+
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setseconds(59);
+          setminutes(minutes - 1);
+        }
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [seconds]);
+
+
+
+
+
+  const ResendOtp = async () => {
+    try {
+      let Response;
+      if (role === 'user') {
+         Response = await Otpresend({ Data: email, role })
+      } else {
+         Response = await Otpresend({ Data: email, role })
+      }
+      setminutes(1);
+      setseconds(30);
+
+
+    } catch (error) {
+      console.log("error while resending otp: " + error);
+
     }
-  } catch (error) {
-    console.log("error while resending otp: " + error);
-    
   }
-}
 
 
 
@@ -34,11 +67,11 @@ const ResendOtp=async ()=>{
       if (otp === '') {
         toast.error('fields empty')
       }
-      const Otp = await Otpdata({otp:otp,role:role})
+      const Otp = await Otpdata({ otp: otp, role: role })
       if (Otp.data.success === true) {
         toast.success(Otp.data.message)
         setTimeout(() => {
-          navigate(RouteObjects.ResetPassword, { state: { email,role } })        
+          navigate(RouteObjects.ResetPassword, { state: { email, role } })
         }, 2000);
       } else {
         toast.error(Otp.data.message)
@@ -79,9 +112,30 @@ const ResendOtp=async ()=>{
               </button>
             </div>
           </form>
-                <button onClick={ResendOtp} className="flex justify-start text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
-              Resend Otp
+
+          <div className="countdown-text">
+            {seconds > 0 || minutes > 0 ? (
+              <p>
+                Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
+                {seconds < 10 ? `0${seconds}` : seconds}
+              </p>
+            ) : (
+              <p>Didn't recieve code?</p>
+            )}
+
+            <button
+              disabled={seconds > 0 || minutes > 0}
+              style={{
+                color: seconds > 0 || minutes > 0 ? "#DFE3E8" : "#FF5630",
+              }}
+              onClick={ResendOtp}
+            >
+              Resend OTP
             </button>
+          </div>
+          {/* <button onClick={ResendOtp} className="flex justify-start text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+            Resend Otp
+          </button> */}
         </div >
         <Toaster />
       </div>
