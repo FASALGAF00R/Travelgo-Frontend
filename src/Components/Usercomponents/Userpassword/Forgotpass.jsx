@@ -6,11 +6,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteObjects } from '../../../Routes/RouteObject';
 
 function Forgotpass() {
-const location=useLocation()
-    console.log(location,'ccc');
-    const {role}=location.state;
-    console.log();
-     console.log(role,'cccccccccccc');
+    const location = useLocation()
+    console.log(location, 'ccc');
+    const { role } = location.state;
+    console.log(role, 'cccccccccccc');
     const navigate = useNavigate()
     const [formdata, setformdata] = useState({
         email: '',
@@ -18,7 +17,6 @@ const location=useLocation()
 
 
     const handlechange = (e) => {
-        console.log("hii");
         const { name, value } = e.target
         setformdata({
             [name]: value,
@@ -35,12 +33,12 @@ const location=useLocation()
                 toast.error("fields empty")
             } else {
                 const Res = await Forgot(formdata)
-                console.log(Res,"pop");
-                if (Res.data.success=== true) {
+                console.log(Res, "pop");
+                if (Res.data.success === true) {
                     toast.success(Res.data.message)
                     setTimeout(() => {
-                        navigate(RouteObjects.OTP, { state: { email: formdata.email,role:role } })
-                        
+                        navigate(RouteObjects.OTP, { state: { email: formdata.email, role: role } })
+
                     }, 2000);
                 } else {
                     toast.error(Res.data.message)
@@ -58,8 +56,7 @@ const location=useLocation()
     return (
         <div className='bg-pink-50 min-h-screen flex items-center justify-center'>
             <div className="w-full sm:w-[35%] mx-10 bg-gradient-to-r from-[#bfd8e1] to-[#ee8e8e] p-8 rounded-xl shadow shadow-slate-300">
-                <h1 className="text-xl font-semibold mb-4">Reset password</h1>
-                <p className="text-slate-500 mb-4">Fill up the form to reset the password</p>
+                <h1 className="text-xl font-semibold mb-4">Forgot password</h1>
 
                 <form onSubmit={Formsubmission}>
                     <div className="flex flex-col space-y-5">
@@ -86,7 +83,7 @@ const location=useLocation()
                         </p>
                     </div>
                 </form>
-            <Toaster />
+                <Toaster />
             </div>
         </div>
     )

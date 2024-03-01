@@ -1,5 +1,5 @@
 import Userinterception from '../Interceptors/Userinterceptors.jsx'
-const userapi=Userinterception
+const userapi = Userinterception
 
 
 
@@ -8,7 +8,7 @@ export async function signupData(data) {
     console.log(data);
     try {
         const userdata = await userapi.post('/signup', data)
-        console.log(userdata,";");
+        console.log(userdata, ";");
         return userdata
     } catch (err) {
         console.log(err);
@@ -50,10 +50,9 @@ export async function Googledata(googledata) {
 
 // forgot pass
 export async function Forgot(forgotpassdata) {
-    console.log(forgotpassdata,";;;;;;;;;;;;;;;;;"); 
     try {
         const result = await userapi.post('/forgotpass', forgotpassdata)
-        console.log(result,"ggggggggggggggggggggg");
+        console.log(result, "ggggggggggggggggggggg");
         return result
     } catch (error) {
         console.log(error);
@@ -63,19 +62,22 @@ export async function Forgot(forgotpassdata) {
 
 // otpverfication 
 
-export async function Otpdata(verifydata){
-   try {
-    const result = await userapi.get(`/otpverify/${verifydata}`,)
-    console.log(result,"ooiiiooioo");
-    return result
-   } catch (error) {
-    console.log(error);
-   }
+export async function Otpdata(verifydata) {
+    console.log(verifydata,"...");
+    try {
+        const result = await userapi.get('/otpverify',{params:verifydata },)
+        console.log(result, "ooiiiooioo");
+        return result
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-export async function Newpassword(data){
+
+export async function Otpresend(data) {
+    console.log("ethii", data);
     try {
-        const result =await userapi.put('/newpass',data)
+        const result = await userapi.post('/otpresend', data)
         return result
     } catch (error) {
         console.log(error);
@@ -84,14 +86,25 @@ export async function Newpassword(data){
 
 
 
-export async function Profile(data){
-    console.log(data,"opp33333333333333333p");
+export async function Newpassword(data) {
     try {
-        const result =await userapi.post('/profile',data,{
-            headers : {
-                "Content-Type":"multipart/form-data",
+        const result = await userapi.put('/newpass', data)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+export async function Profile(data) {
+    console.log(data, "opp33333333333333333p");
+    try {
+        const result = await userapi.post('/profile', data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
             },
-        } )
+        })
         return result
     } catch (error) {
         console.log(error);
@@ -99,26 +112,26 @@ export async function Profile(data){
 }
 
 
-export async function  resetPassword(data){
-    console.log("okkkkkkkkkkkkkkkkk",data);
+export async function resetPassword(data) {
+    console.log("okkkkkkkkkkkkkkkkk", data);
     try {
         console.log("ethii");
-        const response =await userapi.post('/resetpass',data)
-        console.log(response,"....");
+        const response = await userapi.post('/resetpass', data)
+        console.log(response, "....");
         return response
-        
+
     } catch (error) {
         console.log(error);
     }
 }
 
 
-export async function getuser(data){
+export async function getuser(data) {
     console.log(data);
     try {
         const result = await userapi.get(`/user/${data}`)
-            console.log(result);
-        return result        
+        console.log(result);
+        return result
     } catch (error) {
         console.log(error);
     }

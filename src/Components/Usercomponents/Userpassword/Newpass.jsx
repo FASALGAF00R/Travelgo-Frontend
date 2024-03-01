@@ -6,6 +6,7 @@ import { RouteObjects } from '../../../Routes/RouteObject';
 
 function Newpass() {
     const location = useLocation()
+    console.log(location,"kkkkk");
 
     const data = location.state
     console.log(data.role,"--------------");
@@ -13,7 +14,6 @@ function Newpass() {
     const navigate = useNavigate()
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    console.log("---------------");
 
 
     const handleSubmit = async (e) => {

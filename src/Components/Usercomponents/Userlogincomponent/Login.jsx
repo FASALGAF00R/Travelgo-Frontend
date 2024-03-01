@@ -104,12 +104,11 @@ const Login = () => {
       console.log(error);
 
     }
-
   };
+  
   const handleForgot = () => {
-    navigate(RouteObjects.UserLogin, { state: { role: 'user' } })
+    navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })
   }
-
   return (
     <div className='flex justify-center items-center h-full bg-pink-50 '>
       <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >

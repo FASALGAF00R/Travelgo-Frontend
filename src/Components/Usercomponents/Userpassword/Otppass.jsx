@@ -3,14 +3,30 @@ import { Otpdata } from '../../../Api/Userapi'
 import toast, { Toaster } from "react-hot-toast";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RouteObjects } from '../../../Routes/RouteObject';
+import { Otpresend } from '../../../Api/Userapi';
+
 function Otppass() {
   const location = useLocation()
   const { email ,role} = location.state
-  
-  console.log(email,';;;;;;;;;;',location);
-
   const navigate = useNavigate()
   const [otp, setOtp] = useState('')
+
+
+const ResendOtp=async ()=>{
+  try {
+    if(role==='user'){
+      const Response=await Otpresend({Data:email,role}) 
+    }else{
+      const Response=await Otpresend({Data:email,role}) 
+    }
+  } catch (error) {
+    console.log("error while resending otp: " + error);
+    
+  }
+}
+
+
+
 
   const handlesubmit = async (e) => {
     try {
@@ -18,7 +34,7 @@ function Otppass() {
       if (otp === '') {
         toast.error('fields empty')
       }
-      const Otp = await Otpdata(otp)
+      const Otp = await Otpdata({otp:otp,role:role})
       if (Otp.data.success === true) {
         toast.success(Otp.data.message)
         setTimeout(() => {
@@ -53,6 +69,8 @@ function Otppass() {
                 onChange={(e) => setOtp(e.target.value)}
                 className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
               />
+
+
               <button
                 type="submit"
                 className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-blue-600 bg-[#dc5151] hover:bg-pink-400 text-white"
@@ -61,6 +79,9 @@ function Otppass() {
               </button>
             </div>
           </form>
+                <button onClick={ResendOtp} className="flex justify-start text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+              Resend Otp
+            </button>
         </div >
         <Toaster />
       </div>
