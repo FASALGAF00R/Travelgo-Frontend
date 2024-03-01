@@ -26,15 +26,14 @@ function Places() {
     try {
       Fetchplaces()
         .then((response) => {
-          console.log(response.data, "success");
-          setPlaces(response.data)
+          setPlaces(response.data.placelist)
         });
     } catch (error) {
       console.log("error while fetching places", error);
     }
   }, [])
 
-
+console.log(Places,"pop");
 // for opening and closing the modals
   const openModal = () => {
     setEditingPlace(null);
@@ -134,7 +133,7 @@ function Places() {
             <div key={place._id} onClick={()=>handleEdit(place)} className="bg-gray-600 shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
               <img
                 src={place.Image}
-                alt='{place.Destrictname}'
+                alt={place.Destrictname}
                 class=" object-cover"
               />
               <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
