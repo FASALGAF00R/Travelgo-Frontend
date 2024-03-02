@@ -33,7 +33,7 @@ function Places() {
     }
   }, [])
 
-console.log(Places,"pop");
+
 // for opening and closing the modals
   const openModal = () => {
     setEditingPlace(null);
@@ -120,7 +120,7 @@ console.log(Places,"pop");
               <input className=' w-full ' type="file" id="image" name="image" onChange={handlechange} />
             </div>
             <br />
-            <Button type="submit" variant="gradient" color="green" onClick={openModal} >
+            <Button type="submit" variant="gradient" color="green" onClick={openModal} >           
               Add
             </Button>
           </form>

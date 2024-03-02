@@ -40,6 +40,10 @@ function Agents() {
                 <span className='text-gray-800 '>Agent</span>
                 <span >management</span>
             </div>
+                <br/>
+                <br/>
+
+
             <div className="flex justify-center">
                 <table className=" border border-gray-300 font-thin   shadow-gray-800 shadow-md" style={{ maxHeight: '300px', overflowY: 'auto' }}>
                     <thead>

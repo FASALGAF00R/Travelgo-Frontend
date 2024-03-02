@@ -54,7 +54,7 @@ useEffect(() => {
       </div>
       <p className="text-gray-700 mt-4">
         You will be redirected to the agent login page shortly.
-      </p>
+      </p>     
     </div>
   </div>
 );
