@@ -136,3 +136,16 @@ export async function getuser(data) {
         console.log(error);
     }
 }
+
+
+export async function Placedata() {
+    try {
+        const result = await userapi.get('/getplaces')
+        console.log(result);
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
