@@ -26,7 +26,7 @@ function NavList({ userName }) {
 
 
   return (
-    <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
       {userName ? (
         <Typography
           as="li"
@@ -137,12 +137,12 @@ function NavbarSimple() {
 
 
   return (
-    <Navbar className="bg-[#ee8e8e] mx-auto max-w-full">
-      <div className=" flex items-center justify-between text-white  font-semibold">
+    <Navbar className="bg-[#ee8e8e] mx-auto max-w-full rounded-none">
+      <div className=" flex items-center justify-between text-white  text-2xl font-serif">
         {/* <Typography> */}
 
 
-        Travel Go
+        Travel go
         {/* </Typography> */}
         <div className="hidden lg:block">
           <NavList userName={userName} />

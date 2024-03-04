@@ -130,7 +130,7 @@ function Places() {
       <div>
         <div class="container px-16 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Places && Places.map((place) => (
-            <div key={place._id} onClick={()=>handleEdit(place)} className="bg-gray-600 shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
+            <div key={place._id} onClick={()=>handleEdit(place)} className="bg-gray-300 shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
               <img
                 src={place.Image}
                 alt={place.Destrictname}
@@ -140,9 +140,7 @@ function Places() {
                 <p class="text-white text-lg font-bold">{place.Destrictname}</p>
               </div>
 
-              <div class="bg-gray-500 font-light shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
                 <p>{place.Description} </p>
-              </div>
             </div>
           ))}
         </div>

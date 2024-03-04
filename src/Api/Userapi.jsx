@@ -149,3 +149,13 @@ export async function Placedata() {
 }
 
 
+
+export async function Searchplaces(data) {
+    try {
+        const result = await userapi.post('/searchplaces',data)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+

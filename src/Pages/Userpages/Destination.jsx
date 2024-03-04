@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Placedata } from '../../Api/Userapi'
+import { Searchplaces } from '../../Api/Userapi'
 function Destination() {
 
   const [places, setplaces] = useState([])
+  const [search, setsearch] = useState('')
 
   useEffect(() => {
     const fetchplaces = async () => {
@@ -18,15 +20,35 @@ function Destination() {
 
   }, [])
 
-  console.log(places, "p");
+const handleInputChange =(e)=>{
+  setsearch(e.target.value)
+}
+
+const handleSearch = async () => {
+  try {
+    if(search.length===0){
+      return
+    }
+    const response =await Searchplaces({Data:search})
+    setplaces(response.data)   
+     setsearch('')
+  } catch (error) {
+    console.error('Error searching:', error);
+  }
+};
+
+
 
 
   return (
     <>
     <br></br>
-      <div class="mx-auto  relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 focus-within:border-gray-300">
-        <input id="search-bar" placeholder="type here" class="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white"/>
-          <button class="w-full md:w-auto px-6 py-3 bg-gray-700  text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+      <div class="mx-auto  relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 focus-within:border-gray-300 shadow-xl">
+        <input id="search-bar" placeholder="Search destrict name" value={search} onChange={handleInputChange} class="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white"/>
+          <button onClick={handleSearch} class="w-full md:w-auto px-6 py-3 bg-gray-800  text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70">
             <div class="relative">
               <div class="flex items-center justify-center h-3 w-3 absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 transition-all">
                 <svg class="opacity-0 animate-spin w-full h-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -44,11 +66,17 @@ function Destination() {
       </div>
       <br></br>
 
+      <div class="grid grid-cols-1">
+  <div class="text-3xl font-serif mx-2 text-right text-gray-700 px-5 animate__animated animate__fadeIn">Travel to your dream places</div>
+</div>
+
+
+
 
 
       <div className="container px-16 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mx-auto gap-6  shadow-2xl ">
         {places && places.map((place) => (
-          <div key={place._id} className=" group bg-gray-600 shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
+          <div key={place._id} className=" group  shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
             <div className="overflow-hidden card transform transition-transform duration-200 hover:scale-105">
               <img
                 src={place.Image}
@@ -59,10 +87,8 @@ function Destination() {
                 <p className="text-white text-lg font-bold">{place.Destrictname}</p>
               </div>
             </div>
-            <div className="bg-gray-50 font-light shadow-lg rounded-lg  hover:shadow-md">
               <p>{place.Description}</p>
             </div>
-          </div>
         ))}
       </div>
 
