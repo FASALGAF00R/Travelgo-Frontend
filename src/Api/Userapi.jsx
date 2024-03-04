@@ -138,10 +138,9 @@ export async function getuser(data) {
 }
 
 
-export async function Placedata() {
+export async function Placedata(page,limit) {
     try {
-        const result = await userapi.get('/getplaces')
-        console.log(result);
+        const result = await userapi.get('/getplaces',{params:{page,limit}})
         return result
     } catch (error) {
         console.log(error);
