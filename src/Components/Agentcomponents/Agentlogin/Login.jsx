@@ -90,9 +90,8 @@ function Login() {
         console.log(res, "response");
         if (res.data.success) {
           setTimeout(() => {
-            localStorage.setItem('accesToken', res.data.accesToken)
-            localStorage.setItem('refreshToken', res.data.Refreshtoken)
-            localStorage.setItem('userRole', 'agent');
+            localStorage.setItem('AgentaccesToken', res.data.accesToken)
+            localStorage.setItem('AgentrefreshToken', res.data.Refreshtoken)
             navigate(RouteObjects.AgentHome, { state: { role: 'agent' } });
           }, 1000);
         } else {

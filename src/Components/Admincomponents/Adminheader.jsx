@@ -1,18 +1,29 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { RouteObjects } from '../../Routes/RouteObject'
+
 
 function Adminheader() {
     let navigate = useNavigate()
+    const location =useLocation()
+    console.log(location,"pop");
 
 
     
     const handleLogout = () => {
-        localStorage.removeItem('accesToken')
-        const isAdmin = localStorage.getItem('userRole') === 'admin';
-        navigate(isAdmin ? RouteObjects.AdminLogin : RouteObjects.AgentLogin);
+        if(location.state.role ==='admin'){
+            localStorage.removeItem('AdminaccesToken')
+            localStorage.removeItem('AdminrefreshToken')
+            navigate(RouteObjects.AdminLogin)
 
+        }else {
+            localStorage.removeItem('AgentaccesToken')
+            localStorage.removeItem('AgentrefreshToken')
+            navigate(RouteObjects.AgentLogin)
+
+    
     }
+}
 
 
     return (

@@ -42,12 +42,10 @@ function Login() {
         if (res.data.success === false) {
           toast.error(res.data.message)
         } else {
-          localStorage.setItem('accesToken', res.data.accesToken)
-          localStorage.setItem('refreshToken', res.data.Refreshtoken)
-          localStorage.setItem('userRole', 'admin');
-
+          localStorage.setItem('AdminaccesToken', res.data.accesToken)
+          localStorage.setItem('AdminrefreshToken', res.data.Refreshtoken)
           setTimeout(() => {
-            navigate(RouteObjects.Adminhome)
+            navigate(RouteObjects.Adminhome,{state:{role:'admin'}})
           }, 1000);
         }
       }
@@ -104,7 +102,7 @@ function Login() {
               />
             </div>
             <Button type="submit" className="mt-6" fullWidth>
-              Sign Up
+              Log in
             </Button>
 
           </form>
