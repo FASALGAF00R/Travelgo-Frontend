@@ -14,7 +14,6 @@ function Verification() {
         const result = await UserVerify(token);
         if (result.status === 200) {
           setTimeout(() => {
-            toast.success('User verification success');
             navigate(RouteObjects.UserLogin);
           }, 3000);
 

@@ -10,11 +10,14 @@ function Agents() {
         Loadagents()
             .then((res) => {
                 const response = res.data.Agent;
-                setAgents(response)
+                console.log(response,"opopopo");
+              const agents =response.filter((item)=>item.isActive==='approval')
+              setAgents(agents)
             }).catch((err) => {
                 console.log(err);
             })
-    }, [])
+        }, [])
+        console.log(agents,"ooooooooooooo");
 
     const HandleClick = async (agentid) => {
         try {
