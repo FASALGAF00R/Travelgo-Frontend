@@ -7,13 +7,15 @@ import toast from 'react-hot-toast'
 
 function Agentverify() {
     const {token} = useParams()
-    console.log(token,"token");
+    console.log(token,"tokenfhghhgkjhjhjkhgkhh");
 const navigate =useNavigate()
 
 useEffect(() => {
     const Verifyagent = async ()=>{
         try { 
+          console.log("hello");
        const Data = await Verify(token)
+
         if (Data.data.success) {
           setTimeout(() => {
               toast.success('Agent Verified')

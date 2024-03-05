@@ -3,7 +3,6 @@ import { useState } from 'react'
 import toast, { Toaster } from "react-hot-toast";
 import { Signupdata } from '../../../Api/Agentapi.jsx';
 import { Link, useNavigate } from 'react-router-dom';
-import { RouteObjects } from '../../../Routes/RouteObject.js';
 import agentsignupImage from '../../../Assests/Images/agentsignupImage.jpg'
 
 function Agentsignup() {
@@ -65,9 +64,6 @@ function Agentsignup() {
         const res = await Signupdata(Data)
         if (res.data.newagent) {
           toast.success(res.data.message)
-          setTimeout(() => {
-            navigate(RouteObjects.Login)
-          }, 2000);
         } else {
           toast.error(res.data.message)
         }

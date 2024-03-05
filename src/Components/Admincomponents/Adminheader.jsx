@@ -6,22 +6,21 @@ import { RouteObjects } from '../../Routes/RouteObject'
 function Adminheader() {
     let navigate = useNavigate()
     const location =useLocation()
-    console.log(location,"pop");
+    console.log(location,"header");
 
 
     
     const handleLogout = () => {
-        if(location.state.role ==='admin'){
+        if(location.pathname.includes('/admin/')){
             localStorage.removeItem('AdminaccesToken')
             localStorage.removeItem('AdminrefreshToken')
             navigate(RouteObjects.AdminLogin)
 
-        }else {
+        }else if(location.pathname.includes('/agent/')){
             localStorage.removeItem('AgentaccesToken')
             localStorage.removeItem('AgentrefreshToken')
             navigate(RouteObjects.AgentLogin)
 
-    
     }
 }
 

@@ -87,7 +87,6 @@ function Login() {
         toast.error("fields required")
       } else {
         const res = await Formdata(agent)
-        console.log(res, "response");
         if (res.data.success) {
           setTimeout(() => {
             localStorage.setItem('AgentaccesToken', res.data.accesToken)

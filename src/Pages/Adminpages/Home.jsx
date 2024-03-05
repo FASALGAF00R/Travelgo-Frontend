@@ -1,9 +1,10 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { Link,useLocation  } from 'react-router-dom';
 import { RouteObjects } from '../../Routes/RouteObject';
 
 function Home() {
-
+    const location =useLocation()
+    console.log(location,"pioio");
 
     return (
         <>

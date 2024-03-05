@@ -37,6 +37,7 @@ export async function Signupdata(data) {
 }
 
 export async function Verify(token) {
+    console.log(token,"llll");
     try {
         const Db = await agentapi.get(`/verify/${token}`)
         return Db

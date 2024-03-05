@@ -18,7 +18,7 @@ function AgentRoutes() {
       <Routes>
         <Route path='/Login' element={ <Agentpublic> <Login /></Agentpublic> } />
         <Route path='/signup' element= { <Agentpublic> <Agentsignup/> </Agentpublic>  } />
-        <Route path='/verify/:token' element={<Agentprotect> <Agentverify />  </Agentprotect>} />
+        <Route path='/verify/:token' element={ <Agentverify /> } />
         <Route element={<Agentprotect> <Agentlayout /> </Agentprotect>}>
           <Route path='/' element={<Agentprotect>  < DashBoard /> </Agentprotect>} />
           <Route path='/places' element={ <Agentprotect>  < Places />  </Agentprotect> } />
