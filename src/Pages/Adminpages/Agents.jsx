@@ -11,7 +11,7 @@ function Agents() {
             .then((res) => {
                 const response = res.data.Agent;
                 console.log(response,"opopopo");
-              const agents =response.filter((item)=>item.isActive==='approval')
+              const agents =response.filter((item)=>item.isActive==='Accept')
               setAgents(agents)
             }).catch((err) => {
                 console.log(err);
@@ -49,12 +49,13 @@ function Agents() {
 
             <div className="flex justify-center">
                 <table className=" border border-gray-300 font-thin   shadow-gray-800 shadow-md" style={{ maxHeight: '300px', overflowY: 'auto' }}>
-                    <thead>
-                        <tr>
-                            <th className="border border-gray-300 px-4 py-2">No</th>
-                            <th className="border border-gray-300 px-4 py-2">Name</th>
-                            <th className="border border-gray-300 px-4 py-2">Email</th>
-                            <th className="border border-gray-300 px-4 py-2">Action</th>
+                <thead className='bg-blue-gray-800 text-white'>
+                        <tr className="bg-blue-gray-800 border-b">
+                            <th className="py-2 px-4 border-r">Number</th>
+                            <th className="py-2 px-4 border-r">Agent Name</th>
+                            <th className="py-2 px-4 border-r">Email</th>
+                            <th className="py-2 px-4 border-r">Phone</th>
+                            <th className="py-2 px-4">Action</th>
                         </tr>
                     </thead>
                     <tbody>

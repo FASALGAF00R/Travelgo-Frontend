@@ -8,7 +8,6 @@ function Users() {
     Loadusers()
       .then((res) => {
         const Res = res.data.User;
-        console.log(Res);
         setUsers(Res)
       }).catch((err) => {
         console.log(err);

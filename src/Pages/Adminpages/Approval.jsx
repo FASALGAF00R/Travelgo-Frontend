@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import toast, { Toaster } from "react-hot-toast";
 import { Agentapprovallisting } from '../../Api/Adminapi';
 import { approveAgent } from '../../Api/Adminapi';
 
@@ -10,30 +11,32 @@ function Approval() {
         const fetchagents = async () => {
             try {
                 const response = await Agentapprovallisting();
-                console.log(response, "oooooo");
                 const Data = response.data.Agent
-                const Filter=Data.filter((value)=>value.isActive==='pending')
+                console.log(Data,"kjkjkj");
+                const Filter=Data.filter((value)=>value.isActive ==='pending')
                 setagent(Filter)
             } catch (error) {
                 console.log(error);
             }
         }
         fetchagents()
-    }, [agent])
+    }, [])
 
 
-    const handleaprove = async (agentId) => {
+    const handleaprove = async (agentId,option) => {
         try {
-
-            await approveAgent({ _id: agentId }).then((response) => {
-                
-
-            })
-
+            const Response = await approveAgent({ _id: agentId,option })
+            if(Response.data.status ===true){
+                toast.success(Response.data.message)
+            }else{
+                toast.error(Response.data.message)
+            }
         } catch (error) {
             console.log(error);
         }
     }
+
+
 
     return (
         <>
@@ -44,7 +47,7 @@ function Approval() {
             </div>
 
             <div className="flex  justify-center mt-20 mx-40 ">
-                <table className=" border border-gray-300 rounded-md overflow-hidden shadow-gray-800 shadow-md" style={{ height: '200px', width: '100p%' }}>
+                <table className=" border border-gray-300  overflow-hidden shadow-gray-800 shadow-md" style={{ height: '200px', width: '100p%' }}>
                     <thead className='bg-blue-gray-800 text-white'>
                         <tr className="bg-blue-gray-800 border-b">
                             <th className="py-2 px-4 border-r">Number</th>
@@ -65,10 +68,10 @@ function Approval() {
 
 
                                     <button
-                                        onClick={() => handleaprove(agents._id)}
-                                        className={`${agents.Approval ? "bg-red-500" : "bg-green-500"}  text-white px-3 py-1 rounded mr-2`}
+                                        onClick={() => handleaprove(agents._id,'Accept')} 
+                                        className= "bg-green-500  text-white px-3 py-1 rounded mr-2"
                                     >
-                                        <span>{`${agents.Approval ? "Reject" : "Accept"}`}</span>
+                                        <span>Accept</span>
                                     </button>
 
 
@@ -78,6 +81,8 @@ function Approval() {
                     </tbody>
                 </table>
             </div>
+            <Toaster />
+
         </>
 
     );

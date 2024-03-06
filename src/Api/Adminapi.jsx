@@ -67,16 +67,19 @@ export async function Agentapprovallisting() {
 
 }
 
-export async function approveAgent(userid) {
+export async function approveAgent(data) {
 
     try {
-        const id = await Adminapi.put('/reject', userid)
-        return id
+        const result = await Adminapi.put('/accept', data)
+        return result
 
     } catch (error) {
+        console.log(error);
 
     }
 }
+
+
 
 export async function Addcatgeory(data) {
     try {
