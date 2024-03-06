@@ -7,8 +7,8 @@ const agentapi = axios.create({
 
 })
 
-const token = localStorage.getItem('token')
-
+const token = localStorage.getItem('AgentaccesToken')
+console.log(token,"pp");
 
 
 const Configtoken = {

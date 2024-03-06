@@ -6,7 +6,7 @@ function Destination() {
   const [places, setplaces] = useState([])
   const [search, setsearch] = useState('')
   const [page, setPage] = useState(2);
-  const [limit, setLimit] = useState(1)
+  const [limit, setLimit] = useState(2)
 
   useEffect(() => {
     const fetchplaces = async () => {

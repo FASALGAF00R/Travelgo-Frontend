@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Checkbox,
 } from "@material-tailwind/react";
 import {
   fetchcatgeory,
@@ -21,7 +22,7 @@ function Packages() {
     image: null,
     category: '',
     description: '',
-    activities: '',
+    activities: [],
     amount: ''
   });
 
@@ -63,6 +64,32 @@ function Packages() {
     });
   };
 
+
+
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    if (checked) {
+      setFormData({
+        ...formData,
+        activities: [...formData.activities, name]
+      });
+    } else {
+      setFormData({
+        ...formData,
+        activities: formData.activities.filter(activity => activity !== name)
+      });
+    }
+  };
+
+
+
+
+
+
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -79,7 +106,7 @@ function Packages() {
       image: null,
       category: '',
       description: '',
-      activities: '',
+      activities: [],
       amount: ''
     });
     setOpen(false);
@@ -159,23 +186,17 @@ console.log(formData,"pp");
 
             <div className="flex flex-col mb-4">
               <label className="mb-2" htmlFor="activities">Activities:</label>
-
-              <select
-                className="p-2 border border-gray-300 rounded"
-                type="text"
-                id="activities"
-                name="activities"
-                value={formData.activities}
-                onChange={handleChange}
-              >
-                <option value="">Select Activity</option>
-                {activity.map(act => (
-                  <option key={act._id} value={act.Activity}>{act.Activity}</option>
-                ))}
-              </select>
-
-
-
+              {activity.map(act => (
+                <div key={act._id} className="flex items-center">
+                  <Checkbox
+                    id={act._id}
+                    name={act.Activity}
+                    color="green"
+                    onChange={handleCheckboxChange}
+                  />
+                  <label htmlFor={act._id} className="ml-2">{act.Activity}</label>
+                </div>
+              ))}
             </div>
 
             <div className="flex flex-col mb-4">

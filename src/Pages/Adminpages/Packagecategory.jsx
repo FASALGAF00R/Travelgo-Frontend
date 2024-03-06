@@ -9,7 +9,7 @@ import {
 import { Card, Typography } from "@material-tailwind/react";
 import { Addcatgeory } from '../../Api/Adminapi';
 import { Fetchcategory } from '../../Api/Adminapi';
-
+import { Blockcat } from '../../Api/Adminapi';
 
 
 function Packagecategory() {
@@ -23,7 +23,6 @@ function Packagecategory() {
     useEffect(() => {
         Fetchcategory()
             .then((response) => {
-                console.log(response.data, "success");
                 setcategory(response.data.Category);
             })
             .catch((error) => {
@@ -36,13 +35,36 @@ function Packagecategory() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await Addcatgeory({ categoryName: categoryName })
+            const response = await Addcatgeory({ categoryName: categoryName })
+            setcategory((prev) => [...prev, response.data.newCategory])
         } catch (error) {
             console.log('error got on adding category', error);
         }
         setCategoryName('');
         setOpen(false);
     };
+
+
+
+    const Handleblock = async (catid) => {
+        try {
+         const res=   await Blockcat({ _id: catid }).then((res) => {
+            console.log(res,"ooo");
+                if (res.status) {
+                    setcategory((prevcat) =>
+                    prevcat.map((catry) =>
+                    catry._id === catid ?
+                                { ...catry, isBlock: !catry.isBlock } : catry
+                        )
+                    )
+                }
+            });
+
+        } catch (error) {
+            console.error('Error blocking user:', error);
+        }
+
+    }
 
 
     return (
@@ -109,6 +131,12 @@ function Packagecategory() {
                                     Category
                                 </Typography>
                             </th>
+                            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
+                                    Action
+                                </Typography>
+                            </th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -120,6 +148,25 @@ function Packagecategory() {
 
                                 <td className="p-4 border-b border-blue-gray-50 text-gray-700">
                                     {cat.Name}
+                                </td>
+                                <td className="p-4 border-b border-blue-gray-50 text-gray-700">
+                                    {cat.isBlock ? (
+                                        <Button
+                                            variant="outlined"
+                                            color="green"
+                                            onClick={() => Handleblock(cat._id)}
+                                        >
+                                            block
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            variant="outlined"
+                                            color="red"
+                                            onClick={() => Handleblock(cat._id)}
+                                        >
+                                            UnBlock
+                                        </Button>
+                                    )}
                                 </td>
 
                             </tr>

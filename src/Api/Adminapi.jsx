@@ -85,7 +85,7 @@ export async function approveAgent(data) {
 export async function Addcatgeory(data) {
     try {
         const Result = await Adminapi.post('/catgeory', data)
-        console.log(Result);
+        console.log(Result,"oo");
         return Result
     } catch (error) {
         console.log(error);
@@ -97,6 +97,19 @@ export async function Fetchcategory() {
     try {
         const Result = await Adminapi.get('/getcatgeory')
         console.log(Result);
+        return Result
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+
+export async function Blockcat(id) {
+    console.log(id,"kk");
+    try {
+        const Result = await Adminapi.put('/blockcat',id)
+        console.log(Result,"ii");
         return Result
     } catch (error) {
         console.log(error);

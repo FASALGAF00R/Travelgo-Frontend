@@ -62,10 +62,9 @@ function Places() {
       if (editingPlace) {
         await UpdatePlace(editingPlace._id,{Data:formdata}); 
       }else{
-        await Placedata(formdata);
-      Fetchplaces()
+        await Placedata(formdata)
       .then((response) => {
-        setPlaces(response.data);
+        setPlaces((prev)=> [...prev,response.data.place]);
       });
       setPlaceModalOpen(false);
     }
