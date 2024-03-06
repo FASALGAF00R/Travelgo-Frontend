@@ -158,3 +158,16 @@ export async function Searchplaces(data) {
     }
 }
 
+UserChecking
+
+export async function UserChecking(data) {
+    console.log(data,"///////////fdf///////");
+    try {
+        const result = await userapi.get(`/checkinguser/${data}`);
+        return result
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}

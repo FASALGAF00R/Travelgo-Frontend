@@ -179,3 +179,20 @@ export async function fetchActivities() {
 
     }
 }
+
+
+
+
+
+
+export async function Checking(data) {
+    console.log(data,"//////////////////");
+    try {
+        const result = await agentapi.get(`/checkingagent/${data}`);
+        return result
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}

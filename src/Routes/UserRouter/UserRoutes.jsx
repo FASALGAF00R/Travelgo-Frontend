@@ -11,6 +11,7 @@ import Forgotpass from '../../Components/Usercomponents/Userpassword/Forgotpass'
 import Otppass from '../../Components/Usercomponents/Userpassword/Otppass'
 import Newpass from '../../Components/Usercomponents/Userpassword/Newpass'
 import Userprofile from '../../Pages/Userpages/Userprofile'
+import Userprotected from '../../Utils/Protected/Userprotected'
 
 
 function UserRoutes() {
@@ -21,7 +22,7 @@ function UserRoutes() {
 
       <Routes>
         <Route element={<UserLayout />}>
-          <Route path="/destinations" element={<Destination />} />
+          <Route path="/destinations" element={<Userprotected><Destination /></Userprotected> } />
           <Route path="/" element={<Home />} />
 
         </Route>
@@ -41,11 +42,11 @@ function UserRoutes() {
           </Userpublic>
         } />
 
-        <Route path="/verify/:token" element={<Verification />} />
+        <Route path="/verify/:token" element={ <Verification />} />
         <Route path='/forgotpass' element={<Forgotpass />} />
         <Route path='/otpverify' element={<Otppass />} />
         <Route path='/newpass' element={<Newpass />} />
-        <Route path='/profile' element={<Userprofile />} />
+        <Route path='/profile' element={<Userprotected><Userprofile /></Userprotected>  } />
       </Routes>
 
     </div>
