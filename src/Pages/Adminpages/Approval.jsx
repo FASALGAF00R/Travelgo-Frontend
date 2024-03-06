@@ -46,7 +46,7 @@ function Approval() {
                 <span >approval</span>
             </div>
 
-            <div className="flex  justify-center mt-20 mx-40 ">
+            <div className="flex  justify-center mt-10 mx-40 ">
                 <table className=" border border-gray-300  overflow-hidden shadow-gray-800 shadow-md" style={{ height: '200px', width: '100p%' }}>
                     <thead className='bg-blue-gray-800 text-white'>
                         <tr className="bg-blue-gray-800 border-b">

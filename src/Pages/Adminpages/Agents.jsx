@@ -10,26 +10,24 @@ function Agents() {
         Loadagents()
             .then((res) => {
                 const response = res.data.Agent;
-                console.log(response,"opopopo");
               const agents =response.filter((item)=>item.isActive==='Accept')
               setAgents(agents)
             }).catch((err) => {
                 console.log(err);
             })
         }, [])
-        console.log(agents,"ooooooooooooo");
 
     const HandleClick = async (agentid) => {
         try {
-            await Blockagent({ _id: agentid }).then((res) => {
-                if (res.status === 200) {
-                    setAgents((prevAgents) =>
-                        prevAgents.map((agents) =>
-                            agentid._id === agentid ? { ...agents, block: !agents.block } : agents
-                        )
-                    )
-                }
-            });
+       const res=await Blockagent({ _id: agentid })
+       console.log(res,"ii");
+       setAgents((prevAgent) =>
+       prevAgent.map((agent) =>
+       agent._id === agentid ? 
+       { ...agent, isBlock: !agent.isBlock } : agent
+       )
+     )
+
 
         } catch (error) {
             console.error('Error blocking user:', error);
@@ -66,7 +64,7 @@ function Agents() {
                                 <td className="border border-gray-300 px-4 py-2">{agent.email}</td>
                                 <td className="border border-gray-300 px-4 py-2">{agent.phone}</td>
                                 <td className="border border-gray-300 px-4 py-2">
-                                    {!agent.block ? (
+                                    {agent.isBlock ? (
                                     <button onClick={() => HandleClick(agent._id)}
                                     className="bg-red-500 text-white px-2 py-1 rounded-md"                                  
                                     >

@@ -48,6 +48,7 @@ export async function Blockuser(id) {
 
 
 export async function Blockagent(id) {
+    console.log(id);
     try {
         const Res = await Adminapi.put("/blockagent", id);
         return Res;
