@@ -4,7 +4,6 @@ import { RouteObjects } from '../../Routes/RouteObject';
 
 function Home() {
     const location =useLocation()
-    console.log(location,"pioio");
 
     return (
         <>

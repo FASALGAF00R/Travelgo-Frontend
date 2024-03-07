@@ -1,9 +1,5 @@
-import axios from "axios";
-
-// baseurl 
-const Adminapi = axios.create({
-    baseURL: 'http://localhost:3000/admin'
-})
+import Admininterceptors from'../Interceptors/Admininterceptors.jsx'
+const Adminapi=Admininterceptors
 
 
 export async function Admindata(data) {

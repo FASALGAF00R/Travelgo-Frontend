@@ -1,31 +1,6 @@
-import axios from "axios";
+import Agentinterceptors from '../Interceptors/Agentinterceptors.jsx'
 
-// backendurl
-const agentapi = axios.create({
-    baseURL: 'http://localhost:3000/agent',
-    withCredentials: true,
-
-})
-
-const token = localStorage.getItem('AgentaccesToken')
-console.log(token,"pp");
-
-
-const Configtoken = {
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer" + token
-    }
-
-}
-
-
-// Attach the headers to the axios instance
-agentapi.defaults.headers = Configtoken.headers
-
-
-
-
+const agentapi =Agentinterceptors
 // agent sign up
 export async function Signupdata(data) {
     try {

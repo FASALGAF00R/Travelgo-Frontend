@@ -6,7 +6,7 @@ import { RouteObjects } from '../../Routes/RouteObject'
 function Adminheader() {
     let navigate = useNavigate()
     const location =useLocation()
-    console.log(location,"header");
+
 
 
     

@@ -14,7 +14,7 @@ import {
 } from '../../Api/Agentapi';
 
 function Packages() {
-  const [category, setcategory] = useState([])
+  // const [category, setcategory] = useState([])
   const [activity, setactivity] = useState([])
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -25,6 +25,8 @@ function Packages() {
     activities: [],
     amount: ''
   });
+  
+  // console.log(category,"lkjk");
 
   const handleOpen = () => setOpen(!open);
 

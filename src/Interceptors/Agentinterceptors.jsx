@@ -1,13 +1,13 @@
-import axios from "axios";
 
+import axios from "axios";
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_USERBACKEND_URL
+  baseURL:import.meta.env.VITE_AGENTBACKEND_URL
 });
 
-let AccesToken = localStorage.getItem("accesToken");
 
+let AgentAccesToken = localStorage.getItem("AgentaccesToken");
 
-instance.defaults.headers.common["Authorization"] = AccesToken ? `Bearer ${AccesToken}` : "";
+instance.defaults.headers.common["Authorization"] = AgentAccesToken ? `Bearer ${AgentAccesToken}` : "";
 instance.defaults.headers.post["Content-Type"] = "application/json";
 
 
@@ -33,7 +33,7 @@ instance.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       try {
         console.log("work");
-        const refreshedTokenResponse = await instance.post('/refreshtoken', { refreshToken: localStorage.getItem('refreshToken') });
+        const refreshedTokenResponse = await instance.post('/refreshtoken', { refreshToken: localStorage.getItem('AdminrefreshToken') });
         const newAccessToken = refreshedTokenResponse.data.accessToken;
         console.log("success");
         localStorage.setItem('newaccessToken', newAccessToken);

@@ -61,7 +61,7 @@ const Login = () => {
           toast(result.data.message)
           console.log(result, "result");
           if (result.data.data.isBlock === true) {
-            navigate(RouteObjects.Home);
+            navigate(RouteObjects.UserHome);
           } else {
             console.log("errorr  got");
 
@@ -172,13 +172,13 @@ const Login = () => {
             </span>
             <br/>
             <br/>
-
+{/* 
           <div className="flex justify-center sm:px-0 max-w-sm  " onClick={() => Googleauth()}>
             <button className="px-6 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200  transition duration-150  hover:scale-110">
               <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg " loading="lazy" alt="google logo"></img>
               <span>Login with Google</span>
             </button>
-          </div>
+          </div> */}
           </form>
           <Toaster />
         </div>

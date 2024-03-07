@@ -58,13 +58,14 @@ function Login() {
 
   return (
     <>
-      <div className=' flex justify-center  align-middle  my-16'>
+    <div className='flex justify-center my-24 '>
+      <div className=' flex justify-center    '>
         <Card color="transparent" shadow={false}>
           <Typography variant="h4" color="blue-gray">
-            Sign In
+           Log in
           </Typography>
           <Typography color="gray" className="mt-1 font-normal">
-            Nice to meet you! Enter your details to login.
+            Nice to meet you admin! Enter your details to login.
           </Typography>
           <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit}>
             <div className="mb-1 flex flex-col gap-6">
@@ -81,9 +82,6 @@ function Login() {
                 onChange={handleInputChange}
 
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
               />
               <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Password
@@ -96,12 +94,10 @@ function Login() {
                 value={admin.password}
                 onChange={handleInputChange}
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
+
               />
             </div>
-            <Button type="submit" className="mt-6" fullWidth>
+            <Button type="submit" className="mt-6 hover:scale-105 hover:px-2" fullWidth>
               Log in
             </Button>
 
@@ -109,6 +105,7 @@ function Login() {
           <Toaster />
 
         </Card>
+      </div>
       </div>
     </>
   );
