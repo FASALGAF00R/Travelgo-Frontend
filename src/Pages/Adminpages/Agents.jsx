@@ -38,8 +38,8 @@ function Agents() {
     return (
         <>
             <div className="flex justify-center font-extrabold">
-                <span className='text-gray-800 '>Agent</span>
-                <span >management</span>
+                <span className='text-gray-800 '>Agents</span>
+                <span className='font-extrabold text-gray-600'>management</span>
             </div>
             <br />
             <br />

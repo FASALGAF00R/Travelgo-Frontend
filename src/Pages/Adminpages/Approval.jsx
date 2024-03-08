@@ -43,7 +43,7 @@ function Approval() {
 
             <div className="flex justify-center font-extrabold">
                 <span className='text-gray-800 '>Admin</span>
-                <span >approval</span>
+                <span className='font-extrabold text-gray-600'>approval</span>
             </div>
 
             <div className="flex  justify-center mt-10 mx-40 ">

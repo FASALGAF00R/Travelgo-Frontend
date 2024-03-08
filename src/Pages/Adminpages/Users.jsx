@@ -37,8 +37,8 @@ function Users() {
     <>
 
       <div className="flex justify-center font-extrabold">
-        <span className='text-gray-800'>User</span>
-        <span >management</span>
+        <span className='text-gray-800'>Users</span>
+        <span className='font-extrabold text-gray-600'>management</span>
       </div>
       <br />
       <div className="flex justify-center ">

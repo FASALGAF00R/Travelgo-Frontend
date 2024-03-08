@@ -48,12 +48,12 @@ function Packagecategory() {
 
     const Handleblock = async (catid) => {
         try {
-         const res=   await Blockcat({ _id: catid }).then((res) => {
-            console.log(res,"ooo");
+            const res = await Blockcat({ _id: catid }).then((res) => {
+                console.log(res, "ooo");
                 if (res.status) {
                     setcategory((prevcat) =>
-                    prevcat.map((catry) =>
-                    catry._id === catid ?
+                        prevcat.map((catry) =>
+                            catry._id === catid ?
                                 { ...catry, isBlock: !catry.isBlock } : catry
                         )
                     )
@@ -69,6 +69,10 @@ function Packagecategory() {
 
     return (
         <>
+            <div className="flex justify-center font-extrabold">
+                <span className='text-gray-800 '>Category</span>
+                <span className='font-extrabold text-gray-600'>management</span>
+            </div>
 
             <div className="w-[100%] flex justify-end">
                 <button onClick={handleOpen} className="bg-blue-gray-700 p-2  mt-10 mr-5 text-cyan-50 rounded-lg">Add Category
@@ -116,65 +120,72 @@ function Packagecategory() {
             <br />
             <br />
 
+
+
             <Card className="h-[50%] ml-20 w-[80%] overflow-scroll shadow-lg shadow-gray-800">
-                <table className="w-full min-w-max table-auto text-left">
-                    <thead>
-                        <tr>
-                            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
-                                    Numbers
-                                </Typography>
-                            </th>
+            {category.length > 0 ?(
+                    <table className="w-full min-w-max table-auto text-left">
+                        <thead>
+                            <tr>
+                                <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                    <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
+                                        Numbers
+                                    </Typography>
+                                </th>
 
-                            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
-                                    Category
-                                </Typography>
-                            </th>
-                            <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
-                                    Action
-                                </Typography>
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {category.map((cat, index) => (
-                            <tr key={cat._id}>
-                                <td className="p-4 border-b border-blue-gray-50 text-gray-700 font-bold ">
-                                    {index + 1}
-                                </td>
-
-                                <td className="p-4 border-b border-blue-gray-50 text-gray-700">
-                                    {cat.Name}
-                                </td>
-                                <td className="p-4 border-b border-blue-gray-50 text-gray-700">
-                                    {cat.isBlock ? (
-                                        <Button
-                                            variant="outlined"
-                                            color="green"
-                                            onClick={() => Handleblock(cat._id)}
-                                        >
-                                            block
-                                        </Button>
-                                    ) : (
-                                        <Button
-                                            variant="outlined"
-                                            color="red"
-                                            onClick={() => Handleblock(cat._id)}
-                                        >
-                                            UnBlock
-                                        </Button>
-                                    )}
-                                </td>
+                                <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                    <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
+                                        Category
+                                    </Typography>
+                                </th>
+                                <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                    <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
+                                        Action
+                                    </Typography>
+                                </th>
 
                             </tr>
-                        ))}
-                    </tbody>
+                        </thead>
+                        <tbody>
+                            {category.map((cat, index) => (
+                                <tr key={cat._id}>
+                                    <td className="p-4 border-b border-blue-gray-50 text-gray-700 font-bold ">
+                                        {index + 1}
+                                    </td>
 
-                </table>
-            </Card>
+                                    <td className="p-4 border-b border-blue-gray-50 text-gray-700">
+                                        {cat.Name}
+                                    </td>
+                                    <td className="p-4 border-b border-blue-gray-50 text-gray-700">
+                                        {cat.isBlock ? (
+                                            <Button
+                                                variant="outlined"
+                                                color="green"
+                                                onClick={() => Handleblock(cat._id)}
+                                            >
+                                                block
+                                            </Button>
+                                        ) : (
+                                            <Button
+                                                variant="outlined"
+                                                color="red"
+                                                onClick={() => Handleblock(cat._id)}
+                                            >
+                                                UnBlock
+                                            </Button>
+                                        )}
+                                    </td>
+
+                                </tr>
+                            ))}
+                        </tbody>
+
+                    </table>    
+            ):(
+            <p className=' text-red-700 flex  justify-center'>No categorys available !</p>
+
+                )}
+                </Card>
 
         </>
     )

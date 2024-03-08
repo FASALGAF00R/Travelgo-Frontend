@@ -14,9 +14,10 @@ import {
 } from '../../Api/Agentapi';
 
 function Packages() {
-  // const [category, setcategory] = useState([])
+  const [category, setcategory] = useState([])
   const [activity, setactivity] = useState([])
   const [open, setOpen] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [formData, setFormData] = useState({
     placeName: '',
     image: null,
@@ -25,7 +26,7 @@ function Packages() {
     activities: [],
     amount: ''
   });
-  
+
   // console.log(category,"lkjk");
 
   const handleOpen = () => setOpen(!open);
@@ -42,6 +43,7 @@ function Packages() {
     const fetchData = async () => {
       try {
         const response = await fetchcatgeory();
+
         setcategory(response.data.Categories);
 
         const Response = await fetchActivities();
@@ -54,8 +56,12 @@ function Packages() {
     };
 
     fetchData();
-  }, []);
+  }, [refresh]);
 
+
+  const handleclick = () => {
+    refresh === true ? setRefresh(false) : setRefresh(true);
+  }
 
 
   const handleChange = (e) => {
@@ -95,10 +101,9 @@ function Packages() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-   
-      console.log(formData,'oooooll');
-   const  res= await Addpackagedata(formData); 
-   console.log(res);
+
+      const res = await Addpackagedata(formData);
+      console.log(res);
     } catch (error) {
       console.log("error while submitting form", error);
     }
@@ -113,7 +118,6 @@ function Packages() {
     });
     setOpen(false);
   };
-console.log(formData,"pp");
 
   return (
     <>
@@ -167,6 +171,7 @@ console.log(formData,"pp");
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
+                onClick={handleclick}
               >
                 <option value="">Select Category</option>
                 {category.map(cat => (
