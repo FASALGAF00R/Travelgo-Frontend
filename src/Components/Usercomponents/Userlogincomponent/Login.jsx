@@ -30,13 +30,6 @@ const Login = () => {
 
 
 
-
-  const handleError = (err) =>
-    toast.error(err, {
-      position: "bottom-left",
-    });
-
-
   const Googleauth = useGoogleLogin({
     onSuccess: (codeResponse) => {
       console.log(user.access_token, "token");
@@ -59,11 +52,10 @@ const Login = () => {
 
           const result = await Googledata(response)
           toast(result.data.message)
-          console.log(result, "result");
           if (result.data.data.isBlock === true) {
             navigate(RouteObjects.UserHome);
           } else {
-            console.log("errorr  got");
+            console.log("error  got");
 
           }
         } catch (error) {
@@ -83,7 +75,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      if (formData.email == ''&& formData.password == '') {
+      if (formData.email == '' && formData.password == '') {
         toast.error('Please enter all fields!')
       } else if (formData.password == '') {
         toast.error('Please enter all fields')
@@ -148,8 +140,8 @@ const Login = () => {
                 autoComplete="current-password"
               />
             </div>
-         
-     
+
+
             <div className="flex items-center justify-between">
               <button
                 className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-4 font-light py-1 px-20 ml-12 rounded-lg  "
@@ -159,9 +151,11 @@ const Login = () => {
               </button>
             </div>
             <br></br>
-            <button onClick={()=> navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })}
-                className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
-                  Forgot password  ?
+            
+            <button onClick={() =>
+     navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })}
+              className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+              Forgot password  ?
             </button>
             <br></br>
 
@@ -173,9 +167,9 @@ const Login = () => {
                 Sign up
               </Link>
             </span>
-            <br/>
-            <br/>
-{/* 
+            <br />
+            <br />
+            {/* 
           <div className="flex justify-center sm:px-0 max-w-sm  " onClick={() => Googleauth()}>
             <button className="px-6 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200  transition duration-150  hover:scale-110">
               <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg " loading="lazy" alt="google logo"></img>
@@ -183,9 +177,9 @@ const Login = () => {
             </button>
           </div> */}
           </form>
-          <Toaster />
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

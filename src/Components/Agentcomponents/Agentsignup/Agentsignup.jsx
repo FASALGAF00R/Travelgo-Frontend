@@ -49,17 +49,14 @@ function Agentsignup() {
   const formdata = async (e) => {
     e.preventDefault();
     try {
-      if (Data.password !== Data.confirmpassword) {
-        toast.error('password incorrect')
-      }
-
-
       if (!Data.userName || !Data.email || !Data.phone || !Data.password) {
         toast.error('fields required');
       } else if (!/^\d{10}$/.test(Data.phone)) {
         toast.error('Phone number must be 10 digits');
       } else if (!validatePassword(Data.password)) {
         toast.error("Password: 6+ chars, letters & numbers.");
+      }else if (Data.password !== Data.confirmpassword) {
+        toast.error('passwords  incorrect')
       } else {
         const res = await Signupdata(Data)
         if (res.data.newagent) {
@@ -73,6 +70,9 @@ function Agentsignup() {
     }
 
   }
+
+console.log(Data.confirmpassword,"huhuyh");
+console.log(Data.password,"huhuyh");
 
   return (
 

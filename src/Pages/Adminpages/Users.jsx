@@ -20,8 +20,8 @@ function Users() {
         if (res.status === 200) {
           setUsers((prevUsers) =>
             prevUsers.map((user) =>
-              user._id === usersid ? 
-              { ...user, isBlock: !user.isBlock } : user
+              user._id === usersid ?
+                { ...user, isBlock: !user.isBlock } : user
             )
           )
         }
@@ -35,14 +35,15 @@ function Users() {
 
   return (
     <>
-    
-    <div className="flex justify-center font-extrabold">
-  <span className='text-gray-800'>User</span>
-  <span >management</span>
-</div>
+
+      <div className="flex justify-center font-extrabold">
+        <span className='text-gray-800'>User</span>
+        <span >management</span>
+      </div>
       <br />
       <div className="flex justify-center ">
-        <table className=" border  border-gray-300 font-thin   shadow-gray-800 shadow-md" style={{ maxHeight: '300px', overflowY: 'auto' }}>
+        {users .length >0 ? (
+          <table className=" border  border-gray-300 font-thin   shadow-gray-800 shadow-md" style={{ maxHeight: '300px', overflowY: 'auto' }}>
           <thead className='bg-blue-gray-700 text-white'>
             <tr>
               <th className="border border-gray-500 px-4 py-2">No</th>
@@ -80,9 +81,10 @@ function Users() {
 
           </tbody>
         </table>
+        ):(
+          <p className='text-red-700'>No users available !</p>
+        )}
       </div>
-
-
     </>
 
 
@@ -90,3 +92,5 @@ function Users() {
 }
 
 export default Users
+
+

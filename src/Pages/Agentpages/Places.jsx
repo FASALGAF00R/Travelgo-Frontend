@@ -19,7 +19,7 @@ function Places() {
   })
   const [Places, setPlaces] = useState([])
   const [editingPlace, setEditingPlace] = useState(null);
- 
+
 
 
   useEffect(() => {
@@ -34,13 +34,13 @@ function Places() {
   }, [])
 
 
-// for opening and closing the modals
+  // for opening and closing the modals
   const openModal = () => {
     setEditingPlace(null);
     setPlaceModalOpen(!placeModalOpen);
 
   };
-  
+
 
 
   const handleEdit = (place) => {
@@ -48,7 +48,7 @@ function Places() {
     setformdata({
       Destrictname: place.Destrictname,
       description: place.Description,
-      image: null 
+      image: null
     });
     setPlaceModalOpen(true);
   };
@@ -60,14 +60,14 @@ function Places() {
     e.preventDefault();
     try {
       if (editingPlace) {
-        await UpdatePlace(editingPlace._id,{Data:formdata}); 
-      }else{
+        await UpdatePlace(editingPlace._id, { Data: formdata });
+      } else {
         await Placedata(formdata)
-      .then((response) => {
-        setPlaces((prev)=> [...prev,response.data.place]);
-      });
-      setPlaceModalOpen(false);
-    }
+          .then((response) => {
+            setPlaces((prev) => [...prev, response.data.place]);
+          });
+        setPlaceModalOpen(false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -92,10 +92,10 @@ function Places() {
 
   return (
     <>
-<div className='flex justify-center'>
-  <span className='font-extrabold text-blue-gray-700'>PLACES</span>
-  <span className='font-extrabold text-gray-600'> MANAGEMENT</span>
-</div>
+      <div className='flex justify-center'>
+        <span className='font-extrabold text-blue-gray-700'>PLACES</span>
+        <span className='font-extrabold text-gray-600'> MANAGEMENT</span>
+      </div>
       <div className='flex p-8'>
         <div className="w-[100%] flex justify-end">
           <button onClick={openModal} className="bg-blue-gray-700 p-3  text-cyan-50 rounded-lg">Add places
@@ -119,7 +119,7 @@ function Places() {
               <input className=' w-full ' type="file" id="image" name="image" onChange={handlechange} />
             </div>
             <br />
-            <Button type="submit" variant="gradient" color="green" onClick={openModal} >           
+            <Button type="submit" variant="gradient" color="green" onClick={openModal} >
               Add
             </Button>
           </form>
@@ -127,7 +127,7 @@ function Places() {
       </Dialog>
 
       <div>
-        <div class="container px-16 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* <div className="container bg-black  px-16 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Places && Places.map((place) => (
             <div key={place._id} onClick={()=>handleEdit(place)} className="bg-gray-300 shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
               <img
@@ -135,14 +135,36 @@ function Places() {
                 alt={place.Destrictname}
                 class=" object-cover"
               />
-              <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                <p class="text-white text-lg font-bold">{place.Destrictname}</p>
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
+                <p className="text-white text-lg font-bold">{place.Destrictname}</p>
               </div>
 
                 <p>{place.Description} </p>
             </div>
           ))}
+        </div> */}
+        <div className='flex flex-col'>
+          <div className='flex flex-wrap justify-center  gap-x-5 '>
+            {Places && Places.map((place) => (
+              <div key={place._id}  onClick={()=>handleEdit(place)} className='mt-8  ml-2 w-80 shadow-2xl h-[400px] rounded-xl overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md'>
+                <div className="relative">
+                  <img
+                    src={place.Image}
+                    alt={place.Destrictname}
+                    className="object-cover w-full h-48"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
+                    <p className="text-black text-lg font-bold">{place.Destrictname}</p>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p>{place.Description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
       </div>
     </>
   )
