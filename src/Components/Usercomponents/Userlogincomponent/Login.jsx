@@ -105,10 +105,7 @@ const Login = () => {
 
     }
   };
-  
-  const handleForgot = () => {
-    navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })
-  }
+
   return (
     <div className='flex justify-center items-center h-full bg-pink-50 '>
       <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
@@ -151,9 +148,8 @@ const Login = () => {
                 autoComplete="current-password"
               />
             </div>
-            <button onClick={handleForgot} className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
-              Forgot password  ?
-            </button>
+         
+     
             <div className="flex items-center justify-between">
               <button
                 className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-4 font-light py-1 px-20 ml-12 rounded-lg  "
@@ -162,6 +158,13 @@ const Login = () => {
                 Log In
               </button>
             </div>
+            <br></br>
+            <button onClick={()=> navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })}
+                className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+                  Forgot password  ?
+            </button>
+            <br></br>
+
             <br>
             </br>
             <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">

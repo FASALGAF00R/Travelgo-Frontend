@@ -75,9 +75,7 @@ function Login() {
 
   );
 
-  const handleForgot = () => {
-    navigate(RouteObjects.ForgetPassword, { state: { role: 'agent' } })
-  }
+
 
 
   const handlesubmitdata = async (e) => {
@@ -153,9 +151,7 @@ function Login() {
                 />
               </div>
 
-              <button onClick={handleForgot} className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
-                Forgot password  ?
-              </button>
+
 
 
 
@@ -167,6 +163,12 @@ function Login() {
                   Log In
                 </button>
               </div>
+              <br/>
+                <button onClick={()=>navigate(RouteObjects.ForgetPassword, { state: { role: 'agent' } })}
+              className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+                  Forgot password  ?
+                </button>
+                <br/>
               <br>
               </br>
               <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
@@ -178,15 +180,15 @@ function Login() {
 
               {/* <div class="flex justify-center sm:px-0 max-w-sm mt-5 " onClick={() => Googleauth()}>
                 <button className="px-6 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150 hover:scale-110">
-                  <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg " loading="lazy" alt="google logo"></img>
-                  <span>Login with Google</span>
+                <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg " loading="lazy" alt="google logo"></img>
+                <span>Login with Google</span>
                 </button>
               </div> */}
             </form>
-            <Toaster />
           </div>
         </div>
       </div>
+            <Toaster />
     </>
 
   )
