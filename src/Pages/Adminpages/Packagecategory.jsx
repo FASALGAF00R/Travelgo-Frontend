@@ -156,19 +156,16 @@ function Packagecategory() {
                                     <td className="p-4 border-b border-blue-gray-50 text-gray-700">
                                         {cat.Name}
                                     </td>
-                                    <td className="p-4 border-b border-blue-gray-50 text-gray-700">
+                                    <td className="p-4  bg-white">
                                         {cat.isBlock ? (
-                                            <Button
-                                                variant="outlined"
-                                                color="green"
+                                            <Button className='bg-red-600'
                                                 onClick={() => Handleblock(cat._id)}
                                             >
                                                 block
                                             </Button>
                                         ) : (
-                                            <Button
-                                                variant="outlined"
-                                                color="red"
+                                            <Button className='bg-green-600'
+                                              
                                                 onClick={() => Handleblock(cat._id)}
                                             >
                                                 UnBlock

@@ -22,6 +22,26 @@ export async function Verify(token) {
 }
 
 
+
+export async function Checking(data) {
+    console.log(data,"//////////////////");
+    try {
+        const result = await agentapi.get(`/checkingagent/${data}`);
+        return result
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+
+
+
+
+
+
 export async function Formdata(agent) {
     try {
         const Login = await agentapi.post('/login', agent)
@@ -106,13 +126,33 @@ export async function Fetchactivies() {
 export async function UpdateActivity(id, data) {
    
     try {
-        const result = await agentapi.put(`/updateactivity/${id}`, data); // Adjusted URL
+        const result = await agentapi.put(`/updateactivity/${id}`, data); 
         console.log(result);
         return result;
     } catch (error) {
         console.log(error);
     }
 }
+
+
+
+export async function Blockact(id) {
+    console.log(id);
+   
+    try {
+        const result = await agentapi.put(`/blockactivity/${id}`); 
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
+
+
 
 
 export async function Addpackagedata(data) {
@@ -160,14 +200,3 @@ export async function fetchActivities() {
 
 
 
-export async function Checking(data) {
-    console.log(data,"//////////////////");
-    try {
-        const result = await agentapi.get(`/checkingagent/${data}`);
-        return result
-
-    } catch (error) {
-        console.log(error);
-
-    }
-}

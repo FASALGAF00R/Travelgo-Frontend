@@ -8,7 +8,7 @@ import {
     Card,
     Typography
 } from "@material-tailwind/react";
-import { Addactivity, Fetchactivies, UpdateActivity } from '../../Api/Agentapi';
+import { Addactivity, Fetchactivies, UpdateActivity, Blockact } from '../../Api/Agentapi';
 
 function Activities() {
     const [open, setOpen] = useState(false);
@@ -60,15 +60,30 @@ function Activities() {
         }
         handleClose();
     };
-    
+
+    const handleblock = async (actid) => {
+        const Response = await Blockact(actid );
+        if (Response) {
+            setEdit((prevAct) =>
+            prevAct.map((ac) =>
+           
+            ac._id === actid ?
+             { ...ac, isBlock: !ac.isBlock } : ac
+            )
+            )
+          }
+
+    }
+
+
 
     return (
         <>
-        <div className='flex justify-center font-extrabold'>
-        <div className='flex justify-center'>
-  <span className='font-extrabold text-blue-gray-700'>ACTIVITIES</span>
-  <span className='font-extrabold text-gray-600'> MANAGEMENT</span>
-</div>        </div>
+            <div className='flex justify-center font-extrabold'>
+                <div className='flex justify-center'>
+                    <span className='font-extrabold text-blue-gray-700'>ACTIVITIES</span>
+                    <span className='font-extrabold text-gray-600'> MANAGEMENT</span>
+                </div>        </div>
             <div className="w-[100%] flex justify-end">
                 <button onClick={() => handleOpen(null)} className="bg-blue-gray-700 p-2  mt-10 mr-5 text-cyan-50 rounded-lg">Add activity
                 </button>
@@ -141,15 +156,34 @@ function Activities() {
                                 <td className="p-4 border-b border-blue-gray-50 text-gray-700">
                                     <button
                                         onClick={() => handleOpen(act)}
-                                        className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
+                                        className="bg-blue-gray-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
                                     >
                                         Edit
                                     </button>
+
+                                    {!act.isBlock ? (
+
+                                    <button
+                                        onClick={() => handleblock(act._id)}
+                                        className="bg-red-900 mx-4 text-white px-4 py-2 rounded-lg"
+                                    >
+                                            UnBlock
+                                    </button>
+                                    ):(
+                                        <button
+                                        onClick={() => handleblock(act._id)}
+                                        className="bg-green-700 mx-4 text-white px-4 py-2 rounded-lg"
+                                    >
+                                        block
+                                    </button>
+
+                                    )}
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+
             </Card>
         </>
     );
