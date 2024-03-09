@@ -47,7 +47,7 @@ function Packages() {
         setcategory(response.data.Categories);
 
         const Response = await fetchActivities();
-        setactivity(Response.data)
+        setactivity(Response.data.Activities)
 
 
       } catch (error) {
@@ -69,7 +69,7 @@ function Packages() {
     setFormData({
       ...formData,
       [name]: value
-    });
+    }); 
   };
 
 
@@ -200,6 +200,8 @@ function Packages() {
                     name={act.Activity}
                     color="green"
                     onChange={handleCheckboxChange}
+                    onClick={handleclick}
+
                   />
                   <label htmlFor={act._id} className="ml-2">{act.Activity}</label>
                 </div>

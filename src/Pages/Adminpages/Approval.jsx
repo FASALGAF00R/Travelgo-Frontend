@@ -71,7 +71,7 @@ function Approval() {
 
                                         <button
                                             onClick={() => handleaprove(agents._id, 'Accept')}
-                                            className="bg-green-500  text-white px-3 py-1 rounded mr-2"
+                                            className="bg-green-700  text-white px-3 py-1 rounded mr-2"
                                         >
                                             <span>Accept</span>
                                         </button>

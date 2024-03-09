@@ -62,14 +62,14 @@ function Users() {
                 <td className="border border-gray-300 px-4 py-2">
                   {!user.isBlock ? (
                     <button onClick={() => HandleClick(user._id)}
-                      className="bg-green-500 text-white px-2 py-1 rounded-md"
+                      className="bg-green-700 text-white px-2 py-1 rounded-md"
 
                     >
                       <span>Unblock</span>
                     </button>
                   ) : (
                     <button onClick={() => HandleClick(user._id)}
-                      className="bg-red-500 text-white px-2 py-1 rounded-md"
+                      className="bg-red-700 text-white px-2 py-1 rounded-md"
 
                     >
                       <span>Block</span>
