@@ -5,14 +5,15 @@ function Destination() {
 
   const [places, setplaces] = useState([])
   const [search, setsearch] = useState('')
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(2)
 
   useEffect(() => {
     const fetchplaces = async () => {
       try {
         const response = await Placedata(page, limit)
-        setplaces(response.data.places)
+        const filteredPlaces = response.data.places.filter(place => place.isBlock);
+        setplaces(filteredPlaces);
       } catch (error) {
         console.error('Error fetching places:', error);
       }
@@ -20,7 +21,7 @@ function Destination() {
 
     fetchplaces()
 
-  }, [page, limit])
+  }, [search,page, limit])
 
   const handleInputChange = (e) => {
     setsearch(e.target.value)

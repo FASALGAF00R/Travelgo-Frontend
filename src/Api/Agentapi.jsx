@@ -65,7 +65,6 @@ export async function agentdata(data) {
 
 
 export async function Placedata(data) {
-    console.log(data,"ll");
     try {
         const result = await agentapi.post('/places', data, {
             headers: {
@@ -97,6 +96,21 @@ export async function UpdatePlace(id, data) {
         console.log(error);
     }
 }
+
+
+
+export async function Blockplaces(id) {
+    console.log(id,"kk");
+    try {
+        const result = await agentapi.put(`/Blockplace/${id}`)
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
 
 
 export async function Addactivity(data) {
@@ -145,11 +159,6 @@ export async function Blockact(id) {
         console.log(error);
     }
 }
-
-
-
-
-
 
 
 

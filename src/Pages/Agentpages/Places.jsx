@@ -7,8 +7,8 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { Placedata } from '../../Api/Agentapi';
-import { UpdatePlace } from '../../Api/Agentapi';
+import { Placedata, Blockplaces, UpdatePlace } from '../../Api/Agentapi';
+
 // Add places
 function Places() {
   const [placeModalOpen, setPlaceModalOpen] = useState(false)
@@ -90,6 +90,22 @@ function Places() {
     }
   };
 
+  const handleBlock = async (placeId) => {
+    const Response = await Blockplaces(placeId)
+    setPlaces(prevPlaces => {
+      return prevPlaces.map(place => {
+        if (place._id === placeId) {
+          return { ...place, isBlock: !place.isBlock };
+        }
+        return place;
+      });
+    })
+  };
+
+
+
+
+
   return (
     <>
       <div className='flex justify-center'>
@@ -143,22 +159,33 @@ function Places() {
             </div>
           ))}
         </div> */}
-        <div className='flex flex-col'>
-          <div className='flex flex-wrap justify-center  gap-x-5 '>
+        <div className='flex flex-col '>
+          <div className='flex flex-wrap justify-center gap-5  '>
             {Places && Places.map((place) => (
-              <div key={place._id}  onClick={()=>handleEdit(place)} className='mt-8  ml-2 w-80 shadow-2xl h-[400px] rounded-xl overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md'>
-                <div className="relative">
-                  <img
-                    src={place.Image}
-                    alt={place.Destrictname}
-                    className="object-cover w-full h-48"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                    <p className="text-black text-lg font-bold">{place.Destrictname}</p>
-                  </div>
+              <div>
+                <div className="flex justify-center">
+                {!place.isBlock ? (
+                  <Button className='bg-green-800  hover:scale-110' onClick={() => handleBlock(place._id)} >UnBlock</Button>
+                ) : (
+                  <Button className='bg-red-800' onClick={() => handleBlock(place._id)} >Block</Button>
+                )}       
                 </div>
-                <div className="p-4">
-                  <p>{place.Description}</p>
+
+                <div key={Places._id} onClick={() => handleEdit(place)} className='mt-8 b ml-2 w-72  shadow-2xl h-[400px] rounded-xl overflow-hidden card transform transition-transform duration-200 hover:scale-95 hover:shadow-md'>
+                  <div className="relative">
+                    <img
+                      src={place.Image}
+                      alt={place.Destrictname}
+                      className="object-cover w-full h-48"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
+                      <p className="text-white text-lg font-bold">{place.Destrictname}</p>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <p>{place.Description}</p>
+
+                  </div>
                 </div>
               </div>
             ))}
