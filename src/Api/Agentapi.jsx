@@ -136,9 +136,7 @@ export async function UpdateActivity(id, data) {
 
 
 
-export async function Blockact(id) {
-    console.log(id);
-   
+export async function Blockact(id) {   
     try {
         const result = await agentapi.put(`/blockactivity/${id}`); 
         console.log(result);
@@ -156,7 +154,6 @@ export async function Blockact(id) {
 
 
 export async function Addpackagedata(data) {
-    console.log(data,'iiiiiiiiiiiiiiiiii');
     try {
         const result = await agentapi.post('/addpackage', data, {
             headers : {

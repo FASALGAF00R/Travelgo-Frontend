@@ -7,16 +7,20 @@ import {
     DialogFooter,
 } from "@material-tailwind/react";
 import { Card, Typography } from "@material-tailwind/react";
-import { Addcatgeory } from '../../Api/Adminapi';
-import { Fetchcategory } from '../../Api/Adminapi';
-import { Blockcat } from '../../Api/Adminapi';
+import { Addcatgeory, Fetchcategory, Editcategory, Blockcat } from '../../Api/Adminapi';
+
 
 
 function Packagecategory() {
     const [categoryName, setCategoryName] = useState('');
     const [category, setcategory] = useState([]);
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(!open);
+    const [mode, setMode] = useState('add');
+    const [editCategoryId, setEditCategoryId] = useState(null);
+    const handleOpen = () => {
+        setOpen(!open);
+        setMode('add');
+    }
 
 
 
@@ -33,16 +37,41 @@ function Packagecategory() {
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            const response = await Addcatgeory({ categoryName: categoryName })
-            setcategory((prev) => [...prev, response.data.newCategory])
+            if (mode === 'add') {
+                const response = await Addcatgeory({ categoryName: categoryName });
+                setcategory((prev) => [...prev, response.data.newCategory]);
+            } else if (mode === 'edit') {
+                const response = await Editcategory(editCategoryId, categoryName);
+                if (response.status === 201) {
+                    setcategory((prevcat) =>
+                        prevcat.map((catry) =>
+                            catry._id === editCategoryId ? { ...catry, Name: categoryName } : catry
+                        )
+                    );
+                } else {
+                    console.log('Error editing category');
+                }
+            }
         } catch (error) {
-            console.log('error got on adding category', error);
+            console.log('error got on adding/editing category', error);
         }
         setCategoryName('');
+        setEditCategoryId(null);
+        setMode('add');
         setOpen(false);
-    };
+
+        try {
+            const updatedCategories = await Fetchcategory();
+            setcategory(updatedCategories.data.Category);
+        } catch (error) {
+            console.error('Error fetching updated categories:', error);
+        }
+
+
+      };
+
 
 
 
@@ -60,6 +89,7 @@ function Packagecategory() {
                 }
             });
 
+
         } catch (error) {
             console.error('Error blocking user:', error);
         }
@@ -67,8 +97,24 @@ function Packagecategory() {
     }
 
 
+
+    const handleEdit = (catId) => {
+        const categoryToEdit = category.find(cat => cat._id === catId);
+        if (categoryToEdit) {
+            setCategoryName(categoryToEdit.Name);
+            setEditCategoryId(catId);
+            setMode('edit');
+            setOpen(true);
+        }
+    };
+
+
+
+
+
     return (
         <>
+
             <div className="flex justify-center font-extrabold">
                 <span className='text-gray-800 '>Category</span>
                 <span className='font-extrabold text-gray-600'>management</span>
@@ -86,7 +132,7 @@ function Packagecategory() {
                     unmount: { scale: 0.9, y: -100 },
                 }}
             >
-                <DialogHeader>Add category </DialogHeader>
+                <DialogHeader>{mode === 'add' ? 'Add category' : 'Edit category'}</DialogHeader>
                 <DialogBody>
                     <div>
                         <form onSubmit={handleSubmit}>
@@ -100,7 +146,6 @@ function Packagecategory() {
                                 className="mt-1 p-2 block w-full shadow-sm sm:text-sm rounded-md border-gray-300 focus:border-gray-800 focus:ring focus:ring-cyan-200 focus:ring-opacity-50"
                             />
                         </form>
-
                     </div>
                 </DialogBody>
                 <DialogFooter>
@@ -113,7 +158,7 @@ function Packagecategory() {
                         <span>Cancel</span>
                     </Button>
                     <Button variant="gradient" color="green" onClick={handleSubmit}>
-                        <span>Confirm</span>
+                        <span>{mode === 'add' ? 'Add' : 'Save'}</span>
                     </Button>
                 </DialogFooter>
             </Dialog>
@@ -123,7 +168,7 @@ function Packagecategory() {
 
 
             <Card className="h-[50%] ml-20 w-[80%] overflow-scroll shadow-lg shadow-gray-800">
-            {category.length > 0 ?(
+                {category.length > 0 ? (
                     <table className="w-full min-w-max table-auto text-left">
                         <thead>
                             <tr>
@@ -165,24 +210,32 @@ function Packagecategory() {
                                             </Button>
                                         ) : (
                                             <Button className='bg-green-600'
-                                              
+
                                                 onClick={() => Handleblock(cat._id)}
                                             >
                                                 UnBlock
                                             </Button>
                                         )}
+                                        <Button className='ml-5 bg-blue-600 hover:bg-blue-600 text-white'
+                                            onClick={() => handleEdit(cat._id)}
+                                        >
+                                            Edit
+                                        </Button>
+
+
                                     </td>
+
 
                                 </tr>
                             ))}
                         </tbody>
 
-                    </table>    
-            ):(
-            <p className=' text-red-700 flex  justify-center'>No categorys available !</p>
+                    </table>
+                ) : (
+                    <p className=' text-red-700 flex  justify-center'>No categorys available !</p>
 
                 )}
-                </Card>
+            </Card>
 
         </>
     )

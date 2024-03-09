@@ -102,9 +102,20 @@ export async function Fetchcategory() {
 
 
 export async function Blockcat(id) {
-    console.log(id,"kk");
     try {
         const Result = await Adminapi.put('/blockcat',id)
+        return Result
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+
+
+export async function Editcategory(id,categoryName) {
+    try {
+        const Result = await Adminapi.put(`/editcat/${id}`,{ editedcat: categoryName })
         console.log(Result,"ii");
         return Result
     } catch (error) {
