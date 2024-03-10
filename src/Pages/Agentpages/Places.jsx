@@ -19,6 +19,7 @@ function Places() {
   })
   const [Places, setPlaces] = useState([])
   const [editingPlace, setEditingPlace] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
 
 
@@ -37,8 +38,14 @@ function Places() {
   // for opening and closing the modals
   const openModal = () => {
     setEditingPlace(null);
+      setformdata({
+    Destrictname: '',
+    description: '',
+    image: null
+  });
     setPlaceModalOpen(!placeModalOpen);
-
+    setErrorMessage('');
+      
   };
 
 
@@ -59,6 +66,24 @@ function Places() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!formdata.Destrictname.trim() || !formdata.description.trim()) {
+        setErrorMessage('All fields are required.');
+        return;
+      }
+  
+
+      if (Places.some(place => place.Destrictname.toLowerCase() === formdata.Destrictname.toLowerCase())) {
+        setErrorMessage('Places name must be unique.');
+        return;
+      }
+  
+
+      if (Places.some(place => place.description.toLowerCase() === formdata.description.toLowerCase())) {
+        setErrorMessage('Description name must be unique.');
+        return;
+      }
+
+
       if (editingPlace) {
         await UpdatePlace(editingPlace._id, { Data: formdata });
       } else {
@@ -67,6 +92,8 @@ function Places() {
             setPlaces((prev) => [...prev, response.data.place]);
           });
         setPlaceModalOpen(false);
+        setErrorMessage('');
+
       }
     } catch (error) {
       console.log(error);
@@ -119,28 +146,28 @@ function Places() {
         </div>
       </div>
       <Dialog open={placeModalOpen} handler={openModal}>
-        <DialogHeader>{editingPlace ? 'Edit Place' : 'Add Place'}</DialogHeader>
-        <DialogBody>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label className='text-gray-800 ' htmlFor="placeName">District Name:</label>
-              <input className=' w-full ' type="text" id="Destrictname" name="Destrictname" value={formdata.Destrictname} onChange={handlechange} />
-            </div>
-            <div>
-              <label className='text-gray-800 ' htmlFor="description">Description:</label>
-              <textarea className='ml-0 w-full' id="description" name="description" value={formdata.description} onChange={handlechange} />
-            </div>
-            <div>
-              <label className='text-gray-800 ' htmlFor="image">Upload image:</label>
-              <input className=' w-full ' type="file" id="image" name="image" onChange={handlechange} />
-            </div>
-            <br />
-            <Button type="submit" variant="gradient" color="green" onClick={openModal} >
-              Add
-            </Button>
-          </form>
-        </DialogBody>
-      </Dialog>
+  <DialogHeader>{editingPlace ? 'Edit Place' : 'Add Place'}</DialogHeader>
+  <DialogBody>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label className='text-gray-800' htmlFor="placeName">District Name:</label>
+        <input className='w-full' type="text" id="Destrictname" name="Destrictname" value={formdata.Destrictname} onChange={handlechange} />
+      </div>
+      <div>
+        <label className='text-gray-800' htmlFor="description">Description:</label>
+        <textarea className='ml-0 w-full' id="description" name="description" value={formdata.description} onChange={handlechange} />
+      </div>
+      <div>
+        <label className='text-gray-800' htmlFor="image">Upload image:</label>
+        <input className='w-full' type="file" id="image" name="image" onChange={handlechange} />
+      </div>
+      <br />
+      <Button type="submit" variant="gradient" color="green">Add</Button>
+    </form>
+    {errorMessage && <p className='text-red-500 text-center'>{errorMessage}</p>} {/* Render error message here */}
+  </DialogBody>
+</Dialog>
+
 
       <div>
         {/* <div className="container bg-black  px-16 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -167,7 +194,7 @@ function Places() {
                 {!place.isBlock ? (
                   <Button className='bg-green-800  hover:scale-110' onClick={() => handleBlock(place._id)} >UnBlock</Button>
                 ) : (
-                  <Button className='bg-red-800' onClick={() => handleBlock(place._id)} >Block</Button>
+                  <Button className='bg-red-800   hover:scale-110' onClick={() => handleBlock(place._id)} >Block</Button>
                 )}       
                 </div>
 

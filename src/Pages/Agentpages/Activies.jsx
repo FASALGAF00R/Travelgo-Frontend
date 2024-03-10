@@ -15,6 +15,8 @@ function Activities() {
     const [form, setFormdata] = useState('');
     const [edit, setEdit] = useState([]);
     const [selectedActivity, setSelectedActivity] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
+
 
     useEffect(() => {
         try {
@@ -40,14 +42,21 @@ function Activities() {
         setOpen(false);
         setSelectedActivity(null);
         setFormdata('');
+        setErrorMessage('');
+
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!form.trim()) {
-            console.log('Activity name is required');
+            setErrorMessage('Activity name is required');
             return;
         }
+        if (edit.some(item => item.Activity === form.trim())) {
+            setErrorMessage('activity already exists!')
+            return;
+        }
+
         try {
             if (selectedActivity) {
                 await UpdateActivity(selectedActivity._id, { form: form });
@@ -109,6 +118,7 @@ function Activities() {
                             className="mt-1 p-2 block w-full shadow-sm sm:text-sm rounded-md border-gray-300 focus:border-gray-800 focus:ring focus:ring-cyan-200 focus:ring-opacity-50"
                         />
                     </form>
+                    {errorMessage && <p className="text-red-500 text-xs italic">{errorMessage}</p>}
                 </DialogBody>
                 <DialogFooter>
                     <Button variant="text" color="red" onClick={handleClose} className="mr-1">
