@@ -12,7 +12,7 @@ function Destination() {
     const fetchplaces = async () => {
       try {
         const response = await Placedata(page, limit)
-        const filteredPlaces = response.data.places.filter(place => place.isBlock);
+        const filteredPlaces = response.data.places.filter(place => !place.isBlock);
         setplaces(filteredPlaces);
       } catch (error) {
         console.error('Error fetching places:', error);
@@ -21,7 +21,7 @@ function Destination() {
 
     fetchplaces()
 
-  }, [search,page, limit])
+  }, [search,page, limit,places])
 
   const handleInputChange = (e) => {
     setsearch(e.target.value)
@@ -71,9 +71,6 @@ function Destination() {
         <div class="grid grid-cols-1">
           <div class="text-3xl font-serif mx-2 text-right text-gray-700 px-5 animate__animated animate__fadeIn">Travel to your dream places</div>
         </div>
-
-
-
 
 
         <div className="container bg-pink-50 px-16 py-6 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mx-auto gap-12  shadow-2xl ">

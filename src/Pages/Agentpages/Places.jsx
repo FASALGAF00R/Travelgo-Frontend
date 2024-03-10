@@ -192,9 +192,9 @@ function Places() {
               <div>
                 <div className="flex justify-center">
                 {!place.isBlock ? (
-                  <Button className='bg-green-800  hover:scale-110' onClick={() => handleBlock(place._id)} >UnBlock</Button>
+                  <Button className='bg-green-800  hover:scale-110' onClick={() => handleBlock(place._id)} >Block</Button>
                 ) : (
-                  <Button className='bg-red-800   hover:scale-110' onClick={() => handleBlock(place._id)} >Block</Button>
+                  <Button className='bg-red-800   hover:scale-110' onClick={() => handleBlock(place._id)} >UnBlock</Button>
                 )}       
                 </div>
 
