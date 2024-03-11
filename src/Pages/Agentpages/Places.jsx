@@ -20,32 +20,33 @@ function Places() {
   const [Places, setPlaces] = useState([])
   const [editingPlace, setEditingPlace] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-
+  const [page, Setpages] = useState(1)
+  const [limit, Setlimit] = useState(3)
 
 
   useEffect(() => {
     try {
-      Fetchplaces()
+      Fetchplaces(page, limit)
         .then((response) => {
           setPlaces(response.data.placelist)
         });
     } catch (error) {
       console.log("error while fetching places", error);
     }
-  }, [])
+  }, [page, limit])
 
 
   // for opening and closing the modals
   const openModal = () => {
     setEditingPlace(null);
-      setformdata({
-    Destrictname: '',
-    description: '',
-    image: null
-  });
+    setformdata({
+      Destrictname: '',
+      description: '',
+      image: null
+    });
     setPlaceModalOpen(!placeModalOpen);
     setErrorMessage('');
-      
+
   };
 
 
@@ -70,19 +71,14 @@ function Places() {
         setErrorMessage('All fields are required.');
         return;
       }
-  
 
-      if (Places.some(place => place.Destrictname.toLowerCase() === formdata.Destrictname.toLowerCase())) {
-        setErrorMessage('Places name must be unique.');
-        return;
-      }
-  
-
-      if (Places.some(place => place.description.toLowerCase() === formdata.description.toLowerCase())) {
+      if (Places.some(place => place.description?.toLowerCase() === formdata.description.toLowerCase())) {
         setErrorMessage('Description name must be unique.');
         return;
-      }
+    }
+    
 
+ 
 
       if (editingPlace) {
         await UpdatePlace(editingPlace._id, { Data: formdata });
@@ -90,6 +86,8 @@ function Places() {
         await Placedata(formdata)
           .then((response) => {
             setPlaces((prev) => [...prev, response.data.place]);
+            const totalPages = Math.ceil((prev.length + 1) / limit);
+            Setpages(totalPages);
           });
         setPlaceModalOpen(false);
         setErrorMessage('');
@@ -146,27 +144,27 @@ function Places() {
         </div>
       </div>
       <Dialog open={placeModalOpen} handler={openModal}>
-  <DialogHeader>{editingPlace ? 'Edit Place' : 'Add Place'}</DialogHeader>
-  <DialogBody>
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label className='text-gray-800' htmlFor="placeName">District Name:</label>
-        <input className='w-full' type="text" id="Destrictname" name="Destrictname" value={formdata.Destrictname} onChange={handlechange} />
-      </div>
-      <div>
-        <label className='text-gray-800' htmlFor="description">Description:</label>
-        <textarea className='ml-0 w-full' id="description" name="description" value={formdata.description} onChange={handlechange} />
-      </div>
-      <div>
-        <label className='text-gray-800' htmlFor="image">Upload image:</label>
-        <input className='w-full' type="file" id="image" name="image" onChange={handlechange} />
-      </div>
-      <br />
-      <Button type="submit" variant="gradient" color="green">Add</Button>
-    </form>
-    {errorMessage && <p className='text-red-500 text-center'>{errorMessage}</p>} {/* Render error message here */}
-  </DialogBody>
-</Dialog>
+        <DialogHeader>{editingPlace ? 'Edit Place' : 'Add Place'}</DialogHeader>
+        <DialogBody>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label className='text-gray-800' htmlFor="placeName">District Name:</label>
+              <input className='w-full' type="text" id="Destrictname" name="Destrictname" value={formdata.Destrictname} onChange={handlechange} />
+            </div>
+            <div>
+              <label className='text-gray-800' htmlFor="description">Description:</label>
+              <textarea className='ml-0 w-full' id="description" name="description" value={formdata.description} onChange={handlechange} />
+            </div>
+            <div>
+              <label className='text-gray-800' htmlFor="image">Upload image:</label>
+              <input className='w-full' type="file" id="image" name="image" onChange={handlechange} />
+            </div>
+            <br />
+            <Button type="submit" variant="gradient" color="green">Add</Button>
+          </form>
+          {errorMessage && <p className='text-red-500 text-center'>{errorMessage}</p>} {/* Render error message here */}
+        </DialogBody>
+      </Dialog>
 
 
       <div>
@@ -191,11 +189,11 @@ function Places() {
             {Places && Places.map((place) => (
               <div>
                 <div className="flex justify-center">
-                {!place.isBlock ? (
-                  <Button className='bg-green-800  hover:scale-110' onClick={() => handleBlock(place._id)} >Block</Button>
-                ) : (
-                  <Button className='bg-red-800   hover:scale-110' onClick={() => handleBlock(place._id)} >UnBlock</Button>
-                )}       
+                  {!place.isBlock ? (
+                    <Button className='bg-green-800  hover:scale-110' onClick={() => handleBlock(place._id)} >Block</Button>
+                  ) : (
+                    <Button className='bg-red-800   hover:scale-110' onClick={() => handleBlock(place._id)} >UnBlock</Button>
+                  )}
                 </div>
 
                 <div key={Places._id} onClick={() => handleEdit(place)} className='mt-8 b ml-2 w-72  shadow-2xl h-[400px] rounded-xl overflow-hidden card transform transition-transform duration-200 hover:scale-95 hover:shadow-md'>
@@ -218,6 +216,30 @@ function Places() {
             ))}
           </div>
         </div>
+
+
+
+        <div className="flex items-center my-9 justify-center space-x-4">
+          <button className="bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-blue-gray-700  hover:text-white px-3" onClick={() => Setpages(page - 1)}>
+            <div className="flex flex-row align-middle">
+              <svg className="w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"></path>
+              </svg>
+              <p className="ml-2">Prev</p>
+            </div>
+          </button>
+          <span className="text-gray-700">Page: {page}</span>
+          <button className="bg-gray-800 text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-blue-gray-700 hover:text-white px-3" onClick={() => Setpages(page + 1)}>
+            <div className="flex flex-row align-middle">
+              <span className="mr-2">Next</span>
+              <svg className="w-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+              </svg>
+            </div>
+          </button>
+        </div>
+
+
 
       </div>
     </>

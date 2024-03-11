@@ -4,7 +4,8 @@ import { Blockagent } from '../../Api/Adminapi'
 import { Loadagents } from '../../Api/Adminapi'
 function Agents() {
     const [agents, setAgents] = useState([])
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [agentsPerPage] = useState(2); 
 
     useEffect(() => {
         Loadagents()
@@ -34,6 +35,15 @@ function Agents() {
         }
     }
 
+    const indexOfLastAgent = currentPage * agentsPerPage;
+    const indexOfFirstAgent = indexOfLastAgent - agentsPerPage;
+    const currentAgents = agents.slice(indexOfFirstAgent, indexOfLastAgent);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
+
+
 
     return (
         <>
@@ -46,7 +56,7 @@ function Agents() {
 
 
             <div className="flex justify-center">
-                {agents.length > 0 ? (
+                {currentAgents.length > 0 ? (
                     <table className=" border border-gray-300 font-thin   shadow-gray-800 shadow-md" style={{ maxHeight: '300px', overflowY: 'auto' }}>
                         <thead className='bg-blue-gray-800 text-white'>
                             <tr className="bg-blue-gray-800 border-b">
@@ -58,7 +68,7 @@ function Agents() {
                             </tr>
                         </thead>
                         <tbody>
-                            {agents.map((agent, index) => (
+                            {currentAgents.map((agent, index) => (
                                 <tr key={agent.id}>
                                     <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
                                     <td className="border border-gray-300 px-4 py-2">{agent.userName}</td>
@@ -90,7 +100,13 @@ function Agents() {
                 )}
 
             </div>
-
+            <ul className="flex justify-center mt-4">
+                {Array.from({ length: Math.ceil(agents.length / agentsPerPage) }).map((_, index) => (
+                    <li key={index} className="mr-3">
+                        <button onClick={() => paginate(index + 1)} className="bg-blue-gray-700 hover:bg-blue-gray-600 px-5 py-1 text-white rounded-md">{index + 1}</button>
+                    </li>
+                ))}
+            </ul>
 
         </>
     )

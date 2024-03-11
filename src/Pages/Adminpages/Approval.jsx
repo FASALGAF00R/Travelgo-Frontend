@@ -28,6 +28,8 @@ function Approval() {
             const Response = await approveAgent({ _id: agentId, option })
             if (Response.data.status === true) {
                 toast.success(Response.data.message)
+                const updatedAgents = agent.filter((agent) => agent._id !== agentId);
+                setagent(updatedAgents);
             } else {
                 toast.error(Response.data.message)
             }

@@ -77,10 +77,11 @@ export async function Placedata(data) {
     }
 }
 
-export async function Fetchplaces() {
+export async function Fetchplaces(page,limit) {
 
     try {
-        const result = await agentapi.get('/getplaces');
+        const result = await agentapi.get(`/getplaces?page=${page}&limit=${limit}`,);
+        console.log(result,"lllllll");
         return result
     } catch (error) {
         console.log(error);
