@@ -21,7 +21,7 @@ function Destination() {
 
     fetchplaces()
 
-  }, [search,page, limit,places])
+  }, [page, limit,places])
 
   const handleInputChange = (e) => {
     setsearch(e.target.value)

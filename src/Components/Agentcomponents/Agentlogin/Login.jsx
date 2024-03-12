@@ -9,8 +9,11 @@ import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import agentloginpic from '../../../Assests/Images/agentloginpic.jpg'
 import { RouteObjects } from '../../../Routes/RouteObject';
+import ClipLoader from "react-spinners/ClipLoader";
 
 function Login() {
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate()
 
   const [google, setgoogle] = useState([])
@@ -81,6 +84,7 @@ function Login() {
   const handlesubmitdata = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       if (!agent.email || !agent.password) {
         toast.error("fields required")
       } else {
@@ -90,7 +94,7 @@ function Login() {
             localStorage.setItem('AgentaccesToken', res.data.accesToken)
             localStorage.setItem('AgentrefreshToken', res.data.Refreshtoken)
             navigate(RouteObjects.AgentHome, { state: { role: 'agent' } });
-          }, 1000);
+          }, 3000);
         } else {
           toast.error(res.data.message)
 
@@ -150,16 +154,21 @@ function Login() {
               </div>
 
 
-
+              <div className="flex items-center justify-center">
+              {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
+            </div>
 
 
               <div className="flex items-center justify-between">
+                
+              {!loading && (
                 <button
-                  className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-2 font-light py-1 px-20 ml-12 rounded-full  "
+                  className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-2 font-light py-1 px-20 ml-12 rounded-md  "
                   type="submit"
                 >
                   Log In
                 </button>
+              )}
               </div>
               <br/>
                 <button onClick={()=>navigate(RouteObjects.ForgetPassword, { state: { role: 'agent' } })}

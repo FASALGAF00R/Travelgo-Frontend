@@ -65,6 +65,7 @@ export async function agentdata(data) {
 
 
 export async function Placedata(data) {
+    console.log(data);
     try {
         const result = await agentapi.post('/places', data, {
             headers: {

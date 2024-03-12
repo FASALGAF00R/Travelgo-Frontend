@@ -6,10 +6,13 @@ import axios from 'axios';
 import { Googledata } from '../../../Api/Userapi';
 import { Userlogin } from '../../../Api/Userapi';
 import loginpic from '../../../Assests/Images/loginpic.jpg'
-import { jwtDecode } from "jwt-decode";
 import { RouteObjects } from '../../../Routes/RouteObject';
+import ClipLoader from "react-spinners/ClipLoader";
+
+
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const [user, setUser] = useState([])
@@ -74,6 +77,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     try {
+      setLoading(true)
       e.preventDefault();
       if (formData.email == '' && formData.password == '') {
         toast.error('Please enter all fields!')
@@ -84,8 +88,11 @@ const Login = () => {
         if (res.data.Data) {
           localStorage.setItem('accesToken', res.data.accesToken)
           localStorage.setItem('refreshToken', res.data.Refreshtoken)
-          toast.success(res.data.Data.message)
-          navigate(RouteObjects.UserHome)
+          toast.success('User logged in successfully')
+          setTimeout(() => {
+            setLoading(false);
+            navigate(RouteObjects.UserHome)
+          }, 3000);
 
         } else {
           toast.error(res.data.message)
@@ -96,10 +103,13 @@ const Login = () => {
       console.log(error);
 
     }
+
+
   };
 
   return (
     <div className='flex justify-center items-center h-full bg-pink-50 '>
+
       <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
         <div className='flex  justify-center items-center w-[50%] h-full'>
 
@@ -141,19 +151,26 @@ const Login = () => {
               />
             </div>
 
+            <div className="flex items-center justify-center">
+              {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
+            </div>
 
             <div className="flex items-center justify-between">
-              <button
-                className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-4 font-light py-1 px-20 ml-12 rounded-lg  "
-                type="submit"
-              >
-                Log In
-              </button>
+
+              {!loading && (
+
+                <button
+                  className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-4 font-light py-1 px-20 ml-12 rounded-lg  "
+                  type="submit"
+                >
+                  Log In
+                </button>
+              )}
             </div>
             <br></br>
-            
+
             <button onClick={() =>
-     navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })}
+              navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })}
               className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
               Forgot password  ?
             </button>
