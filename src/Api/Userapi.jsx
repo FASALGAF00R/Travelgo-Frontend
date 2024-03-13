@@ -150,6 +150,7 @@ export async function Placedata(page,limit) {
 
 
 export async function Searchplaces(data) {
+    console.log(data,"llll");
     try {
         const result = await userapi.post('/searchplaces',data)
         return result

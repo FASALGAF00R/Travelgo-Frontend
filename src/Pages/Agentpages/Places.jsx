@@ -71,15 +71,14 @@ function Places() {
         setErrorMessage('All fields are required.');
         return;
       }
-
-      if (Places.some(place => place.description?.toLowerCase() === formdata.description.toLowerCase())) {
-        setErrorMessage('Description name must be unique.');
+  
+      // Check if the district name is already present
+      const isDuplicate = Places.some(place => place.Destrictname.toLowerCase() === formdata.Destrictname.toLowerCase());
+      if (isDuplicate) {
+        setErrorMessage('District name must be unique.');
         return;
-    }
-    
-
- 
-
+      }
+  
       if (editingPlace) {
         await UpdatePlace(editingPlace._id, { Data: formdata });
       } else {
@@ -91,12 +90,12 @@ function Places() {
           });
         setPlaceModalOpen(false);
         setErrorMessage('');
-
       }
     } catch (error) {
       console.log(error);
     }
   };
+  
 
 
   const handlechange = (e) => {
@@ -190,13 +189,13 @@ function Places() {
               <div>
                 <div className="flex justify-center">
                   {!place.isBlock ? (
-                    <Button className='bg-green-800  hover:scale-110' onClick={() => handleBlock(place._id)} >Block</Button>
+                    <Button className='bg-red-800  hover:scale-110' onClick={() => handleBlock(place._id)} >Block</Button>
                   ) : (
-                    <Button className='bg-red-800   hover:scale-110' onClick={() => handleBlock(place._id)} >UnBlock</Button>
+                    <Button className='bg-green-800   hover:scale-110' onClick={() => handleBlock(place._id)} >unBlock</Button>
                   )}
                 </div>
 
-                <div key={Places._id} onClick={() => handleEdit(place)} className='mt-8 b ml-2 w-72  shadow-2xl h-[400px] rounded-xl overflow-hidden card transform transition-transform duration-200 hover:scale-95 hover:shadow-md'>
+                <div key={Places._id} onClick={() => handleEdit(place)} className='mt-8  ml-2 w-72  shadow-2xl h-[400px] rounded-xl overflow-hidden card transform transition-transform duration-200 hover:scale-95 hover:shadow-md'>
                   <div className="relative">
                     <img
                       src={place.Image}

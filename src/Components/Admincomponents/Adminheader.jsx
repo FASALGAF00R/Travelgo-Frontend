@@ -27,8 +27,11 @@ function Adminheader() {
 
     return (
         <>
-            <nav className="bg-blue-gray-800 h-16">
-                <div className="max-w-7xl mx-auto  px-4 sm:px-6 lg:px-8">
+     
+
+      
+            <nav className="bg-blue-gray-800 h-16 ">
+                <div className="max-w-7xl mx-auto  px-4 sm:px-6 lg:px-8 ">
                     <div className="flex justify-between items-center h-16">
                         <div className="flex ">
                             <span className="text-white text-xl font-bold">Travelgo</span>
@@ -52,7 +55,7 @@ function Adminheader() {
 
             </nav>
 
-
+          
         </>
     )
 }
