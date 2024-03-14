@@ -7,13 +7,18 @@ function Users() {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(2);
   useEffect(() => {
-    Loadusers()
-      .then((res) => {
-        const Res = res.data.User;
+    const fetchData=async()=>{
+      try {
+        const Response =await Loadusers()
+        const Res = Response.data.User;
         setUsers(Res)
-      }).catch((err) => {
-        console.log(err);
-      })
+      } catch (error) {
+        console.error('Error fetching users:', error);
+
+      }
+    }
+    fetchData()
+      
   }, [])
 
   const HandleClick = async (usersid) => {

@@ -1,5 +1,6 @@
 import Admininterceptors from'../Interceptors/Admininterceptors.jsx'
 const Adminapi=Admininterceptors
+console.log("hi");
 
 
 export async function Admindata(data) {
@@ -13,18 +14,18 @@ export async function Admindata(data) {
     }
 }
 
-export async function Loadusers(data) {
+export async function Loadusers() {
     try {
-        const Users = await Adminapi.get('/users', data)
+        const Users = await Adminapi.get('/users')
         return Users
     } catch (error) {
         console.log(error);
     }
 }
 
-export async function Loadagents(data) {
+export async function Loadagents() {
     try {
-        const agents = await Adminapi.get('/agents', data)
+        const agents = await Adminapi.get('/agents')
         return agents
     } catch (error) {
         console.log(error);

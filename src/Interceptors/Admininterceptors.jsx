@@ -4,10 +4,8 @@ const instance = axios.create({
   baseURL:import.meta.env.VITE_ADMINBACKEND_URL
 });
 
-console.log("vannyyey");
 
 let AdminAccesToken = localStorage.getItem("AdminaccesToken");
-console.log(AdminAccesToken,"kllklklklklklk");
 
 instance.defaults.headers.common["Authorization"] = AdminAccesToken ? `Bearer ${AdminAccesToken}` : "";
 instance.defaults.headers.post["Content-Type"] = "application/json";
@@ -19,11 +17,13 @@ instance.interceptors.request.use(
     return request;
   },
 
+  
+  
   async (error) => {
     console.error("Request error:", error);
     return Promise.reject(error);
   }
-);
+  );
 
 instance.interceptors.response.use(
   (response) => {

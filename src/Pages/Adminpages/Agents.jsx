@@ -8,14 +8,18 @@ function Agents() {
     const [agentsPerPage] = useState(2); 
 
     useEffect(() => {
-        Loadagents()
-            .then((res) => {
+        console.log("hjkkjj");
+        const fetchData =async () =>{
+            try {
+                const res = await Loadagents();
                 const response = res.data.Agent;
-                const agents = response.filter((item) => item.isActive === 'Accept')
-                setAgents(agents)
-            }).catch((err) => {
-                console.log(err);
-            })
+                const filteredAgents = response.filter((item) => item.isActive === 'Accept');
+                setAgents(filteredAgents);
+            } catch (error) {
+                console.error('Error fetching agents:', error);
+            }
+        }  
+        fetchData();
     }, [])
 
     const HandleClick = async (agentid) => {
