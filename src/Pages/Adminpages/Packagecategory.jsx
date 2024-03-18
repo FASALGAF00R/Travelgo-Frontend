@@ -45,29 +45,31 @@ function Packagecategory() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (existingCategories.includes(categoryName)) {
+        
+        const trimmedCategoryName = categoryName.trim();
+    
+        if (!trimmedCategoryName) {
+            setErrorMessage('Category name cannot be empty!');
+            return;
+        }
+        setErrorMessage('');
+    
+        if (existingCategories.includes(trimmedCategoryName)) {
             setErrorMessage('Category already exists!');
             return;
         }
         setErrorMessage('');
-
+    
         try {
-            if( categoryName===''){
-                setErrorMessage('fields empty!');
-                return;
-            }
-            setErrorMessage('');
-
             if (mode === 'add') {
-
-                const response = await Addcatgeory({ categoryName: categoryName });
+                const response = await Addcatgeory({ categoryName: trimmedCategoryName });
                 setcategory((prev) => [...prev, response.data.newCategory]);
             } else if (mode === 'edit') {
-                const response = await Editcategory(editCategoryId, categoryName);
+                const response = await Editcategory(editCategoryId, trimmedCategoryName);
                 if (response.status === 201) {
                     setcategory((prevcat) =>
                         prevcat.map((catry) =>
-                            catry._id === editCategoryId ? { ...catry, Name: categoryName } : catry
+                            catry._id === editCategoryId ? { ...catry, Name: trimmedCategoryName } : catry
                         )
                     );
                 } else {
@@ -77,23 +79,21 @@ function Packagecategory() {
         } catch (error) {
             console.log('error got on adding/editing category', error);
         }
+    
         setCategoryName('');
         setEditCategoryId(null);
         setMode('add');
         setOpen(false);
-
+    
         try {
             const updatedCategories = await Fetchcategory();
             setcategory(updatedCategories.data.Category);
             setExistingCategories(updatedCategories.data.Category.map(cat => cat.Name));
-
         } catch (error) {
             console.error('Error fetching updated categories:', error);
         }
-
-
     };
-
+    
 
 
 

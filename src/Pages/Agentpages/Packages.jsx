@@ -66,11 +66,22 @@ function Packages() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
+  
+    if (name === 'amount') {
+      if (!isNaN(value) && parseFloat(value) >= 0) {
+        setFormData({
+          ...formData,
+          [name]: value
+        });
+      }
+      return;
+    }
+      setFormData({
       ...formData,
       [name]: value
-    }); 
+    });
   };
+  
 
 
 
@@ -88,11 +99,6 @@ function Packages() {
       });
     }
   };
-
-
-
-
-
 
 
 

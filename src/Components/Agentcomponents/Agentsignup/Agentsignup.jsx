@@ -20,17 +20,26 @@ function Agentsignup() {
 
 
   const handlechange = (e) => {
-
-    const { name, value } = e.target
-
-    if (name === 'phone' && !/^\d{0,10}$/.test(value)) {
+    const { name, value } = e.target;
+  
+    if (name === 'phone' && (value.startsWith('-') || parseInt(value) < 0)) {
+      // Show error message for negative number
+      toast.error('Phone number must be a positive number');
       return;
     }
+  
+    if (name === 'phone' && !/^\d{0,10}$/.test(value)) {
+      // Show error message for invalid phone number length
+      toast.error('Phone number must be 10 digits');
+      return;
+    }
+  
     setData({
       ...Data,
       [name]: value
-    })
-  }
+    });
+  };
+  
 
 
   const validatePassword = (password) => {

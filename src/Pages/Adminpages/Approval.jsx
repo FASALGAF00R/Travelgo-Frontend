@@ -12,7 +12,6 @@ function Approval() {
             try {
                 const response = await Agentapprovallisting();
                 const Data = response.data.Agent
-                console.log(Data, "kjkjkj");
                 const Filter = Data.filter((value) => value.isActive === 'pending')
                 setagent(Filter)
             } catch (error) {
@@ -72,7 +71,7 @@ function Approval() {
 
 
                                         <button
-                                            onClick={() => handleaprove(agents._id, 'Accept')}
+                                            onClick={() => handleaprove(agents._id, 'Accepted')}
                                             className="bg-green-700  text-white px-3 py-1 rounded mr-2"
                                         >
                                             <span>Accept</span>
