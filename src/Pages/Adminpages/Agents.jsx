@@ -13,7 +13,7 @@ function Agents() {
             try {
                 const res = await Loadagents();
                 const response = res.data.Agent;
-                const filteredAgents = response.filter((item) => item.isActive === 'Accept');
+                const filteredAgents = response.filter((item) => item.isActive === 'Accepted');
                 setAgents(filteredAgents);
             } catch (error) {
                 console.error('Error fetching agents:', error);

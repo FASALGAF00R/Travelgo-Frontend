@@ -84,15 +84,16 @@ function Login() {
   const handlesubmitdata = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true)
+     
       if (!agent.email || !agent.password) {
         toast.error("fields required")
       } else {
         const res = await Formdata(agent)
+        console.log(res,"uhdfuihdfgfg");
         if (res.data.success) {
+          setLoading(true)
           setTimeout(() => {
             localStorage.setItem('AgentaccesToken', res.data.accesToken)
-            localStorage.setItem('AgentrefreshToken', res.data.Refreshtoken)
             navigate(RouteObjects.AgentHome, { state: { role: 'agent' } });
           }, 3000);
         } else {

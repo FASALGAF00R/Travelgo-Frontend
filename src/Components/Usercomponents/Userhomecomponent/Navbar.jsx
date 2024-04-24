@@ -20,7 +20,7 @@ function NavList({ userName }) {
     
       localStorage.removeItem('accesToken')
     
-    navigate(RouteObjects.UserLogin)
+    navigate(RouteObjects.Userlogin)
   }
 
 

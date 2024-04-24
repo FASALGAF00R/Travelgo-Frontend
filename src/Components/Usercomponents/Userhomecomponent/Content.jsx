@@ -28,7 +28,7 @@ function Content() {
           </div>
 
           <div className="flex justify-center items-center w-full">
-            <Link to="/login"  className="  bg-pink-300 text-white py-2 px-2 my-10 rounded-md mx-10 text-sm hover:bg-pink-600">
+            <Link to="/destinations"  className="  bg-pink-300 text-white py-2 px-2 my-10 rounded-md mx-10 text-sm hover:bg-pink-600 hover:scale-110">
            Explore Now
             </Link>
 

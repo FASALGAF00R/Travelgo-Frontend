@@ -14,7 +14,7 @@ function Verification() {
         const result = await UserVerify(token);
         if (result.status === 200) {
           setTimeout(() => {
-            navigate(RouteObjects.UserLogin);
+            navigate(RouteObjects.Userlogin);
           }, 3000);
 
         }

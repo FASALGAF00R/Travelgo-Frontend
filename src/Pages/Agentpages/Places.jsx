@@ -7,21 +7,24 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { Placedata, Blockplaces, UpdatePlace } from '../../Api/Agentapi';
+import { Placedata, Blockplaces, UpdatePlace, States } from '../../Api/Agentapi';
 
 // Add places
 function Places() {
   const [placeModalOpen, setPlaceModalOpen] = useState(false)
   const [formdata, setformdata] = useState({
+    State: '',
     Destrictname: '',
     description: '',
     image: null
   })
   const [Places, setPlaces] = useState([])
+  const [State, setState] = useState([])
   const [editingPlace, setEditingPlace] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [page, Setpages] = useState(1)
   const [limit, Setlimit] = useState(3)
+  const [refresh, setRefresh] = useState(false);
 
 
   useEffect(() => {
@@ -34,6 +37,30 @@ function Places() {
       console.log("error while fetching places", error);
     }
   }, [page, limit])
+
+
+
+
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const response = await States();
+        setState(response.data.States);
+      } catch (error) {
+        console.log("Error while fetching category/activity:", error);
+      }
+    };
+
+    fetchDestinations();
+  }, [refresh]);
+
+
+
+
+
+
+
+
 
 
   // for opening and closing the modals
@@ -62,6 +89,10 @@ function Places() {
   };
 
 
+  const handleclick = () => {
+    refresh === true ? setRefresh(false) : setRefresh(true);
+  }
+
 
 
   const handleSubmit = async (e) => {
@@ -71,14 +102,14 @@ function Places() {
         setErrorMessage('All fields are required.');
         return;
       }
-  
+
       // Check if the district name is already present
       const isDuplicate = Places.some(place => place.Destrictname.toLowerCase() === formdata.Destrictname.toLowerCase());
       if (isDuplicate) {
         setErrorMessage('District name must be unique.');
         return;
       }
-  
+
       if (editingPlace) {
         await UpdatePlace(editingPlace._id, { Data: formdata });
       } else {
@@ -95,7 +126,7 @@ function Places() {
       console.log(error);
     }
   };
-  
+
 
 
   const handlechange = (e) => {
@@ -146,10 +177,43 @@ function Places() {
         <DialogHeader>{editingPlace ? 'Edit Place' : 'Add Place'}</DialogHeader>
         <DialogBody>
           <form onSubmit={handleSubmit}>
-            <div>
-              <label className='text-gray-800' htmlFor="placeName">District Name:</label>
-              <input className='w-full' type="text" id="Destrictname" name="Destrictname" value={formdata.Destrictname} onChange={handlechange} />
+
+            <div className="flex flex-col mb-4">
+              <label className="mb-2" htmlFor="State">state</label>
+              <select
+                className="p-2 border border-gray-300 rounded"
+                type="text"
+                id="State"
+                name="State"
+                value={formdata.State}
+                onChange={handlechange}
+                onClick={handleclick}
+              >
+                <option value="">Select state</option>
+                {State.map(st => (
+                  <option key={st._id} value={st.State}>{st.State}</option>
+                ))}
+              </select>
+
             </div>
+            <div className="flex flex-col mb-4">
+              <label className="mb-2" htmlFor="Destrictname">district name</label>
+              <select
+                className="p-2 border border-gray-300 rounded"
+                type="text"
+                id="Destrictname"
+                name="Destrictname"
+                value={formdata.Destrictname}
+                onChange={handlechange}
+                onClick={handleclick}
+              >
+                <option value="">Select district</option>
+                {State.map(st => (
+                  <option key={st._id} value={st.Destrictname}>{st.Destrictname}</option>
+                ))}
+              </select>
+            </div>
+
             <div>
               <label className='text-gray-800' htmlFor="description">Description:</label>
               <textarea className='ml-0 w-full' id="description" name="description" value={formdata.description} onChange={handlechange} />
@@ -207,6 +271,7 @@ function Places() {
                     </div>
                   </div>
                   <div className="p-4">
+                  <p>{place.State}</p>
                     <p>{place.Description}</p>
 
                   </div>

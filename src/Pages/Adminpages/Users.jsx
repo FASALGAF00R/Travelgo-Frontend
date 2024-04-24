@@ -6,8 +6,10 @@ function Users() {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(2);
+  
   useEffect(() => {
     const fetchData=async()=>{
+      console.log("page loaded");
       try {
         const Response =await Loadusers()
         const Res = Response.data.User;

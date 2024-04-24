@@ -33,8 +33,8 @@ function Newpass() {
                     if (Req.data.success === true) {             
                         toast.success(Req.data.message);
                         setTimeout(() => {
-                            navigate(RouteObjects.UserLogin);                  
-                        }, 2000);
+                            navigate(RouteObjects.Userlogin);                  
+                        }, 1000);
                     }
                 }else{
                     const email=data.email

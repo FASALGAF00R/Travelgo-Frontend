@@ -12,11 +12,12 @@ import Otppass from '../../Components/Usercomponents/Userpassword/Otppass'
 import Newpass from '../../Components/Usercomponents/Userpassword/Newpass'
 import Userprofile from '../../Pages/Userpages/Userprofile'
 import Userprotected from '../../Utils/Protected/Userprotected'
+import Packagespage from '../../Pages/Userpages/Packagespage'
 
 
 function UserRoutes() {
 
-
+console.log("userroutes");
   return (
     <div>
 
@@ -24,6 +25,8 @@ function UserRoutes() {
         <Route element={<UserLayout />}>
           <Route path="/destinations" element={<Userprotected><Destination /></Userprotected> } />
           <Route path="/" element={<Home />} />
+          <Route path='/profile' element={<Userprotected><Userprofile /></Userprotected>  } />
+          <Route path='/packages' element={<Userprotected><Packagespage /></Userprotected>  } />
 
         </Route>
 
@@ -46,7 +49,6 @@ function UserRoutes() {
         <Route path='/forgotpass' element={<Forgotpass />} />
         <Route path='/otpverify' element={<Otppass />} />
         <Route path='/newpass' element={<Newpass />} />
-        <Route path='/profile' element={<Userprotected><Userprofile /></Userprotected>  } />
       </Routes>
 
     </div>

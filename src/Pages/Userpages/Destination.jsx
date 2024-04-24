@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Placedata } from '../../Api/Userapi';
+import { useNavigate } from 'react-router-dom';
 
 function Destination() {
+  const navigate=useNavigate()
   const [places, setPlaces] = useState([]);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -51,7 +53,12 @@ function Destination() {
 
 
 
+  const handleClick=async(id)=>{
+    console.log(id);
+    console.log("vanuuuu");
+    navigate('/packages',{state:id})
 
+  }
 
 
 
@@ -91,14 +98,15 @@ function Destination() {
           <div className="text-3xl font-serif mx-2 text-right text-gray-700 px-5 animate__animated animate__fadeIn">Travel to your dream places</div>
         </div>
         <div className="container bg-pink-50 px-16 py-6 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mx-auto gap-12 shadow-2xl">
-          {places.map(place => (
-            <div key={place._id} className="group bg-white shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
+          {  places.map(place => (
+            <div key={place._id} onClick={()=>handleClick(place._id)}      className="group bg-white shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
               <div className="overflow-hidden card transform transition-transform duration-200 hover:scale-105">
                 <img src={place.Image} alt={place.Destrictname} className="object-cover h-40 w-72" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
                   <p className="text-white text-lg font-bold">{place.Destrictname}</p>
                 </div>
               </div>
+                <p className="text-pink-300  text-lg font-bold">{place.State}</p>
               <p>{place.Description}</p>
             </div>
           ))}

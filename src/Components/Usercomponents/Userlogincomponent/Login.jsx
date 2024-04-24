@@ -77,7 +77,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     try {
-      setLoading(true)
       e.preventDefault();
       if (formData.email == '' && formData.password == '') {
         toast.error('Please enter all fields!')
@@ -85,14 +84,14 @@ const Login = () => {
         toast.error('Please enter all fields')
       } else {
         const res = await Userlogin(formData)
-        if (res.data.Data) {
-          localStorage.setItem('accesToken', res.data.accesToken)
-          localStorage.setItem('refreshToken', res.data.Refreshtoken)
+        if (res.data.success===true) {
+          setLoading(true)
           toast.success('User logged in successfully')
+          localStorage.setItem('accesToken', res.data.accesToken)
           setTimeout(() => {
-            setLoading(false);
+            setLoading(false)
             navigate(RouteObjects.UserHome)
-          }, 3000);
+          }, 2000);
 
         } else {
           toast.error(res.data.message)

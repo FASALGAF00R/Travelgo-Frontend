@@ -5,6 +5,9 @@ import { RouteObjects } from "../../Routes/RouteObject";
 import { UserChecking } from '../../Api/Userapi';
 
 function Userprotected(props) {
+
+    console.log("userroutesprotected");
+
     const navigate =useNavigate()
     const token = localStorage.getItem('accesToken')
     const decodedtoken = jwtDecode(token)
@@ -20,9 +23,7 @@ function Userprotected(props) {
                 console.log(response,"ovvops!");
                 if(response.data.success===false){
                     localStorage.removeItem('accesToken')
-                    localStorage.removeItem('refreshToken')
-
-                    navigate(RouteObjects. UserLogin)
+                    navigate(RouteObjects. Userlogin)
                 }
 
             } catch (error) {

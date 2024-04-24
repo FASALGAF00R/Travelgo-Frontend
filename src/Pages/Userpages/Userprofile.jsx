@@ -75,6 +75,7 @@ function Userprofile() {
     try {
 
       const response = await resetPassword({ email, formData });
+      console.log(response);
       if (response.data.success === true) {
         toast.success("updated")
         setTimeout(() => {
@@ -93,12 +94,12 @@ function Userprofile() {
 
 
   return (
-
-    <div className="bg-pink-50 h-screen  flex flex-col items-center justify-center">
+<>
+    <div className="bg-pink-50 h-full  flex flex-col items-center justify-center">
       <h1 className="text-3xl font-semibold mb-4 text-center">
         <span className="text-blue-600">User</span> <span className="text-pink-600">Profile</span>
       </h1>
-      <div className="w-full md:w-[30%] bg-white shadow-md  shadow-pink-600 p-6 rounded-3xl">
+      <div className="w-full md:w-[30%] sm:w-[50%] bg-white shadow-md  shadow-pink-600 p-6 rounded-3xl">
         <div className="flex justify-center items-center">
           <label htmlFor="upload" className="cursor-pointer">
             <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={image} alt="Profile" />
@@ -116,10 +117,10 @@ function Userprofile() {
           </label>
 
         </div>
-        <h2 className="text-lg font-light  text-center mt-3">{user}</h2>
+        <h2 className="text-lg font-light  text-center ">{user}</h2>
         <div className="pl-9 font-light flex-row flex gap-2 mt-2">
           <label htmlFor="">Email :</label>
-          <h2 className="gap-3 mb-5">{email}</h2>
+          <h2 className="mb-30">{email}</h2>
         </div>
         <span className='font-serif text-cyan-800'>Change password</span>
         <br />
@@ -134,8 +135,7 @@ function Userprofile() {
       <Toaster />
     </div>
 
-
-
+      </>
   )
 }
 

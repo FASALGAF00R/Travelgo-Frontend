@@ -43,7 +43,6 @@ function Login() {
           toast.error(res.data.message)
         } else {
           localStorage.setItem('AdminaccesToken', res.data.accesToken)
-          localStorage.setItem('AdminrefreshToken', res.data.Refreshtoken)
           setTimeout(() => {
             navigate(RouteObjects.Adminhome,{state:{role:'admin'}})
           }, 1000);

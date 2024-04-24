@@ -72,7 +72,7 @@ function Otppass() {
         toast.success(Otp.data.message)
         setTimeout(() => {
           navigate(RouteObjects.ResetPassword, { state: { email, role } })
-        }, 2000);
+        }, 1000);
       } else {
         toast.error(Otp.data.message)
       }

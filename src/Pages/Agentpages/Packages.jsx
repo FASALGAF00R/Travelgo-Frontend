@@ -10,16 +10,19 @@ import {
 import {
   fetchcatgeory,
   fetchActivities,
-  Addpackagedata
+  Addpackagedata,
+  fetchstate
 } from '../../Api/Agentapi';
 
 function Packages() {
   const [category, setcategory] = useState([])
   const [activity, setactivity] = useState([])
+  const[state,Setstate]=useState([])
   const [open, setOpen] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [formData, setFormData] = useState({
-    placeName: '',
+    State: '',
+    Destrictname:'',
     image: null,
     category: '',
     description: '',
@@ -48,7 +51,8 @@ function Packages() {
 
         const Response = await fetchActivities();
         setactivity(Response.data.Activities)
-
+        const res=await fetchstate()
+        Setstate(res.data.States)
 
       } catch (error) {
         console.log("Error while fetching category/activity:", error);
@@ -144,17 +148,58 @@ function Packages() {
         <DialogHeader>Add package</DialogHeader>
         <DialogBody className="max-h-80 overflow-y-auto" >
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="placeName">Place Name:</label>
-              <input
+            
+          <div className="flex flex-col mb-4">
+              <label className="mb-2" htmlFor="State">state</label>
+              <select
                 className="p-2 border border-gray-300 rounded"
                 type="text"
-                id="placeName"
-                name="placeName"
-                value={formData.placeName}
+                id="State"
+                name="State"
+                value={formData.State}
                 onChange={handleChange}
-              />
+                onClick={handleclick}
+              >
+                <option value="">Select state</option>
+                {state.map(st => (
+                  <option key={st._id} value={st.State}>{st.State}</option>
+                ))}
+              </select>
+
             </div>
+
+
+            <div className="flex flex-col mb-4">
+              <label className="mb-2" htmlFor="State">district name</label>
+              <select
+                className="p-2 border border-gray-300 rounded"
+                type="text"
+                id="Destrictname"
+                name="Destrictname"
+                value={formData.Destrictname}
+                onChange={handleChange}
+                onClick={handleclick}
+              >
+                <option value="">Select district</option>
+                {state.map(st => (
+                  <option key={st._id} value={st.Destrictname}>{st.Destrictname}</option>
+                ))}
+              </select>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <div className="flex flex-col mb-4">
               <label className="mb-2" htmlFor="imageUpload">Image Upload:</label>

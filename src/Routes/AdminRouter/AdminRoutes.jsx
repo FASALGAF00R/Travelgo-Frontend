@@ -9,6 +9,7 @@ import Packagecategory from '../../Pages/Adminpages/Packagecategory'
 import Adminprotect from '../../Utils/Protected/Adminprotect'
 import Agents from '../../Pages/Adminpages/Agents'
 import Adminpublic from '../../Utils/Protected/Adminpublic'
+import Destinations from '../../Pages/Adminpages/Destinations'
 
 function AdminRoutes() {
   return (
@@ -21,6 +22,8 @@ function AdminRoutes() {
           <Route path='/users' element={<Adminprotect>  <Users /> </Adminprotect> } />
           <Route path='/agents' element={<Adminprotect>  <Agents /> </Adminprotect>} />
           <Route path='/approval' element={<Adminprotect>  <Approval /> </Adminprotect>  } />
+          <Route path='/destination' element={<Adminprotect>  <Destinations /> </Adminprotect>  } />
+
         </Route>
       </Routes>
     </div>

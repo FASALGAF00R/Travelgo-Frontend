@@ -32,14 +32,14 @@ function Forgotpass() {
             if (formdata.email === "") {
                 toast.error("fields empty")
             } else {
-                const Res = await Forgot(formdata)
+                const Res = await Forgot(formdata,role)
                 console.log(Res, "pop");
                 if (Res.data.success === true) {
                     toast.success(Res.data.message)
                     setTimeout(() => {
                         navigate(RouteObjects.OTP, { state: { email: formdata.email, role: role } })
 
-                    }, 2000);
+                    },1000);
                 } else {
                     toast.error(Res.data.message)
                 }

@@ -8,7 +8,6 @@ export async function signupData(data) {
     console.log(data);
     try {
         const userdata = await userapi.post('/signup', data)
-        console.log(userdata, ";");
         return userdata
     } catch (err) {
         console.log(err);
@@ -29,6 +28,7 @@ export async function Userlogin(logindata) {
 export async function UserVerify(token) {
     try {
         const Data = await userapi.post(`/verify/${token}`)
+        console.log(Data,"jjjjjjjjjjjjjjjj");
         return Data
     } catch (error) {
         console.log(error);
@@ -49,9 +49,10 @@ export async function Googledata(googledata) {
 
 
 // forgot pass
-export async function Forgot(forgotpassdata) {
+export async function Forgot(forgotpassdata,role) {
+    console.log(forgotpassdata,role);
     try {
-        const result = await userapi.post('/forgotpass', forgotpassdata)
+        const result = await userapi.post('/forgotpass', {data:forgotpassdata,role:role})
         console.log(result, "ggggggggggggggggggggg");
         return result
     } catch (error) {
@@ -159,8 +160,6 @@ export async function Searchplaces(data) {
     }
 }
 
-UserChecking
-
 export async function UserChecking(data) {
     console.log(data,"///////////fdf///////");
     try {
@@ -170,5 +169,15 @@ export async function UserChecking(data) {
     } catch (error) {
         console.log(error);
 
+    }
+}
+
+
+export async function fetchpackages(id) {
+    try {
+        const result = await userapi.get(`/packages/${id}`)
+        return result
+    } catch (error) {
+        console.log(error);
     }
 }

@@ -1,7 +1,10 @@
+console.log("routeobjectes");
 export const RouteObjects = {
   // ===========USER============
+
+
   UserHome: '/',
-  UserLogin: "/login",
+  Userlogin: "/login",
   Register: "/signup",
   verification: "/verify/:token",
   ForgetPassword: "/forgotpass",
@@ -28,5 +31,6 @@ export const RouteObjects = {
   UserList: "/admin/users",
   Agentlist:'/admin/agents',
   Category: "/admin/category",
+  destin:'/admin/destination'
 
 };

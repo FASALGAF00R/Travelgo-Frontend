@@ -78,6 +78,29 @@ export async function Placedata(data) {
     }
 }
 
+
+export async function States() {
+    try {
+        const result = await agentapi.get('/getstates');
+        return result
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 export async function Fetchplaces(page,limit) {
 
     try {
@@ -202,6 +225,20 @@ export async function fetchActivities() {
 
     }
 }
+
+
+
+export async function fetchstate() {
+    try {
+        const result = await agentapi.get('/getstates');
+        return result
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
 
 
 

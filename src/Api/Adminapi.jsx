@@ -1,6 +1,6 @@
 import Admininterceptors from'../Interceptors/Admininterceptors.jsx'
 const Adminapi=Admininterceptors
-console.log("hi");
+
 
 
 export async function Admindata(data) {
@@ -17,6 +17,7 @@ export async function Admindata(data) {
 export async function Loadusers() {
     try {
         const Users = await Adminapi.get('/users')
+        console.log(Users);
         return Users
     } catch (error) {
         console.log(error);
@@ -123,4 +124,16 @@ export async function Editcategory(id,categoryName) {
         console.log(error);
     }
 
+}
+
+
+
+export async function Placedata(data) {
+    console.log(data);
+    try {
+        const result = await Adminapi.post('/destination', data);
+        return result
+    } catch (error) {
+        console.log(error);
+    }
 }
