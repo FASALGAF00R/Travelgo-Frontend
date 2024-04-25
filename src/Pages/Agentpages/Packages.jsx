@@ -15,11 +15,13 @@ import {
 } from '../../Api/Agentapi';
 
 function Packages() {
+  const [previewSource, setPreviewSource] = useState([])
   const [category, setcategory] = useState([])
   const [activity, setactivity] = useState([])
   const[state,Setstate]=useState([])
   const [open, setOpen] = useState(false);
   const [refresh, setRefresh] = useState(false);
+
   const [formData, setFormData] = useState({
     State: '',
     Destrictname:'',
@@ -34,24 +36,79 @@ function Packages() {
 
   const handleOpen = () => setOpen(!open);
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    setFormData({
-      ...formData,
-      image: file
-    });
+  const handleImageUpload = async(e) => {
+    const file = e.target.files;
+    try{
+      const urls = await uploadImage(file);
+      console.log(urls,"urls");
+      setPreviewSource(urls)
+
+      // setFormData({
+      //   ...formData,
+      //   image: urls });
+
+    }catch(error){
+      console.error("Error uploading images:", error);
+
+    }
+    
+    console.log(file,"ooooooooooo");
+ 
   };
+
+  const uploadImage = async (files) => {
+    console.log(files,"files");
+    try {
+        const uploadedImageUrls = [];
+
+        for (const file of files) {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "dev_setups");
+
+            const cloudinaryResponse = await fetch(
+                "https://api.cloudinary.com/v1_1/dqewi7vjr/image/upload",
+                {
+                    method: "POST",
+                    body: formData,
+                }
+            );
+
+            if (!cloudinaryResponse.ok) {
+                throw new Error(`Failed to upload image. Status: ${cloudinaryResponse.status}`);
+            }
+
+            const cloudinaryData = await cloudinaryResponse.json();
+
+            if (cloudinaryData.error) {
+                console.log(cloudinaryData.error);
+                return;
+            }
+
+            const uploadedImageUrl = cloudinaryData.secure_url;
+            uploadedImageUrls.push(uploadedImageUrl);
+        }
+
+        console.log("Uploaded Image URLs:", uploadedImageUrls);
+        return uploadedImageUrls;
+    } catch (error) {
+        console.log("Error during image upload:", error);
+    }
+};
+
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetchcatgeory();
-
         setcategory(response.data.Categories);
 
         const Response = await fetchActivities();
         setactivity(Response.data.Activities)
+
         const res=await fetchstate()
+        console.log(res,"lllllllllllllllllll");
         Setstate(res.data.States)
 
       } catch (error) {
@@ -111,8 +168,12 @@ function Packages() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const data = {
+        ...formData,
+        image: previewSource
+    }
 
-      const res = await Addpackagedata(formData);
+      const res = await Addpackagedata(data);
       console.log(res);
     } catch (error) {
       console.log("error while submitting form", error);
@@ -191,25 +252,15 @@ function Packages() {
 
 
 
-
-
-
-
-
-
-
-
-
-
             <div className="flex flex-col mb-4">
               <label className="mb-2" htmlFor="imageUpload">Image Upload:</label>
               <input
                 className="p-2 border border-gray-300 rounded"
                 type="file"
-                id="image"
-                name="image"
+                id="images"
+                name="images"
                 onChange={handleImageUpload}
-
+                multiple 
               />
             </div>
 

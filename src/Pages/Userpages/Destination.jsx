@@ -54,16 +54,9 @@ function Destination() {
 
 
   const handleClick=async(id)=>{
-    console.log(id);
-    console.log("vanuuuu");
     navigate('/packages',{state:id})
 
   }
-
-
-
-
-
 
 
   const handleReset = () => {
@@ -103,10 +96,10 @@ function Destination() {
               <div className="overflow-hidden card transform transition-transform duration-200 hover:scale-105">
                 <img src={place.Image} alt={place.Destrictname} className="object-cover h-40 w-72" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                  <p className="text-white text-lg font-bold">{place.Destrictname}</p>
+                  <p className="text-white text-lg font-bold">{place.State}</p>
                 </div>
               </div>
-                <p className="text-pink-300  text-lg font-bold">{place.State}</p>
+                <p className="text-pink-300  text-lg font-light">{place.Destrictname}</p>
               <p>{place.Description}</p>
             </div>
           ))}

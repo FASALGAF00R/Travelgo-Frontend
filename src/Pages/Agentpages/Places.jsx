@@ -19,12 +19,13 @@ function Places() {
     image: null
   })
   const [Places, setPlaces] = useState([])
-  const [State, setState] = useState([])
+  // const [State, setState] = useState([])
   const [editingPlace, setEditingPlace] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [page, Setpages] = useState(1)
   const [limit, Setlimit] = useState(3)
   const [refresh, setRefresh] = useState(false);
+
 
 
   useEffect(() => {
@@ -41,25 +42,18 @@ function Places() {
 
 
 
-  useEffect(() => {
-    const fetchDestinations = async () => {
-      try {
-        const response = await States();
-        setState(response.data.States);
-      } catch (error) {
-        console.log("Error while fetching category/activity:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchDestinations = async () => {
+  //     try {
+  //       const response = await States();
+  //       setState(response.data.States);
+  //     } catch (error) {
+  //       console.log("Error while fetching category/activity:", error);
+  //     }
+  //   };
 
-    fetchDestinations();
-  }, [refresh]);
-
-
-
-
-
-
-
+  //   fetchDestinations();
+  // }, [refresh]);
 
 
 
@@ -115,6 +109,7 @@ function Places() {
       } else {
         await Placedata(formdata)
           .then((response) => {
+            console.log(response, "ll");
             setPlaces((prev) => [...prev, response.data.place]);
             const totalPages = Math.ceil((prev.length + 1) / limit);
             Setpages(totalPages);
@@ -179,38 +174,44 @@ function Places() {
           <form onSubmit={handleSubmit}>
 
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="State">state</label>
+              <label className="mb-2" htmlFor="State">State:</label>
               <select
                 className="p-2 border border-gray-300 rounded"
-                type="text"
                 id="State"
                 name="State"
                 value={formdata.State}
                 onChange={handlechange}
-                onClick={handleclick}
               >
-                <option value="">Select state</option>
-                {State.map(st => (
-                  <option key={st._id} value={st.State}>{st.State}</option>
-                ))}
-              </select>
+                <option value="" >select state</option>
+                <option value="Kerala" >Kerala</option>
 
+              </select>
             </div>
+
+
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="Destrictname">district name</label>
+              <label className="mb-2" htmlFor="Destrictname">Destrictname:</label>
               <select
                 className="p-2 border border-gray-300 rounded"
-                type="text"
                 id="Destrictname"
                 name="Destrictname"
                 value={formdata.Destrictname}
                 onChange={handlechange}
-                onClick={handleclick}
               >
-                <option value="">Select district</option>
-                {State.map(st => (
-                  <option key={st._id} value={st.Destrictname}>{st.Destrictname}</option>
-                ))}
+                <option value="Alappuzha">Alappuzha</option>
+                <option value="Ernakulam">Ernakulam</option>
+                <option value="Idukki">Idukki</option>
+                <option value="Kannur">Kannur</option>
+                <option value="Kasaragod">Kasaragod</option>
+                <option value="Kollam">Kollam</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Kozhikode">Kozhikode</option>
+                <option value="Malappuram">Malappuram</option>
+                <option value="Palakkad">Palakkad</option>
+                <option value="Pathanamthitta">Pathanamthitta</option>
+                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                <option value="Thrissur">Thrissur</option>
+                <option value="Wayanad">Wayanad</option>
               </select>
             </div>
 
@@ -247,38 +248,40 @@ function Places() {
             </div>
           ))}
         </div> */}
-        <div className='flex flex-col '>
-          <div className='flex flex-wrap justify-center gap-5  '>
-            {Places && Places.map((place) => (
-              <div>
-                <div className="flex justify-center">
-                  {!place.isBlock ? (
-                    <Button className='bg-red-800  hover:scale-110' onClick={() => handleBlock(place._id)} >Block</Button>
-                  ) : (
-                    <Button className='bg-green-800   hover:scale-110' onClick={() => handleBlock(place._id)} >unBlock</Button>
-                  )}
-                </div>
-
-                <div key={Places._id} onClick={() => handleEdit(place)} className='mt-8  ml-2 w-72  shadow-2xl h-[400px] rounded-xl overflow-hidden card transform transition-transform duration-200 hover:scale-95 hover:shadow-md'>
-                  <div className="relative">
-                    <img
-                      src={place.Image}
-                      alt={place.Destrictname}
-                      className="object-cover w-full h-48"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                      <p className="text-white text-lg font-bold">{place.Destrictname}</p>
+        <div className='flex flex-col'>
+          {Places && Places.length > 0 ? (
+            <div className='flex flex-wrap justify-center gap-5'>
+              {Places.map((place) => (
+                <div key={place._id}>
+                  <div className="flex justify-center">
+                    {!place.isBlock ? (
+                      <Button className='bg-red-800 hover:scale-110' onClick={() => handleBlock(place._id)}>Block</Button>
+                    ) : (
+                      <Button className='bg-green-800 hover:scale-110' onClick={() => handleBlock(place._id)}>unBlock</Button>
+                    )}
+                  </div>
+                  <div onClick={() => handleEdit(place)} className='mt-8 ml-2 w-72 shadow-2xl h-[400px] rounded-xl overflow-hidden card transform transition-transform duration-200 hover:scale-95 hover:shadow-md'>
+                    <div className="relative">
+                      <img
+                        src={place.Image}
+                        alt={place.Destrictname}
+                        className="object-cover w-full h-48"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
+                        <p className="text-white text-lg font-bold">{place.State}</p>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <p>{place.Destrictname}</p>
+                      <p>{place.Description}</p>
                     </div>
                   </div>
-                  <div className="p-4">
-                  <p>{place.State}</p>
-                    <p>{place.Description}</p>
-
-                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className='text-red-700 text-center'>No places available!</p>
+          )}
         </div>
 
 

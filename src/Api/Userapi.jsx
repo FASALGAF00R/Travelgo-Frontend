@@ -181,3 +181,16 @@ export async function fetchpackages(id) {
         console.log(error);
     }
 }
+
+
+
+
+export async function fetchdata(id) {
+    try {
+        const result = await userapi.get(`/packagesdetails/${id}`)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+

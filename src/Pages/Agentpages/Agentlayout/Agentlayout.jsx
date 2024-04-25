@@ -9,7 +9,7 @@ function Agentlayout() {
           
        
         <div className='flex w-full'>
-            <div className='W-[20%] '>
+            <div className='W-[20%]  '>
                 <AgentSideBar />
             </div>
             <div className='w-screen'>

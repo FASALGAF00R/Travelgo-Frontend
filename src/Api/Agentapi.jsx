@@ -65,7 +65,7 @@ export async function agentdata(data) {
 
 
 export async function Placedata(data) {
-    console.log(data);
+    console.log(data,"oooo");
     try {
         const result = await agentapi.post('/places', data, {
             headers: {
@@ -89,14 +89,6 @@ export async function States() {
 
     }
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -188,6 +180,7 @@ export async function Blockact(id) {
 
 
 export async function Addpackagedata(data) {
+    console.log(data,"opopopopopopopopopop");
     try {
         const result = await agentapi.post('/addpackage', data, {
             headers : {
