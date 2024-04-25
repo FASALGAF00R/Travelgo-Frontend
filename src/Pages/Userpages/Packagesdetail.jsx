@@ -46,8 +46,11 @@ function Packagesdetail() {
 
   return (
     <>
-      <h1 className='bg-pink-50 text-center font-semibold text-4xl  '>Journey Begins</h1>
-      <div className="bg-pink-50 flex flex-col lg:flex-row w-full mb-5">
+
+
+        <h3 className=' absolute font-bold text-black py-7 w-[95%] text-4xl font-mono text-center animate-pulse'><span className='text-gray-800'>THE</span > JOURNEY<span className='text-gray-800'> BEG</span>INES</h3>
+
+      <div className="bg-pink-50 flex flex-row lg:flex-row w-full py-5">
         {image.length > 0 && (
           <img
             className="object-cover object-center w-96 sm:w-full lg:w-2/3 h-64 md:h-96 lg:h-full rounded-xl mt-[6rem] md:mt-24 lg:mt-24 md:ml-10 lg:ml-14"
@@ -72,13 +75,13 @@ function Packagesdetail() {
 
 
 
-      <h1 className="text-3xl font-semibold  text-center">
-        <span className="text-blue-600">Package </span> <span className="text-pink-600">details</span>
+      <h1 className="text-3xl bg-pink-50 font-semibold py-8 text-center">
+        <span className="  text-gray-600">Package </span> <span className="text-pink-600">details</span>
       </h1>
 
-      <div className="bg-pink-50 h-full gap-9 flex flex-row mt-6 justify-start px-20">
+      <div className="bg-pink-50 h-full gap-11 flex flex-row mt-0 justify-start px-20">
 
-        <div className="h-[500px] md:w-[50%] mt-5 sm:w-[60%] bg-white shadow-md shadow-pink-600 p-6 rounded-3xl">
+        <div className="h-[500px] md:w-[50%] mt-5 sm:w-[60%] bg-white shadow-md shadow-pink-400 p-6 rounded-3xl">
           <div className="flex flex-col h-full">
             <div className="mb-4">
               <h2 className="text-2xl font-semibold mb-2">Tour Package Details</h2>
@@ -109,16 +112,16 @@ function Packagesdetail() {
           </div>
         </div>
 
-        <div className="h-[500px] md:w-[50%] mt-5 sm:w-[60%] bg-white shadow-md shadow-pink-600 p-6 rounded-3xl">
+        <div className=" h-[500px] md:w-[50%] mt-5  sm:w-[60%] bg-white shadow-md shadow-pink-600 p-6 rounded-3xl">
           <div className="col-span-2 row-span-5 col-start-4">
             <form action="">
-              <div className="h-[360px] bg-[#EDE3E3] px-5 py-5 shadow-lg rounded-md">
+              <div className="h-[400px] bg-[#EDE3E3] px-5 py-5 shadow-lg rounded-md">
                 <div className="flex gap-3 items-center mt-2 mb-8">
                   <h5 className="ont-san text-2xl font-normal leading-6 tracking-tight text-[#1e1e1e]">
                     ₹ Price
                   </h5>
                   <span className="font-normal text-lg leading-3 tracking-tighter text-[#959595]">
-                    Per night 
+                    Per night
                   </span>
                 </div>
 
@@ -183,22 +186,23 @@ function Packagesdetail() {
                   </div>
                 </div>
 
-                <h5 className="ont-san text-2xl mt-16 font-normal leading-6 tracking-tight text-[#1e1e1e]">
+                <h5 className="ont-san text-2xl mt-7 font-normal leading-6 tracking-tight text-[#1e1e1e]">
                   Total Amount : ₹
                 </h5>
               </div>
 
-              <div className="w-full mt-12">
-                <Button type="submit" className="w-full bg-pink-300 hover:bg-[#e28585f8] leading-9" size="lg">
+              <div className="flex justify-center py-2">
+                <Button type="submit" className="w-[40%] bg-pink-300 hover:bg-[#e28585f8] hover:scale-105 leading-9" size="lg">
                   Book Now
                 </Button>
               </div>
+
             </form>
           </div>
         </div>
       </div>
 
-      
+
     </>
 
   )

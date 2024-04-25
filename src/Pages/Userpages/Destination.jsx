@@ -61,8 +61,7 @@ function Destination() {
 
   const handleReset = () => {
     setSearch('');
-    setPage(1); // Resetting page number when search is reset
-    // Reset to original places
+    setPage(1); 
     const fetchOriginalPlaces = async () => {
       try {
         const response = await Placedata(page, limit);
@@ -90,7 +89,7 @@ function Destination() {
         <div className="grid grid-cols-1">
           <div className="text-3xl font-serif mx-2 text-right text-gray-700 px-5 animate__animated animate__fadeIn">Travel to your dream places</div>
         </div>
-        <div className="container bg-pink-50 px-16 py-6 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mx-auto gap-12 shadow-2xl">
+        <div className="container bg-pink-50 px-16 py-6  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mx-auto gap-12 shadow-2xl">
           {  places.map(place => (
             <div key={place._id} onClick={()=>handleClick(place._id)}      className="group bg-white shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
               <div className="overflow-hidden card transform transition-transform duration-200 hover:scale-105">
@@ -104,7 +103,7 @@ function Destination() {
             </div>
           ))}
         </div>
-        <div className="flex items-center my-9 justify-center space-x-4">
+        <div className="bg-pink-50 flex items-center mt-10 justify-center space-x-4">
           <button disabled={page === 1} className="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-lg transition-colors duration-300" onClick={() => setPage(page - 1)}>Previous</button>
           <span className="text-gray-700">Page: {page}</span>
           <button className="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-lg transition-colors duration-300" onClick={() => setPage(page + 1)}>Next</button>

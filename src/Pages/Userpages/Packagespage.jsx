@@ -46,7 +46,7 @@ const navigate=useNavigate()
         <h3 className=' absolute font-extrabold text-white  text-8xl w-[80%] py-16 font-mono text-end animate-pulse'>PICK<span className='text-gray-800'>THE</span > BEST <span className='text-gray-800'>PACK</span>AGES</h3>
         <img className='h-full w-full ' src={Background} alt="backgroundimage" />
       </div>
-      <h1 className=' mt-8 font-bold text-center text-4xl text-gray-800'>Packages in wayanad</h1>
+      <h1 className=' mt-8 font-bold text-center text-4xl text-gray-800'>Packages in </h1>
 
       <div className=" mb-10 px-16 h-80 mt-8  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {packages && packages.map((pk) => (
