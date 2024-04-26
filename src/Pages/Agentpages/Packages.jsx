@@ -11,20 +11,22 @@ import {
   fetchcatgeory,
   fetchActivities,
   Addpackagedata,
-  fetchstate
+  fetchstate,
+  fetchpackage,
+  Blockpackages
 } from '../../Api/Agentapi';
 
 function Packages() {
+  const [pack, Setpackage] = useState([])
   const [previewSource, setPreviewSource] = useState([])
   const [category, setcategory] = useState([])
   const [activity, setactivity] = useState([])
-  const[state,Setstate]=useState([])
+  const [state, Setstate] = useState([])
   const [open, setOpen] = useState(false);
   const [refresh, setRefresh] = useState(false);
-
   const [formData, setFormData] = useState({
     State: '',
-    Destrictname:'',
+    Destrictname: '',
     image: null,
     category: '',
     description: '',
@@ -36,65 +38,65 @@ function Packages() {
 
   const handleOpen = () => setOpen(!open);
 
-  const handleImageUpload = async(e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files;
-    try{
+    try {
       const urls = await uploadImage(file);
-      console.log(urls,"urls");
+      console.log(urls, "urls");
       setPreviewSource(urls)
 
       // setFormData({
       //   ...formData,
       //   image: urls });
 
-    }catch(error){
+    } catch (error) {
       console.error("Error uploading images:", error);
 
     }
-    
-    console.log(file,"ooooooooooo");
- 
+
+    console.log(file, "ooooooooooo");
+
   };
 
   const uploadImage = async (files) => {
-    console.log(files,"files");
+    console.log(files, "files");
     try {
-        const uploadedImageUrls = [];
+      const uploadedImageUrls = [];
 
-        for (const file of files) {
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("upload_preset", "dev_setups");
+      for (const file of files) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "dev_setups");
 
-            const cloudinaryResponse = await fetch(
-                "https://api.cloudinary.com/v1_1/dqewi7vjr/image/upload",
-                {
-                    method: "POST",
-                    body: formData,
-                }
-            );
+        const cloudinaryResponse = await fetch(
+          "https://api.cloudinary.com/v1_1/dqewi7vjr/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
-            if (!cloudinaryResponse.ok) {
-                throw new Error(`Failed to upload image. Status: ${cloudinaryResponse.status}`);
-            }
-
-            const cloudinaryData = await cloudinaryResponse.json();
-
-            if (cloudinaryData.error) {
-                console.log(cloudinaryData.error);
-                return;
-            }
-
-            const uploadedImageUrl = cloudinaryData.secure_url;
-            uploadedImageUrls.push(uploadedImageUrl);
+        if (!cloudinaryResponse.ok) {
+          throw new Error(`Failed to upload image. Status: ${cloudinaryResponse.status}`);
         }
 
-        console.log("Uploaded Image URLs:", uploadedImageUrls);
-        return uploadedImageUrls;
+        const cloudinaryData = await cloudinaryResponse.json();
+
+        if (cloudinaryData.error) {
+          console.log(cloudinaryData.error);
+          return;
+        }
+
+        const uploadedImageUrl = cloudinaryData.secure_url;
+        uploadedImageUrls.push(uploadedImageUrl);
+      }
+
+      console.log("Uploaded Image URLs:", uploadedImageUrls);
+      return uploadedImageUrls;
     } catch (error) {
-        console.log("Error during image upload:", error);
+      console.log("Error during image upload:", error);
     }
-};
+  };
 
 
 
@@ -107,9 +109,16 @@ function Packages() {
         const Response = await fetchActivities();
         setactivity(Response.data.Activities)
 
-        const res=await fetchstate()
-        console.log(res,"lllllllllllllllllll");
+        const res = await fetchstate()
         Setstate(res.data.States)
+
+
+        const Res = await fetchpackage()
+        console.log(Res, "res");
+        Setpackage(Res.data.pack)
+
+
+
 
       } catch (error) {
         console.log("Error while fetching category/activity:", error);
@@ -120,6 +129,7 @@ function Packages() {
   }, [refresh]);
 
 
+
   const handleclick = () => {
     refresh === true ? setRefresh(false) : setRefresh(true);
   }
@@ -127,7 +137,7 @@ function Packages() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === 'amount') {
       if (!isNaN(value) && parseFloat(value) >= 0) {
         setFormData({
@@ -137,12 +147,12 @@ function Packages() {
       }
       return;
     }
-      setFormData({
+    setFormData({
       ...formData,
       [name]: value
     });
   };
-  
+
 
 
 
@@ -171,7 +181,7 @@ function Packages() {
       const data = {
         ...formData,
         image: previewSource
-    }
+      }
 
       const res = await Addpackagedata(data);
       console.log(res);
@@ -189,6 +199,26 @@ function Packages() {
     });
     setOpen(false);
   };
+
+  const handleblock = async (packid) => {
+    const Response = await Blockpackages(packid)
+    Setpackage(prevpack => {
+      return prevpack.map(pk => {
+        if (pk._id === packid) {
+          return { ...pk, isBlock: !pk.isBlock };
+
+        }
+        return pk
+      })
+    })
+
+  }
+
+
+
+
+
+
 
   return (
     <>
@@ -209,8 +239,8 @@ function Packages() {
         <DialogHeader>Add package</DialogHeader>
         <DialogBody className="max-h-80 overflow-y-auto" >
           <form onSubmit={handleSubmit}>
-            
-          <div className="flex flex-col mb-4">
+
+            <div className="flex flex-col mb-4">
               <label className="mb-2" htmlFor="State">state</label>
               <select
                 className="p-2 border border-gray-300 rounded"
@@ -260,7 +290,7 @@ function Packages() {
                 id="images"
                 name="images"
                 onChange={handleImageUpload}
-                multiple 
+                multiple
               />
             </div>
 
@@ -339,6 +369,66 @@ function Packages() {
           </Button>
         </DialogFooter>
       </Dialog>
+
+
+      {pack && pack.length > 0 ? (
+        <div className=" mb-10 px-16 w-full   mt-8  grid    gap-6">
+          {pack && pack.map((pk) => (
+
+            <div key={pk._id} className="shadow-lg shadow-gray-400 border-2  border-gray-400 rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
+              <img
+                src={pk.Image[0]}
+                alt={pk.Destrictname}
+                className="object-cover w-full h-40"
+              />
+              <div>
+                <div className=''>
+                  <h1 className='capitalize pl-5  text-xl'><strong>{pk.Destrictname}</strong></h1>
+                  <h1 className='capitalize pl-5 '>{pk.State}</h1>
+                  <h1 className='capitalize pl-5 '>{pk.category}</h1>
+                  <h1 className='capitalize pl-5 '>{pk.details}</h1>
+
+                </div>
+                <br />
+                <br />
+                <div className=' flex justify-between p-3'>
+                  <h1 className='capitalize pl-5  text-xl'><strong>${pk.amount}</strong></h1>
+                  {!pk.isBlock ? (
+                    <button onClick={() => handleblock(pk._id)}
+                      className='bg-white border-2 border-[#000000] p-2 rounded-sm hover:bg-black hover:text-white'
+                    >Block</button>
+                  ):(
+                    <button onClick={() => handleblock(pk._id)}
+                    className='bg-white border-2 border-[#000000] p-2 rounded-sm hover:bg-black hover:text-white'
+                  >unBlock</button>
+                  )}
+                </div>
+                <br />
+              </div>
+            </div>
+          ))}
+        </div>
+      ):(
+        <p className='text-red-700 text-center'>No Packages available!</p>
+
+      )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </>
   )
 }

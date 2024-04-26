@@ -235,6 +235,24 @@ export async function fetchstate() {
 
 
 
+export async function fetchpackage() {
+    try {
+        const result = await agentapi.get('/listpackages');
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}
 
 
+export async function Blockpackages(id) {
+    try {
+        const result = await agentapi.put(`/blockpackages/${id}`);
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}
 
