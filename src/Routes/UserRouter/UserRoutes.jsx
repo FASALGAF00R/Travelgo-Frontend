@@ -14,6 +14,7 @@ import Userprofile from '../../Pages/Userpages/Userprofile'
 import Userprotected from '../../Utils/Protected/Userprotected'
 import Packagespage from '../../Pages/Userpages/Packagespage'
 import Packagesdetail from '../../Pages/Userpages/Packagesdetail'
+import Demo from '../../Pages/Userpages/Demo'
 
 
 function UserRoutes() {
@@ -47,6 +48,7 @@ console.log("userroutes");
           </Userpublic>
         } />
 
+        <Route path='/demo' element={<Demo />} />
         <Route path="/verify/:token" element={ <Verification />} />
         <Route path='/forgotpass' element={<Forgotpass />} />
         <Route path='/otpverify' element={<Otppass />} />
@@ -56,5 +58,5 @@ console.log("userroutes");
     </div>
   )
 }
-
+                                                                                                                                                                                                                                                                                                                                                                                                                              
 export default UserRoutes

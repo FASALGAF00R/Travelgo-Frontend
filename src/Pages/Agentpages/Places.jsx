@@ -198,6 +198,7 @@ function Places() {
                 value={formdata.Destrictname}
                 onChange={handlechange}
               >
+                 <option value="" >select Destrictname</option>
                 <option value="Alappuzha">Alappuzha</option>
                 <option value="Ernakulam">Ernakulam</option>
                 <option value="Idukki">Idukki</option>

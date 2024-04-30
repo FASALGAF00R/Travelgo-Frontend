@@ -6,26 +6,14 @@ import AdminRoutes from './Routes/AdminRouter/AdminRoutes';
 
 function App() {
     return (
-        <div className='App'>
-         
+        <div className='App'>        
             <Router>
                 <Routes>
-
                     <Route path='/*' element={<UserRoutes />}/>
                     <Route path='/agent*' element={<AgentRoutes />}/>
-                    <Route path='/admin*' element={<AdminRoutes />}/>
-
-
-                    
-
+                    <Route path='/admin*' element={<AdminRoutes />}/>               
                 </Routes>
-
-                </Router>
-
-
-
-          
-
+                </Router>     
         </div >
     )
 }

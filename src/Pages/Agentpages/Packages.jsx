@@ -251,10 +251,10 @@ function Packages() {
                 onChange={handleChange}
                 onClick={handleclick}
               >
-                <option value="">Select state</option>
-                {state.map(st => (
+                <option value="" >select state</option>
+                <option value="Kerala" >Kerala</option> {/* {state.map(st => (
                   <option key={st._id} value={st.State}>{st.State}</option>
-                ))}
+                ))} */}
               </select>
 
             </div>
@@ -397,10 +397,10 @@ function Packages() {
                     <button onClick={() => handleblock(pk._id)}
                       className='bg-white border-2 border-[#000000] p-2 rounded-sm hover:bg-black hover:text-white'
                     >Block</button>
-                  ):(
+                  ) : (
                     <button onClick={() => handleblock(pk._id)}
-                    className='bg-white border-2 border-[#000000] p-2 rounded-sm hover:bg-black hover:text-white'
-                  >unBlock</button>
+                      className='bg-white border-2 border-[#000000] p-2 rounded-sm hover:bg-black hover:text-white'
+                    >unBlock</button>
                   )}
                 </div>
                 <br />
@@ -408,7 +408,7 @@ function Packages() {
             </div>
           ))}
         </div>
-      ):(
+      ) : (
         <p className='text-red-700 text-center'>No Packages available!</p>
 
       )}

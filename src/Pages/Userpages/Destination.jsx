@@ -7,7 +7,7 @@ function Destination() {
   const [places, setPlaces] = useState([]);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(3);
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -90,7 +90,10 @@ function Destination() {
           <div className="text-3xl font-serif mx-2 text-right text-gray-700 px-5 animate__animated animate__fadeIn">Travel to your dream places</div>
         </div>
         <div className="container bg-pink-50 px-16 py-6  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mx-auto gap-12 shadow-2xl">
-          {  places.map(place => (
+        {places.length === 0 ? (
+          <div className="align-middle ">No properties available</div>
+        ) : (
+                 places.map(place => (
             <div key={place._id} onClick={()=>handleClick(place._id)}      className="group bg-white shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
               <div className="overflow-hidden card transform transition-transform duration-200 hover:scale-105">
                 <img src={place.Image} alt={place.Destrictname} className="object-cover h-40 w-72" />
@@ -101,7 +104,8 @@ function Destination() {
                 <p className="text-pink-300  text-lg font-light">{place.Destrictname}</p>
               <p>{place.Description}</p>
             </div>
-          ))}
+                 ))
+          )}
         </div>
         <div className="bg-pink-50 flex items-center mt-10 justify-center space-x-4">
           <button disabled={page === 1} className="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-lg transition-colors duration-300" onClick={() => setPage(page - 1)}>Previous</button>
@@ -115,3 +119,4 @@ function Destination() {
 }
 
 export default Destination;
+

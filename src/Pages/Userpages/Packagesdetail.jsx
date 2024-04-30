@@ -26,7 +26,7 @@ function Packagesdetail() {
   useEffect(() => {
     const fetch = async () => {
       const res = await fetchdata(packageId).then((response) => {
-        console.log(response, 'pppppppppp');
+        console.log(response, 'pppppppppppppppppppppphh');
         const images = response.data.placespackage.Image
         Setimages(images)
         console.log(images, "images");
@@ -48,7 +48,7 @@ function Packagesdetail() {
     <>
 
 
-        <h3 className=' absolute font-bold text-black py-7 w-[95%] text-4xl font-mono text-center animate-pulse'><span className='text-gray-800'>THE</span > JOURNEY<span className='text-gray-800'> BEG</span>INES</h3>
+      <h3 className=' absolute font-bold text-black py-7 w-[95%] text-4xl font-mono text-center animate-pulse'><span className='text-gray-800'>THE</span > JOURNEY<span className='text-gray-800'> BEG</span>INES</h3>
 
       <div className="bg-pink-50 flex flex-row lg:flex-row w-full py-5">
         {image.length > 0 && (
@@ -90,10 +90,6 @@ function Packagesdetail() {
             <div className="mb-4">
               <h2 className="text-2xl font-semibold mb-2">Activities</h2>
               <ul className="list-disc list-inside text-gray-600">
-                {/* <li>Hiking</li>
-                <li>Sightseeing</li>
-                <li>Swimming</li> */}
-
                 {pack.activites}
               </ul>
             </div>
@@ -105,10 +101,10 @@ function Packagesdetail() {
               <h2 className="text-2xl font-semibold mb-2">Amount</h2>
               <p className="text-gray-600">{pack.amount}</p>
             </div>
-            <div>
+            {/* <div>
               <h2 className="text-2xl font-semibold mb-2">Other Information</h2>
               <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, elit nec ullamcorper viverra, nisi elit gravida nunc.</p>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -154,8 +150,8 @@ function Packagesdetail() {
                 <div className="grid grid-cols-2 w-full rounded-none  mt-5 gap-6">
                   <div className="w-full h-[80px] bg-white hover:bg-gray-200 rounded-md shadow-sm">
                     <div className="m-3">
-                      <span className="text-gray-700">No. of Guests</span>
-                      <p className="mt-1"> guests</p>
+                      <span className="text-gray-700">No. of persons</span>
+                      <p className="mt-1"> </p>
                     </div>
                   </div>
                   {/* <div className="w-full h-[80px] bg-white rounded-md hover:bg-gray-200 shadow-sm">

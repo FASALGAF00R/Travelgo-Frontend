@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchpackages } from '../../Api/Userapi';
 import Background from '../../../src/Assests/Images/mountain-6968913_1280.jpg'
+import { MdCardTravel } from "react-icons/md";
 
 
 
-function Packagespage() {
+function Packagespage({categoryType,searchactivity,priceRange}) {
 
   const navigate = useNavigate()
 
@@ -17,7 +18,7 @@ function Packagespage() {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const res = await fetchpackages(placeId).then((response) => {
+      const res = await fetchpackages(placeId,categoryType).then((response) => {
         console.log(response, 'pppppppppp');
         const filteredPackages = response.data.fullpackage.filter(pk => pk.isBlock === true);
 
@@ -35,9 +36,11 @@ function Packagespage() {
   console.log(packages, "packages");
 
   const handleclick = (id) => {
+    console.log(id, "id");
     navigate('/packagedetails', { state: id })
 
   }
+
 
 
 
@@ -49,16 +52,12 @@ function Packagespage() {
         <img className='h-full w-full ' src={Background} alt="backgroundimage" />
       </div>
       <h1 className='mt-8 font-bold text-center text-4xl text-gray-800'> Packages in {packages.length > 0 ? packages[0].Destrictname : '...'}</h1>
-      
+
 
       {packages.length === 0 && <p className="text-center text-red-500 mt-4">Sorry, there are no packages available for this location.</p>}
 
-      {/* ////////////////////////// */}
-
-
       <div className=" mb-10 px-16 h-fit mt-8  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {packages && packages.map((pk) => (
-
           <div key={pk._id} className="shadow-lg shadow-gray-400 border-2  border-gray-400 rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
             <img
               src={pk.Image[0]}
@@ -68,31 +67,27 @@ function Packagespage() {
             <div>
               <div className=''>
                 <h1 className='capitalize pl-5  text-xl'><strong>{pk.Destrictname}</strong></h1>
-                <h1 className='capitalize pl-5 '>{pk.State}</h1>
+                <div className='flex justify-between mr-10'>
+                  <h1 className='capitalize pl-5 '>{pk.State}</h1>
+                  <span span className=''><MdCardTravel/>   </span>
+                </div>
 
               </div>
-              <br />
-              <br />
-              <div className=' flex justify-between p-3'>
+
+              <div className=' flex justify-between p-3 flex-row'>
                 <h1 className='capitalize pl-5  text-xl'><strong>${pk.amount}</strong></h1>
 
-                <button onClick={() => handleclick(pk._id)} 
-                  className='bg-white border-2 border-[#000000] p-2 rounded-sm hover:bg-black hover:text-white'
-                  >View Package</button>
+                <button onClick={() => handleclick(pk._id)}
+                  className='bg-white border-2  border-[#000000] p-2 rounded-sm hover:bg-black hover:text-white'
+                >View Package
+                </button>
               </div>
               <br />
             </div>
           </div>
-                ))}
-            </div>
-
-
-
-
-
-
-
-
+        ))}
+        
+      </div>
 
 
 

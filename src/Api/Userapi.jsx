@@ -194,3 +194,13 @@ export async function fetchdata(id) {
     }
 }
 
+
+
+export async function FetchCategory() {
+    try {
+        const result = await userapi.get('/categories')
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
