@@ -30,7 +30,7 @@ function Forgotpass() {
         e.preventDefault()
         try {
             if (formdata.email === "") {
-                toast.error("fields empty")
+                toast.error("please enter email")
             } else {
                 const Res = await Forgot(formdata,role)
                 console.log(Res, "pop");
@@ -76,9 +76,9 @@ function Forgotpass() {
                         </button>
 
                         <p className="text-center ">
-                            Not registered yet?{' '}
+                            Don't have an account ?{' '}
                             <a href="/signup" className="  font-bg-[#dc5151] font-medium inline-flex space-x-1 items-center">
-                                <span className=' hover:bg-light-blue-500'>Register now </span>
+                                <span className='hover:underline hover:text-blue-900 cursor-pointer'>Signup now</span>
                             </a>
                         </p>
                     </div>

@@ -36,8 +36,12 @@ function Login() {
     try {
       e.preventDefault();
       if (admin.email === "" && admin.password === "") {
-        toast.error("fields empty")
-      } else {
+        toast.error("please enter all fields")
+      }else if (!admin.email) {
+        toast.error("please enter email");
+      }  else if (!admin.password) {
+          toast.error("please enter password");
+         } else {
         const res = await Admindata(admin)
         if (res.data.success === false) {
           toast.error(res.data.message)

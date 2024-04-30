@@ -73,8 +73,6 @@ function Packagesdetail() {
 
       </div>
 
-
-
       <h1 className="text-3xl bg-pink-50 font-semibold py-8 text-center">
         <span className="  text-gray-600">Package </span> <span className="text-pink-600">details</span>
       </h1>

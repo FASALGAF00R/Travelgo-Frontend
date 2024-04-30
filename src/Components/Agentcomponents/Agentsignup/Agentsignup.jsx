@@ -23,13 +23,11 @@ function Agentsignup() {
     const { name, value } = e.target;
   
     if (name === 'phone' && (value.startsWith('-') || parseInt(value) < 0)) {
-      // Show error message for negative number
       toast.error('Phone number must be a positive number');
       return;
     }
   
     if (name === 'phone' && !/^\d{0,10}$/.test(value)) {
-      // Show error message for invalid phone number length
       toast.error('Phone number must be 10 digits');
       return;
     }
@@ -58,9 +56,19 @@ function Agentsignup() {
   const formdata = async (e) => {
     e.preventDefault();
     try {
-      if (!Data.userName || !Data.email || !Data.phone || !Data.password) {
-        toast.error('fields required');
-      } else if (!/^\d{10}$/.test(Data.phone)) {
+      if (!Data.userName && !Data.email && !Data.phone && !Data.password) {
+        toast.error('  please enter all fields ');
+      }else if(!Data.userName){
+        toast.error("please enter name")
+      }else if(!Data.email){
+        toast.error("please enter email")
+      }else if(!Data.phone){
+        toast.error("please enter phone")
+      }else if(!Data.password){
+        toast.error("please enter password")
+      }else if(!Data.confirmpassword){
+        toast.error("please enter confirmpassword")
+      }else if (!/^\d{10}$/.test(Data.phone)) {
         toast.error('Phone number must be 10 digits');
       } else if (!validatePassword(Data.password)) {
         toast.error("Password: 6+ chars, letters & numbers.");

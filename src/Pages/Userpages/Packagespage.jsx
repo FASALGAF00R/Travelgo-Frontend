@@ -6,7 +6,7 @@ import { MdCardTravel } from "react-icons/md";
 
 
 
-function Packagespage({categoryType,searchactivity,priceRange}) {
+function Packagespage({ categoryType, searchactivity, priceRange }) {
 
   const navigate = useNavigate()
 
@@ -18,7 +18,7 @@ function Packagespage({categoryType,searchactivity,priceRange}) {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const res = await fetchpackages(placeId,categoryType).then((response) => {
+      const res = await fetchpackages(placeId, categoryType).then((response) => {
         console.log(response, 'pppppppppp');
         const filteredPackages = response.data.fullpackage.filter(pk => pk.isBlock === true);
 
@@ -47,10 +47,15 @@ function Packagespage({categoryType,searchactivity,priceRange}) {
 
   return (
     <>
-      <div className='w-full h-screen '>
-        <h3 className=' absolute font-extrabold text-white  text-8xl w-[80%] py-16 font-mono text-end animate-pulse'>PICK<span className='text-gray-800'>THE</span > BEST <span className='text-gray-800'>PACK</span>AGES</h3>
-        <img className='h-full w-full ' src={Background} alt="backgroundimage" />
+
+      <div className='w-full h-screen relative'>
+        <h3 className='absolute font-mono text-white text-8xl w-[80%] py-40 text-end animate-pulse'>PICK <span className='text-gray-800'>THE </span > BEST <span >PACK</span><span className='text-gray-800'>AGES </span> </h3>
+        <img className='h-full w-full' src={Background} alt="backgroundimage" />
+        <svg className="absolute animate-bounce w-12 h-16 bottom-0 left-1/2 transform -translate-x-1/2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
       </div>
+
       <h1 className='mt-8 font-bold text-center text-4xl text-gray-800'> Packages in {packages.length > 0 ? packages[0].Destrictname : '...'}</h1>
 
 
@@ -69,16 +74,15 @@ function Packagespage({categoryType,searchactivity,priceRange}) {
                 <h1 className='capitalize pl-5  text-xl'><strong>{pk.Destrictname}</strong></h1>
                 <div className='flex justify-between mr-10'>
                   <h1 className='capitalize pl-5 '>{pk.State}</h1>
-                  <span span className=''><MdCardTravel/>   </span>
+                  <span span className=''><MdCardTravel />   </span>
                 </div>
 
               </div>
 
               <div className=' flex justify-between p-3 flex-row'>
-                <h1 className='capitalize pl-5  text-xl'><strong>${pk.amount}</strong></h1>
-
+                <h1 className='capitalize pl-5  text-xl'><strong>₹{pk.amount}</strong></h1>
                 <button onClick={() => handleclick(pk._id)}
-                  className='bg-white border-2  border-[#000000] p-2 rounded-sm hover:bg-black hover:text-white'
+                  className='bg-white border-2  border-[#3e3e3e] p-2 rounded-sm hover:bg-gray-800 hover:text-white'
                 >View Package
                 </button>
               </div>
@@ -86,7 +90,7 @@ function Packagespage({categoryType,searchactivity,priceRange}) {
             </div>
           </div>
         ))}
-        
+
       </div>
 
 

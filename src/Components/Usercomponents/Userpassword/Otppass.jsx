@@ -65,7 +65,7 @@ function Otppass() {
     try {
       e.preventDefault()
       if (otp === '') {
-        toast.error('fields empty')
+        toast.error('please enter otp')
       }
       const Otp = await Otpdata({ otp: otp, role: role })
       if (Otp.data.success === true) {
@@ -89,7 +89,7 @@ function Otppass() {
         <div className="flex flex-col justify-center space-y-5 max-w-md mx-auto mt-24">
           <form onSubmit={handlesubmit}>
             <div className="flex flex-col space-y-2 mb-5 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold">Confirm OTP</h2>
+        <span className="text-blue-500 text-3xl">Confirm Otp</span>
               <p className="text-md mb-5 md:text-xl">
                 Enter the OTP we just sent you.
               </p>
@@ -100,7 +100,7 @@ function Otppass() {
                 placeholder="OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
+                className="flex px-3 py-2 md:px-4 md:py-3 border-2 border-blue rounded-lg font-medium placeholder:font-normal"
               />
 
 

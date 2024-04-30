@@ -85,9 +85,14 @@ function Login() {
     e.preventDefault();
     try {
      
-      if (!agent.email || !agent.password) {
-        toast.error("fields required")
-      } else {
+      if (!agent.email && !agent.password) {
+        toast.error("please enter all fields")
+      }else if(!agent.email){
+        toast.error("please enter email ")
+      }else if(!agent.password){
+        toast.error("please enter password")
+      }
+      else {
         const res = await Formdata(agent)
         console.log(res,"uhdfuihdfgfg");
         if (res.data.success) {

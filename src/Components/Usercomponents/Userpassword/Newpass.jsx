@@ -18,15 +18,17 @@ function Newpass() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (password === "" || confirmPassword === "") {
-            toast.error('fields empty');
-        } else if (password !== confirmPassword) {
+        if (password === "" && confirmPassword === "") {
+            toast.error('please enter all the fields');
+        } else if (!password) {
+            toast.error("please enter your password");
+        }else if (!confirmPassword) {
+            toast.error("please enter your confirmpassword");  
+        }else if (password !== confirmPassword) {
             toast.error("password and confirmPassword don't match");
         } else {
             try {
                 if(data.role==='user'){
-
-                
                     const email=data.email
                     const role=data.role
                     const Req = await Newpassword({ password, email,role });     

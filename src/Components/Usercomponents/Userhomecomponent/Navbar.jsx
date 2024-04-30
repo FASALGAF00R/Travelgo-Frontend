@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { MdModeOfTravel } from "react-icons/md";
 
 import {
   Navbar,
@@ -139,25 +140,14 @@ function NavbarSimple() {
   return (
     <Navbar className="bg-[#ee8e8e] mx-auto max-w-full rounded-none">
       <div className=" flex items-center justify-between text-white  text-2xl font-serif">
-        {/* <Typography> */}
-
-
+        <div className="flex justify-start gap-4  ">
         Travel go
-        {/* </Typography> */}
+        <MdModeOfTravel className="text-3xl"/>
+         </div>
         <div className="hidden lg:block">
           <NavList userName={userName} />
         </div>
 
-        {/* {loggedin ? (
-            <Typography variant="small" color="blue-gray" className="p-1 font-medium">
-
-              {userName}
-              
-            </Typography>
-          ) : (
-            <NavList />
-          )}
-        </div> */}
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -172,10 +162,6 @@ function NavbarSimple() {
         </IconButton>
       </div>
       <Collapse open={openNav}>
-        {/* {loggedin ? (
-          <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            {userName}
-          </ul>) : ( */}
         <NavList userName={userName} />
       </Collapse>
     </Navbar>

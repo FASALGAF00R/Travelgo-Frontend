@@ -81,7 +81,9 @@ const Login = () => {
       if (formData.email == '' && formData.password == '') {
         toast.error('Please enter all fields!')
       } else if (formData.password == '') {
-        toast.error('Please enter all fields')
+        toast.error('Please enter your password')
+       } else if (formData.email == '') {
+          toast.error('Please enter your email')
       } else {
         const res = await Userlogin(formData)
         if (res.data.success===true) {
