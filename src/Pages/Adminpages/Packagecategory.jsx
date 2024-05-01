@@ -19,6 +19,7 @@ function Packagecategory() {
     const [editCategoryId, setEditCategoryId] = useState(null);
     const [existingCategories, setExistingCategories] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
 
     const handleOpen = () => {
         setOpen(!open);
@@ -27,6 +28,17 @@ function Packagecategory() {
         setErrorMessage('')
     }
 
+    const itemsperpage = 3
+    const indexOfLastItem = currentPage * itemsperpage;
+    const indexOfFirstItem = indexOfLastItem - itemsperpage;
+
+    const currentItems = category.slice(indexOfFirstItem, indexOfLastItem);
+
+    const onPageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const totalPages = Math.ceil(category.length / itemsperpage);
 
 
     useEffect(() => {
@@ -45,21 +57,24 @@ function Packagecategory() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const trimmedCategoryName = categoryName.trim();
-    
+
         if (!trimmedCategoryName) {
             setErrorMessage('Category name cannot be empty!');
             return;
         }
         setErrorMessage('');
-    
-        if (existingCategories.includes(trimmedCategoryName)) {
+
+        const existingLowerCaseCategories = existingCategories.map(cat => cat.toLowerCase());
+        const newCategoryLowerCase = trimmedCategoryName.toLowerCase();
+
+        if (existingLowerCaseCategories.includes(newCategoryLowerCase)) {
             setErrorMessage('Category already exists!');
             return;
         }
         setErrorMessage('');
-    
+
         try {
             if (mode === 'add') {
                 const response = await Addcatgeory({ categoryName: trimmedCategoryName });
@@ -79,12 +94,12 @@ function Packagecategory() {
         } catch (error) {
             console.log('error got on adding/editing category', error);
         }
-    
+
         setCategoryName('');
         setEditCategoryId(null);
         setMode('add');
         setOpen(false);
-    
+
         try {
             const updatedCategories = await Fetchcategory();
             setcategory(updatedCategories.data.Category);
@@ -93,7 +108,9 @@ function Packagecategory() {
             console.error('Error fetching updated categories:', error);
         }
     };
-    
+
+
+
 
 
 
@@ -182,7 +199,7 @@ function Packagecategory() {
                     >
                         <span>Cancel</span>
                     </Button>
-                    <Button  className=' bg-blue-gray-700' onClick={handleSubmit}>
+                    <Button className=' bg-blue-gray-700' onClick={handleSubmit}>
                         <span>{mode === 'add' ? 'Add' : 'Save'}</span>
                     </Button>
                 </DialogFooter>
@@ -192,75 +209,88 @@ function Packagecategory() {
 
 
 
-                <Card className="h-[50%] ml-20 w-[80%] overflow-scroll shadow-lg shadow-gray-900 ">
-                    {category.length > 0 ? (
-                        <table className="w-full min-w-max table-auto text-left  ">
-                            <thead>
-                                <tr>
-                                    <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                        <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
-                                            Numbers
-                                        </Typography>
-                                    </th>
+            <Card className="h-[50%] ml-20 w-[80%] overflow-scroll shadow-lg shadow-gray-900 ">
+                {category.length > 0 ? (
+                    <table className="w-full min-w-max table-auto text-left  ">
+                        <thead>
+                            <tr>
+                                <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                    <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
+                                        Numbers
+                                    </Typography>
+                                </th>
 
-                                    <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                        <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
-                                            Category
-                                        </Typography>
-                                    </th>
-                                    <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                        <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
-                                            Action
-                                        </Typography>
-                                    </th>
+                                <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                    <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
+                                        Category
+                                    </Typography>
+                                </th>
+                                <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                    <Typography variant="small" color="blue-gray" className="font-extrabold leading-none opacity-70">
+                                        Action
+                                    </Typography>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentItems.map((cat, index) => (
+                                <tr key={cat._id}>
+                                    <td className="p-4 border-b border-blue-gray-50 text-gray-700 font-bold ">
+                                        {index + 1}
+                                    </td>
+
+                                    <td className="p-4 border-b border-blue-gray-50 text-gray-700">
+                                        {cat.Name}
+                                    </td>
+                                    <td className="p-4  bg-white" >
+                                        {cat.isBlock ? (
+                                            <Button className='   bg-red-600 hover:scale-y-110'
+                                                onClick={() => Handleblock(cat._id)}
+                                            >
+                                                block
+                                            </Button>
+                                        ) : (
+                                            <Button className='  bg-green-600 hover:scale-y-110'
+
+                                                onClick={() => Handleblock(cat._id)}
+                                            >
+                                                UnBlock
+                                            </Button>
+                                        )}
+                                        <Button className='ml-5 bg-blue-600 hover:scale-y-110 text-white'
+                                            onClick={() => handleEdit(cat._id)}
+                                        >
+                                            Edit
+                                        </Button>
+
+
+                                    </td>
+
 
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {category.map((cat, index) => (
-                                    <tr key={cat._id}>
-                                        <td className="p-4 border-b border-blue-gray-50 text-gray-700 font-bold ">
-                                            {index + 1}
-                                        </td>
+                            ))}
+                        </tbody>
 
-                                        <td className="p-4 border-b border-blue-gray-50 text-gray-700">
-                                            {cat.Name}
-                                        </td>
-                                        <td className="p-4  bg-white" >
-                                            {cat.isBlock ? (
-                                                <Button className='   bg-red-600 hover:scale-y-110'
-                                                    onClick={() => Handleblock(cat._id)}
-                                                >
-                                                    block
-                                                </Button>
-                                            ) : (
-                                                <Button className='  bg-green-600 hover:scale-y-110'
+                    </table>
+                ) : (
+                    <p className=' text-red-700 flex  justify-center'>No categorys available !</p>
 
-                                                    onClick={() => Handleblock(cat._id)}
-                                                >
-                                                    UnBlock
-                                                </Button>
-                                            )}
-                                            <Button className='ml-5 bg-blue-600 hover:scale-y-110 text-white'
-                                                onClick={() => handleEdit(cat._id)}
-                                            >
-                                                Edit
-                                            </Button>
+                )}
+            </Card>
 
-
-                                        </td>
-
-
-                                    </tr>
-                                ))}
-                            </tbody>
-
-                        </table>
-                    ) : (
-                        <p className=' text-red-700 flex  justify-center'>No categorys available !</p>
-
-                    )}
-                </Card>
+            <div className="flex justify-center mt-4">
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                        key={index}
+                        className={`mx-1 px-3 py-1 rounded-lg ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+                            }`}
+                        onClick={() => onPageChange(index + 1)}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
 
         </>
     )

@@ -100,7 +100,7 @@ function Destination() {
                 className="group bg-white shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md"
               >
                 <div className="overflow-hidden card transform transition-transform duration-200 hover:scale-105">
-                  <img src={place.Image} alt={place.Destrictname} className="object-cover h-40 w-72" />
+                  <img src={place.Image} alt={place.Destrictname} className="object-cover  h-40 w-full" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
                     {/* <p className="text-white text-lg font-bold">{place.State}</p> */}
                   </div>

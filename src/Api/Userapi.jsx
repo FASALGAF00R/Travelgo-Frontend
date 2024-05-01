@@ -204,3 +204,13 @@ export async function FetchCategory() {
         console.log(error);
     }
 }
+
+
+export async function fetchpackagescat(placeId,categoryname) {
+    try {
+        const result = await userapi.get(`/catpackages/${placeId}/${categoryname}`)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}

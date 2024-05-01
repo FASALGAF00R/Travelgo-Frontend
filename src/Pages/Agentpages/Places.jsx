@@ -198,7 +198,7 @@ function Places() {
                 value={formdata.Destrictname}
                 onChange={handlechange}
               >
-                 <option value="" >select Destrictname</option>
+                <option value="" >select Destrictname</option>
                 <option value="Alappuzha">Alappuzha</option>
                 <option value="Ernakulam">Ernakulam</option>
                 <option value="Idukki">Idukki</option>
@@ -233,22 +233,6 @@ function Places() {
 
 
       <div>
-        {/* <div className="container bg-black  px-16 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Places && Places.map((place) => (
-            <div key={place._id} onClick={()=>handleEdit(place)} className="bg-gray-300 shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
-              <img
-                src={place.Image}
-                alt={place.Destrictname}
-                class=" object-cover"
-              />
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                <p className="text-white text-lg font-bold">{place.Destrictname}</p>
-              </div>
-
-                <p>{place.Description} </p>
-            </div>
-          ))}
-        </div> */}
         <div className='flex flex-col'>
           {Places && Places.length > 0 ? (
             <div className='flex flex-wrap justify-center gap-5'>
@@ -276,6 +260,9 @@ function Places() {
                       <p>{place.Destrictname}</p>
                       <p>{place.Description}</p>
                     </div>
+
+
+                    
                   </div>
                 </div>
               ))}

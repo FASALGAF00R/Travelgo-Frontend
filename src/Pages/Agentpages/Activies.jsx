@@ -16,6 +16,21 @@ function Activities() {
   const [edit, setEdit] = useState([]);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  
+  const perpage =5
+  const indexoflastitem = currentPage * perpage;
+  const firstindexofitem = indexoflastitem - perpage;
+  
+
+  const currentItems = edit.slice(firstindexofitem, indexoflastitem);
+
+  const onPageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+};
+
+const totalPages = Math.ceil(edit.length / perpage);
 
 
   useEffect(() => {
@@ -161,7 +176,7 @@ function Activities() {
                 </td>
               </tr>
             ) : (
-              edit.map((act, index) => (
+              currentItems.map((act, index) => (
                 <tr key={act._id}>
                   <td className="p-4 border-b border-blue-gray-50 text-gray-700 font-bold ">
                     {index + 1}
@@ -200,7 +215,18 @@ function Activities() {
           </tbody>
         </table>
       </Card>
-
+      <div className="flex justify-center mt-4">
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                        key={index}
+                        className={`mx-1 px-3 py-1 rounded-lg ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+                            }`}
+                        onClick={() => onPageChange(index + 1)}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
     </>
   );
 }

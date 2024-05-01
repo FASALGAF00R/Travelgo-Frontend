@@ -14,8 +14,8 @@ import Userprofile from '../../Pages/Userpages/Userprofile'
 import Userprotected from '../../Utils/Protected/Userprotected'
 import Packagespage from '../../Pages/Userpages/Packagespage'
 import Packagesdetail from '../../Pages/Userpages/Packagesdetail'
-import Demo from '../../Pages/Userpages/Demo'
-
+import Aboutpage from '../../Pages/Userpages/Aboutpage'
+import  Error404  from '../../Pages/Errorpages/Error404.jsx'
 
 function UserRoutes() {
 
@@ -30,6 +30,8 @@ console.log("userroutes");
           <Route path='/profile' element={<Userprotected><Userprofile /></Userprotected>  } />
           <Route path='/packages' element={<Userprotected><Packagespage /></Userprotected>  } />
           <Route path='/packagedetails' element={<Userprotected><Packagesdetail /></Userprotected>  } />
+          <Route path='/about' element={<Aboutpage />} />
+          <Route path="*" element={<Error404 />} />
 
         </Route>
 
@@ -48,7 +50,6 @@ console.log("userroutes");
           </Userpublic>
         } />
 
-        <Route path='/demo' element={<Demo />} />
         <Route path="/verify/:token" element={ <Verification />} />
         <Route path='/forgotpass' element={<Forgotpass />} />
         <Route path='/otpverify' element={<Otppass />} />

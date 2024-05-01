@@ -7,9 +7,9 @@ const instance = axios.create({
 
 let AgentAccesToken = localStorage.getItem("AgentaccesToken");
 
+
 instance.defaults.headers.common["Authorization"] = AgentAccesToken ? `Bearer ${AgentAccesToken}` : "";
 instance.defaults.headers.post["Content-Type"] = "application/json";
-
 
 instance.interceptors.request.use(
   (request) => {

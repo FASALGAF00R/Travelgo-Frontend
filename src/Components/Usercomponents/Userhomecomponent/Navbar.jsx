@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { MdModeOfTravel } from "react-icons/md";
+// import './Navbar.css'  
+
 
 import {
   Navbar,
@@ -18,9 +20,9 @@ function NavList({ userName }) {
   const navigate = useNavigate()
 
   const handlelogout = () => {
-    
-      localStorage.removeItem('accesToken')
-    
+
+    localStorage.removeItem('accesToken')
+
     navigate(RouteObjects.Userlogin)
   }
 
@@ -34,7 +36,7 @@ function NavList({ userName }) {
           variant="small"
           color="blue-gray"
           className="p-1 font-medium cursor-pointer"
-          onClick={() => navigate('/profile')} 
+          onClick={() => navigate('/profile')}
 
         >
           {userName}
@@ -79,6 +81,17 @@ function NavList({ userName }) {
         color="blue-gray"
         className="p-1 font-medium"
       >
+        <a href="/about" className="flex items-center hover:text-white text-white">
+          About
+          {/* <span className="tooltip-text">About Page</span> */}
+        </a>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
         <a
           href="#" className="flex items-center hover:text-black text-white"
           onClick={handlelogout}
@@ -93,7 +106,7 @@ function NavList({ userName }) {
 
 
 function NavbarSimple() {
-  
+
   const [openNav, setOpenNav] = useState(false);
   const [loggedin, setloggedin] = useState(false)
   const [userName, setuserName] = useState("")
@@ -141,9 +154,9 @@ function NavbarSimple() {
     <Navbar className="bg-[#ee8e8e] mx-auto max-w-full rounded-none">
       <div className=" flex items-center justify-between text-white  text-2xl font-serif">
         <div className="flex justify-start gap-4  ">
-        Travel go
-        <MdModeOfTravel className="text-3xl"/>
-         </div>
+          Travel go
+          <MdModeOfTravel className="text-3xl" />
+        </div>
         <div className="hidden lg:block">
           <NavList userName={userName} />
         </div>

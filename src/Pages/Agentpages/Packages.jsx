@@ -33,8 +33,23 @@ function Packages() {
     activities: [],
     amount: ''
   });
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // console.log(category,"lkjk");
+  const perpage = 2
+  const indexoflastitem = currentPage * perpage;
+  const firstindexofitem = indexoflastitem - perpage;
+
+
+  const currentItems = pack.slice(firstindexofitem, indexoflastitem);
+
+  const onPageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+
+  const totalPages = Math.ceil(pack.length / perpage);
+
+
 
   const handleOpen = () => setOpen(!open);
 
@@ -372,8 +387,8 @@ function Packages() {
 
 
       {pack && pack.length > 0 ? (
-        <div className=" mb-10 px-16 w-full   mt-8  grid    gap-6">
-          {pack && pack.map((pk) => (
+        <div className=" mb-10 px-16 w-full   mt-8  grid    gap-12">
+          {pack && currentItems.map((pk) => (
 
             <div key={pk._id} className="shadow-lg shadow-gray-400 border-2  border-gray-400 rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
               <img
@@ -414,7 +429,18 @@ function Packages() {
       )}
 
 
-
+      <div className="flex justify-center mt-4">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            className={`mx-1 px-3 py-1 rounded-lg ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+              }`}
+            onClick={() => onPageChange(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
 
 
 
