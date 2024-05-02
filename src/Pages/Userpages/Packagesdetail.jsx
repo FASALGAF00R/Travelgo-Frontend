@@ -16,9 +16,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast, { Toaster } from "react-hot-toast";
 import { RouteObjects } from '../../Routes/RouteObject';
+import { useSelector } from 'react-redux';
 
 
 function Packagesdetail() {
+
+  const selector = useSelector(state => state.agent.agentInfo)
+  console.log(selector, "agentInfo");
 
   const navigate = useNavigate()
 
@@ -52,7 +56,7 @@ function Packagesdetail() {
   console.log(pack, "Setpack");
   const perperson = pack.amount
   console.log(perperson, "perperson");
-  console.log(totalAmount,"totalAmount");
+  console.log(totalAmount, "totalAmount");
 
 
   useEffect(() => {
@@ -61,8 +65,8 @@ function Packagesdetail() {
 
 
   const calculateTotalAmount = () => {
-    const pricePerPerson = perperson; 
-    const pricePerDay = 5000; 
+    const pricePerPerson = perperson;
+    const pricePerDay = 5000;
     const days = endDate ? Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) : 0;
     const totalPrice = (pricePerPerson * numberOfPersons) + (pricePerDay * days);
     setTotalAmount(totalPrice);
@@ -98,17 +102,17 @@ function Packagesdetail() {
       toast.error('Please select both start and end dates');
       return;
     }
-    navigate('/booking', { 
+    navigate('/booking', {
       state: {
         package: pack,
-        packageId:packageId,
+        packageId: packageId,
         numberOfPersons: numberOfPersons,
         startDate: startDate,
         endDate: endDate,
         totalAmount: totalAmount
       }
     });
-      }
+  }
 
 
 
@@ -169,9 +173,15 @@ function Packagesdetail() {
           <p className='text-gray-1000'>₹  {pack.amount}</p>
         </div>
 
+
+
         <div className='w-full lg:w-[50%] mt-5 bg-white shadow-md p-6 rounded-3xl'>
+        <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+          <h2 class="text-xl font-semibold text-gray-800">Travel Agent : {selector.agentname}</h2>
+          <p class="text-gray-800 font-bold">contact : {selector.phone}</p>
+        </div>
           <form onSubmit={handleDetailsSubmit} >
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5 mb-4'>
               <div className='bg-white mt-1 hover:bg-gray-500 outline-none p-3 rounded-md '>
                 <DatePicker placeholderText='Start day'
                   onChange={handleStartDate}
@@ -212,9 +222,9 @@ function Packagesdetail() {
                 </div>
               </div>
             </div>
-            <h5 className='text-2xl mt-7  font-semibold leading-6 tracking-tight text-[#1e1e1e]'>Total Amount: ₹ {totalAmount ? totalAmount:pack.amount}</h5>
+            <h5 className='text-2xl mt-7  font-semibold leading-6 tracking-tight text-[#1e1e1e]'>Total Amount: ₹ {totalAmount ? totalAmount : pack.amount}</h5>
 
-            <div className='flex justify-center py-2 gap-2'>
+            <div className='flex justify-center py-2 gap-2 mt-5'>
               <Button type='submit' className='w-[30%] bg-gray-800 hover:bg-[#231e1ef8] hover:scale-105 leading-9' >
                 Book Now
               </Button>

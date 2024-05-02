@@ -9,8 +9,20 @@ import {
   Typography
 } from "@material-tailwind/react";
 import { Addactivity, Fetchactivies, UpdateActivity, Blockact } from '../../Api/Agentapi';
+import { useSelector } from 'react-redux';
+
+
+
 
 function Activities() {
+
+  const selector = useSelector(state => state.agent.agentInfo)
+  console.log(selector,"selectoractivity");
+
+
+
+
+  
   const [open, setOpen] = useState(false);
   const [form, setFormdata] = useState('');
   const [edit, setEdit] = useState([]);
@@ -76,7 +88,7 @@ const totalPages = Math.ceil(edit.length / perpage);
       if (selectedActivity) {
         await UpdateActivity(selectedActivity._id, { form: form });
       } else {
-        await Addactivity({ form: form });
+        await Addactivity( form,selector.id );
       }
       Fetchactivies().then((res) => setEdit(res.data));
     } catch (error) {

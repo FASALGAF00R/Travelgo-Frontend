@@ -81,6 +81,16 @@ function NavList({ userName }) {
         color="blue-gray"
         className="p-1 font-medium"
       >
+        <a href="/userbookings" className="flex items-center hover:text-white text-white">
+          Bookings
+        </a>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
         <a href="/about" className="flex items-center hover:text-white text-white">
           About
           {/* <span className="tooltip-text">About Page</span> */}

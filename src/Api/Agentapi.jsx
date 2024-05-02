@@ -130,9 +130,9 @@ export async function Blockplaces(id) {
 
 
 
-export async function Addactivity(data) {
+export async function Addactivity(data,id) {
     try {
-        const result = await agentapi.post('/addactivity', data);
+        const result = await agentapi.post('/addactivity', {data,id});
         return result
     } catch (error) {
         console.log(error);
@@ -179,10 +179,10 @@ export async function Blockact(id) {
 
 
 
-export async function Addpackagedata(data) {
+export async function Addpackagedata(data,id) {
     console.log(data,"opopopopopopopopopop");
     try {
-        const result = await agentapi.post('/addpackage', data, {
+        const result = await agentapi.post('/addpackage', {...data,id}, {
             headers : {
                 "Content-Type":"multipart/form-data",
             }

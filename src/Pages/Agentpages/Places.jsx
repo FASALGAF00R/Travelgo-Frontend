@@ -51,21 +51,6 @@ function Places() {
 
 
 
-  // useEffect(() => {
-  //   const fetchDestinations = async () => {
-  //     try {
-  //       const response = await States();
-  //       setState(response.data.States);
-  //     } catch (error) {
-  //       console.log("Error while fetching category/activity:", error);
-  //     }
-  //   };
-
-  //   fetchDestinations();
-  // }, [refresh]);
-
-
-
   // for opening and closing the modals
   const openModal = () => {
     setEditingPlace(null);

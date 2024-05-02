@@ -15,8 +15,24 @@ import {
   fetchpackage,
   Blockpackages
 } from '../../Api/Agentapi';
+import { useSelector } from 'react-redux';
+
+
+
+
 
 function Packages() {
+
+
+  const selector = useSelector(state => state.agent.agentInfo)
+  console.log(selector,"selectoruuuuuuuuuu");
+
+
+
+
+
+
+
   const [pack, Setpackage] = useState([])
   const [previewSource, setPreviewSource] = useState([])
   const [category, setcategory] = useState([])
@@ -198,7 +214,7 @@ function Packages() {
         image: previewSource
       }
 
-      const res = await Addpackagedata(data);
+      const res = await Addpackagedata(data,selector.id);
       console.log(res);
     } catch (error) {
       console.log("error while submitting form", error);
