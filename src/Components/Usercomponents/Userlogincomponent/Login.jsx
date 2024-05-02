@@ -8,6 +8,7 @@ import { Userlogin } from '../../../Api/Userapi';
 import loginpic from '../../../Assests/Images/loginpic.jpg'
 import { RouteObjects } from '../../../Routes/RouteObject';
 import ClipLoader from "react-spinners/ClipLoader";
+import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 
 
 
@@ -15,6 +16,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const [clicked, setClicked] = useState(false);
   const [user, setUser] = useState([])
   const [formData, setFormData] = useState({
     email: '',
@@ -82,11 +84,11 @@ const Login = () => {
         toast.error('Please enter all fields!')
       } else if (formData.password == '') {
         toast.error('Please enter your password')
-       } else if (formData.email == '') {
-          toast.error('Please enter your email')
+      } else if (formData.email == '') {
+        toast.error('Please enter your email')
       } else {
         const res = await Userlogin(formData)
-        if (res.data.success===true) {
+        if (res.data.success === true) {
           setLoading(true)
           toast.success('User logged in successfully')
           localStorage.setItem('accesToken', res.data.accesToken)
@@ -136,58 +138,79 @@ const Login = () => {
                 autoComplete="username"
               />
             </div>
-            <div className="mb-6">
+            <div className="flex flex-col">
               <label className="block text-gray-800 text-sm mt-6 font-light mb-2" htmlFor="password">
                 Password
               </label>
-              <input
-                className="shadow appearance-none  border-pink-500  w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline rounded-lg"
-                id="password"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                autoComplete="current-password"
-              />
-            </div>
+              <div className="relative flex items-center">
+                <input
+                  className="shadow appearance-none  border-pink-500  w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline rounded-lg"
+                  id="password"
+                  type={clicked ? "password" :"text"}  
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                  autoComplete="current-password"
+                />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    strokeWidth="0"
+                    viewBox="0 0 16 16"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="cursor-pointer"
+                  >
+                    {clicked ? (
+                      <FaEyeSlash onClick={() => setClicked(false)} />
+                    ) : (
+                      <FaRegEye onClick={() => setClicked(true)} />
+                    )}
+                  </svg>
+                </div>
+              </div>
+              </div>
 
-            <div className="flex items-center justify-center">
-              {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
-            </div>
 
-            <div className="flex items-center justify-between">
+              <div className="flex items-center justify-center">
+                {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
+              </div>
 
-              {!loading && (
+              <div className="flex items-center justify-between">
 
-                <button
-                  className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-4 font-light py-1 px-20 ml-12 rounded-lg  "
-                  type="submit"
-                >
-                  Log In
-                </button>
-              )}
-            </div>
-            <br></br>
+                {!loading && (
 
-            <button onClick={() =>
-              navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })}
-              className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
-              Forgot password  ?
-            </button>
-            <br></br>
+                  <button
+                    className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-4 font-light py-1 px-20 ml-12 rounded-lg  "
+                    type="submit"
+                  >
+                    Log In
+                  </button>
+                )}
+              </div>
+              <br></br>
 
-            <br>
-            </br>
-            <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
-              Doesn't have an account ?
-              <Link to="/signup" className="text-sm  ml-3  underline hover:text-blue-700">
-                Sign up
-              </Link>
-            </span>
-            <br />
-            <br />
-            {/* 
+              <button onClick={() =>
+                navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })}
+                className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+                Forgot password  ?
+              </button>
+              <br></br>
+
+              <br>
+              </br>
+              <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
+                Doesn't have an account ?
+                <Link to="/signup" className="text-sm  ml-3  underline hover:text-blue-700">
+                  Sign up
+                </Link>
+              </span>
+              <br />
+              <br />
+              {/* 
           <div className="flex justify-center sm:px-0 max-w-sm  " onClick={() => Googleauth()}>
             <button className="px-6 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200  transition duration-150  hover:scale-110">
               <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg " loading="lazy" alt="google logo"></img>

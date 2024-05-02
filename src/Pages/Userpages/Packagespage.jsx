@@ -9,10 +9,8 @@ import 'rc-slider/assets/index.css';
 
 
 function Packagespage() {
-
-
-
-
+  const min = 500,
+    max = 100000;
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -22,13 +20,8 @@ function Packagespage() {
   const [sortedPackages, setSortedPackages] = useState([]);
   const [sortBy, setSortBy] = useState('lowToHigh');
   const [categories, setCategories] = useState([]);
-  const [noPackages, setNoPackages] = useState(false); 
-  const [priceFilter, setPiceFilter] = useState([1000, 100000]);
-
-
-
-
-
+  const [noPackages, setNoPackages] = useState(false);
+  const [priceFilter, setPiceFilter] = useState([min, max]);
 
 
 
@@ -77,7 +70,6 @@ function Packagespage() {
 
   const handleCategoryChange = async (selectedOption) => {
     const categoryname = selectedOption.label;
-    console.log(categoryname, "categoryname");
     try {
       const response = await fetchpackagescat(placeId, categoryname);
       const filteredPackages = response.data.packagesInCategory.filter(pk => pk.isBlock === true);
@@ -101,13 +93,31 @@ function Packagespage() {
   }
 
 
+
+
   const handlePriceRangeChange = (value) => {
-    setPiceFilter(value); // Corrected typo
-    const [minPrice, maxPrice] = value;
-    const filteredPackages = packages.filter(pk => pk.amount >= minPrice && pk.amount <= maxPrice);
+    const [newValue] = value;
+    const [minPrice, maxPrice] = priceFilter;
+
+    let updatedMinPrice = minPrice;
+    let updatedMaxPrice = maxPrice;
+
+    if (newValue < minPrice) {
+      updatedMinPrice = newValue;
+    } else if (newValue > maxPrice) {
+      updatedMaxPrice = newValue;
+    } else {
+      updatedMinPrice = newValue;
+      updatedMaxPrice = maxPrice;
+    }
+
+    setPiceFilter([updatedMinPrice, updatedMaxPrice]);
+
+    const filteredPackages = packages.filter(pk => pk.amount >= updatedMinPrice && pk.amount <= updatedMaxPrice);
     setSortedPackages(filteredPackages);
   };
-  
+
+
 
 
 
@@ -130,14 +140,13 @@ function Packagespage() {
 
 
       <div className="flex flex-col md:flex-row md:justify-between md:items-center pt-4 mb-10 gap-10">
-        <div className="w-full md:w-1/3">
+        <div className="w-full md:w-1/3 ml-5">
           <div className="mb-2 ml-4">Price Range: ₹{priceFilter[0]} - ₹{priceFilter[1]}</div>
           <Slider
-            min={1000}
-            max={100000}
-            defaultValue={[1000, 100000]}
-            onChange={handlePriceRangeChange}
-          />
+            min={min}
+            max={max}
+            value={priceFilter}
+            onChange={(newValue) => handlePriceRangeChange([newValue])} />
         </div>
         <div className="flex flex-col md:flex-row gap-5 md:items-center">
           <div>
@@ -149,12 +158,12 @@ function Packagespage() {
             />
           </div>
           <div className="relative inline-block text-left w-full md:w-52">
-            <div className="mb-2">Price Sort:</div>
+            <div className="mb-2 ">Price Sort:</div>
             <Select
               className="border hover:border-gray-400 border-gray-500 rounded-md focus:outline-none focus:shadow-outline"
               options={[
-                { value: 'highToLow', label: 'Price: Low to High' },
-                { value: 'lowToHigh', label: 'Price: High to Low' }
+                { value: 'highToLow', label: 'Price:High to Low' },
+                { value: 'lowToHigh', label: 'Price: Low to High' }
               ]}
               onChange={handleSortChange}
               defaultValue={{ value: 'lowToHigh', label: 'Price: Low to High' }}

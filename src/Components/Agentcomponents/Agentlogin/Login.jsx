@@ -10,12 +10,13 @@ import axios from 'axios';
 import agentloginpic from '../../../Assests/Images/agentloginpic.jpg'
 import { RouteObjects } from '../../../Routes/RouteObject';
 import ClipLoader from "react-spinners/ClipLoader";
+import { FaEyeSlash, FaRegEye } from "react-icons/fa";
+
 
 function Login() {
   const [loading, setLoading] = useState(false);
-
+  const [clicked, setClicked] = useState(false);
   const navigate = useNavigate()
-
   const [google, setgoogle] = useState([])
   const [agent, setagent] = useState({
     email: '',
@@ -84,17 +85,17 @@ function Login() {
   const handlesubmitdata = async (e) => {
     e.preventDefault();
     try {
-     
+
       if (!agent.email && !agent.password) {
         toast.error("please enter all fields")
-      }else if(!agent.email){
+      } else if (!agent.email) {
         toast.error("please enter email ")
-      }else if(!agent.password){
+      } else if (!agent.password) {
         toast.error("please enter password")
       }
       else {
         const res = await Formdata(agent)
-        console.log(res,"uhdfuihdfgfg");
+        console.log(res, "uhdfuihdfgfg");
         if (res.data.success) {
           setLoading(true)
           setTimeout(() => {
@@ -142,46 +143,65 @@ function Login() {
 
                 />
               </div>
-              <div className="mb-6">
+              <div className="flex flex-col">
                 <label className="block text-gray-800 text-sm mt-6 font-light mb-2" >
                   Password
                 </label>
-                <input
-                  className="shadow appearance-none  border-pink-500  w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline rounded-lg"
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={agent.password}
-                  onChange={handlechange}
-                  placeholder="Enter your password"
-                  autoComplete="current-password"
-
-                />
+                <div className="relative flex items-center">
+                  <input
+                    className="shadow appearance-none  border-pink-500  w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline rounded-lg"
+                    id="password"
+                    type={clicked ? "password" : "text"}
+                    name="password"
+                    value={agent.password}
+                    onChange={handlechange}
+                    placeholder="Enter your password"
+                    autoComplete="current-password"
+                  />
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <svg
+                      stroke="currentColor"
+                      fill="currentColor"
+                      strokeWidth="0"
+                      viewBox="0 0 16 16"
+                      height="1em"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="cursor-pointer"
+                    >
+                      {clicked ? (
+                        <FaEyeSlash onClick={() => setClicked(false)} />
+                      ) : (
+                        <FaRegEye onClick={() => setClicked(true)} />
+                      )}
+                    </svg>
+                  </div>
+                </div>
               </div>
 
 
               <div className="flex items-center justify-center">
-              {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
-            </div>
-
-
-              <div className="flex items-center justify-between">
-                
-              {!loading && (
-                <button
-                  className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-2 font-light py-1 px-20 ml-12 rounded-md  "
-                  type="submit"
-                >
-                  Log In
-                </button>
-              )}
+                {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
               </div>
-              <br/>
-                <button onClick={()=>navigate(RouteObjects.ForgetPassword, { state: { role: 'agent' } })}
-              className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
-                  Forgot password  ?
-                </button>
-                <br/>
+
+
+              <div className="flex items-center  justify-between">
+
+                {!loading && (
+                  <button
+                    className=" bg-[#dc5151]  hover:bg-pink-400 hover:scale-110 text-white  mt-6 font-light py-1 px-20 ml-12 rounded-md  "
+                    type="submit"
+                  >
+                    Log In
+                  </button>
+                )}
+              </div>
+              <br />
+              <button onClick={() => navigate(RouteObjects.ForgetPassword, { state: { role: 'agent' } })}
+                className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+                Forgot password  ?
+              </button>
+              <br />
               <br>
               </br>
               <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
@@ -201,7 +221,7 @@ function Login() {
           </div>
         </div>
       </div>
-            <Toaster />
+      <Toaster />
     </>
 
   )
