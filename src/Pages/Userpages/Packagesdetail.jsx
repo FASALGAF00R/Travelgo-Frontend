@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { fetchdata } from '../../Api/Userapi';
 import {
   Button,
@@ -13,15 +13,23 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import toast, { Toaster } from "react-hot-toast";
+import { RouteObjects } from '../../Routes/RouteObject';
 
 
 function Packagesdetail() {
 
+  const navigate = useNavigate()
+
   const location = useLocation()
   const packageId = location.state
-
   const [pack, Setpack] = useState([])
   const [image, Setimages] = useState([])
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [numberOfPersons, setNumberOfPersons] = useState(1);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     const fetch = async () => {
@@ -41,162 +49,179 @@ function Packagesdetail() {
     fetch()
   }, [])
 
+  console.log(pack, "Setpack");
+  const perperson = pack.amount
+  console.log(perperson, "perperson");
+  console.log(totalAmount,"totalAmount");
+
+
+  useEffect(() => {
+    calculateTotalAmount();
+  }, [startDate, endDate, numberOfPersons]);
+
+
+  const calculateTotalAmount = () => {
+    const pricePerPerson = perperson; 
+    const pricePerDay = 5000; 
+    const days = endDate ? Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) : 0;
+    const totalPrice = (pricePerPerson * numberOfPersons) + (pricePerDay * days);
+    setTotalAmount(totalPrice);
+  };
+
+
+  const handleStartDate = (e) => {
+    const selectedDate = new Date(e);
+    setStartDate(selectedDate);
+  };
+
+  const handleEndDate = (e) => {
+    const selectedDate = new Date(e);
+    setEndDate(selectedDate);
+  };
+
+
+  const incrementCount = () => {
+    setNumberOfPersons(prevCount => prevCount + 1);
+  };
+
+  const decrementCount = () => {
+    if (numberOfPersons > 1) {
+      setNumberOfPersons(prevCount => prevCount - 1);
+    }
+  };
+
+
+
+  const handleDetailsSubmit = async (e) => {
+    e.preventDefault();
+    if (startDate === null || endDate === null) {
+      toast.error('Please select both start and end dates');
+      return;
+    }
+    navigate('/booking', { 
+      state: {
+        package: pack,
+        packageId:packageId,
+        numberOfPersons: numberOfPersons,
+        startDate: startDate,
+        endDate: endDate,
+        totalAmount: totalAmount
+      }
+    });
+      }
+
+
+
 
 
 
   return (
     <>
 
+      <Toaster />
 
-      <h3 className=' absolute font-bold text-black py-7 w-[95%] text-4xl font-mono text-center animate-pulse'><span className='text-gray-800'>THE</span > JOURNEY<span className='text-gray-800'> BEG</span>INES</h3>
+      <h3 className='absolute font-bold text-black py-7 w-[95%] text-4xl text-center'>
+        <span className='text-gray-800'>THE</span> JOURNEY<span className='text-gray-800'> BEG</span>INES
+      </h3>
 
-      <div className="bg-pink-50 flex flex-row lg:flex-row w-full py-5">
+      <div className='bg-pink-50 flex flex-col lg:flex-row w-full py-5'>
         {image.length > 0 && (
           <img
-            className="object-cover object-center w-96 sm:w-full lg:w-2/3 h-64 md:h-96 lg:h-full rounded-xl mt-[6rem] md:mt-24 lg:mt-24 md:ml-10 lg:ml-14"
+            className='object-cover object-center w-full lg:w-2/3 h-64 md:h-96 lg:h-auto rounded-xl mt-0 md:mt-24 lg:mt-24 md:ml-0 lg:ml-14'
             src={image[0]}
-            alt="nature image"
+            alt='nature image'
           />
         )}
 
-        <div className='flex flex-col justify-between'>
+        <div className='flex flex-col justify-between lg:w-1/3 mt-5 md:mt-0 lg:mt-0 lg:ml-4'>
           {image.slice(1).map((imageUrl, index) => (
             <img
               key={index}
-              className="object-cover object-center w-full md:w-3/5 h-64 md:h-96 lg:h-[40%] rounded-xl mt-4 md:mt-24 lg:mt-24 md:ml-10 lg:ml-14"
+              className="object-cover object-center w-full md:w-3/5 h-64 md:h-96 lg:h-[60%] rounded-xl mt-4 md:mt-24 lg:mt-24 md:ml-10 lg:ml-14"
               src={imageUrl}
               alt={`nature image ${index + 1}`}
             />
           ))}
         </div>
-
-
       </div>
 
-      <h1 className="text-3xl bg-pink-50 font-semibold py-8 text-center">
-        <span className="  text-gray-600">Package </span> <span className="text-pink-600">details</span>
+      <h1 className='text-3xl bg-pink-50 font-semibold py-8 text-center'>
+        <span className='text-gray-800'>Package </span> <span className='text-black'>details</span>
       </h1>
 
-      <div className="bg-pink-50 h-full gap-11 flex flex-row mt-0 justify-start px-20">
-
-        <div className="h-[500px] md:w-[50%] mt-5 sm:w-[60%] bg-white shadow-md shadow-pink-400 p-6 rounded-3xl">
-          <div className="flex flex-col h-full">
-            <div className="mb-4">
-              <h2 className="text-2xl font-semibold mb-2">Tour Package Details</h2>
-              <p className="text-gray-600">{pack.details}</p>
-            </div>
-            <div className="mb-4">
-              <h2 className="text-2xl font-semibold mb-2">Activities</h2>
-              <ul className="list-disc list-inside text-gray-600">
-                {pack.activites}
-              </ul>
-            </div>
-            <div className="mb-4">
-              <h2 className="text-2xl font-semibold mb-2">Category</h2>
-              <p className="text-gray-600">{pack.category}</p>
-            </div>
-            <div className="mb-4">
-              <h2 className="text-2xl font-semibold mb-2">Amount</h2>
-              <p className="text-gray-600">{pack.amount}</p>
-            </div>
-            {/* <div>
-              <h2 className="text-2xl font-semibold mb-2">Other Information</h2>
-              <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, elit nec ullamcorper viverra, nisi elit gravida nunc.</p>
-            </div> */}
-          </div>
+      <div className='bg-pink-50 gap-11 flex flex-col lg:flex-row justify-center items-center px-5 md:px-20'>
+        <div className='w-full lg:w-[50%] mt-5 bg-white shadow-md p-6 rounded-3xl'>
+          <h2 className='text-2xl font-semibold mb-2 text-gray-800'>Tour Package Details</h2>
+          <p className='text-gray-1000'>{pack.details}</p>
+          <h2 className='text-2xl font-semibold mb-2 mt-4 text-gray-800'>Activities</h2>
+          <ul className='list-disc list-inside text-gray-1000'>
+            {pack.activites && pack.activites.map((el, index) => (
+              <div key={index}>
+                <p>
+                  &bull; {el}
+                </p>
+              </div>
+            ))}
+          </ul>
+          <h2 className='text-2xl font-semibold mb-2 mt-4 text-gray-800'>Category</h2>
+          <p className='text-gray-1000'>{pack.category}</p>
+          <h2 className='text-2xl font-semibold mb-2 mt-4 text-gray-800'>Amount</h2>
+          <p className='text-gray-1000'>₹  {pack.amount}</p>
         </div>
 
-        <div className=" h-[500px] md:w-[50%] mt-5  sm:w-[60%] bg-white shadow-md shadow-pink-600 p-6 rounded-3xl">
-          <div className="col-span-2 row-span-5 col-start-4">
-            <form action="">
-              <div className="h-[400px] bg-[#EDE3E3] px-5 py-5 shadow-lg rounded-md">
-                <div className="flex gap-3 items-center mt-2 mb-8">
-                  <h5 className="ont-san text-2xl font-normal leading-6 tracking-tight text-[#1e1e1e]">
-                    ₹ Price
-                  </h5>
-                  <span className="font-normal text-lg leading-3 tracking-tighter text-[#959595]">
-                    Per night
-                  </span>
+        <div className='w-full lg:w-[50%] mt-5 bg-white shadow-md p-6 rounded-3xl'>
+          <form onSubmit={handleDetailsSubmit} >
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4'>
+              <div className='bg-white mt-1 hover:bg-gray-500 outline-none p-3 rounded-md '>
+                <DatePicker placeholderText='Start day'
+                  onChange={handleStartDate}
+                  selected={startDate}
+                  minDate={new Date()}
+                />
+
+              </div>
+              <div className='bg-white mt-1 hover:bg-gray-500 outline-none p-3 rounded-md'>
+                <DatePicker placeholderText='End day'
+                  onChange={handleEndDate}
+                  selected={endDate}
+                  minDate={startDate || new Date()}
+
+                />
+              </div>
+            </div>
+
+
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4'>
+              <div className='bg-white hover:bg-gray-500 rounded-md shadow-sm '>
+                <div className='m-3'>
+                  <span className='text-gray-900 flex justify-center'>No. of persons</span>
+                  <p className='mt-1 px-28'>{numberOfPersons}  </p>
                 </div>
-
-                <div className="grid grid-cols-2 w-full rounded-none gap-6">
-                  <div className="w-full h-[80px] bg-white hover:bg-gray-200 rounded-md shadow-sm relative">
-                    <div className="m-3">
-                      <span className="text-gray-700">Start day</span>
-                      <DatePicker
-                        placeholderText="Start day"
-                        className=" bg-white mt-1 hover:bg-gray-200 outline-none"
-                        popperClassName="z-50"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="w-full h-[80px] bg-white hover:bg-gray-200 rounded-md shadow-sm relative">
-                    <div className="m-3">
-                      <span className="text-gray-700">End day</span>
-                      <DatePicker
-                        placeholderText="End day"
-                        className=" bg-white hover:bg-gray-200 mt-1 outline-none "
-                        popperClassName="z-50"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-
-
-                <div className="grid grid-cols-2 w-full rounded-none  mt-5 gap-6">
-                  <div className="w-full h-[80px] bg-white hover:bg-gray-200 rounded-md shadow-sm">
-                    <div className="m-3">
-                      <span className="text-gray-700">No. of persons</span>
-                      <p className="mt-1"> </p>
-                    </div>
-                  </div>
-                  {/* <div className="w-full h-[80px] bg-white rounded-md hover:bg-gray-200 shadow-sm">
-                    <div className="m-3">
-                      <span className="text-gray-700">No. of Rooms</span>
-                      <p className="mt-1"> rooms</p>
-                    </div>
-                  </div> */}
-                </div>
-
-
-                <div className="grid grid-cols-2 gap-5">
-                  <div className="flex items-center justify-center rounded-md mt-3 bg-white">
-                    <button
-                      type="button"
-                      className="text-white bg-gray-600 px-4 py-2 rounded hover:bg-pink-300"
-                    >
-                      -
-                    </button>
-                    <span className="m-5"></span>
-
-
-                    <button
-                      type="button"
-                      className="text-white bg-gray-600 px-4 py-2 rounded hover:bg-pink-300"
-                    > +
-                    </button>
-                  </div>
-                </div>
-
-                <h5 className="ont-san text-2xl mt-7 font-normal leading-6 tracking-tight text-[#1e1e1e]">
-                  Total Amount : ₹
-                </h5>
               </div>
 
-              <div className="flex justify-center py-2">
-                <Button type="submit" className="w-[40%] bg-pink-300 hover:bg-[#e28585f8] hover:scale-105 leading-9" size="lg">
-                  Book Now
-                </Button>
-              </div>
 
-            </form>
-          </div>
+              <div className='grid grid-cols-2 gap-4 mb-4'>
+                <div className='flex items-center justify-center rounded-md bg-white'>
+                  <button onClick={decrementCount} type='button' className='text-white hover:scale-x-110 bg-gray-800 px-4 py-2 rounded hover:bg-gray-900'>
+                    -
+                  </button>
+                  <span className='m-5'></span>
+                  <button onClick={incrementCount} type='button' className='text-white hover:scale-x-110 bg-gray-800 px-4 py-2 rounded hover:bg-gray-900'>
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+            <h5 className='text-2xl mt-7  font-semibold leading-6 tracking-tight text-[#1e1e1e]'>Total Amount: ₹ {totalAmount ? totalAmount:pack.amount}</h5>
+
+            <div className='flex justify-center py-2 gap-2'>
+              <Button type='submit' className='w-[30%] bg-gray-800 hover:bg-[#231e1ef8] hover:scale-105 leading-9' >
+                Book Now
+              </Button>
+            </div>
+          </form>
         </div>
       </div>
-
-
     </>
 
   )

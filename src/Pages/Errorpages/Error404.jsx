@@ -12,7 +12,7 @@ function Error404() {
     }, [navigate]);
     return (
         <>
-            <div className="flex justify-center items-center w-screen h-screen overflow-hidden">
+            <div className="flex justify-center mb-7 items-center w-screen h-screen overflow-hidden">
                 <img className="w-[80%] h-[90%]" src={error} alt="Error" />
             </div>
         </>

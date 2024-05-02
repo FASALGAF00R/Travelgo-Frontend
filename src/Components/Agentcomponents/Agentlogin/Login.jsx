@@ -11,12 +11,16 @@ import agentloginpic from '../../../Assests/Images/agentloginpic.jpg'
 import { RouteObjects } from '../../../Routes/RouteObject';
 import ClipLoader from "react-spinners/ClipLoader";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
-
+import { useDispatch } from 'react-redux';
+import { setAgentDetails } from '../../../Redux/AgentSlice';
 
 function Login() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+
   const [loading, setLoading] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const navigate = useNavigate()
   const [google, setgoogle] = useState([])
   const [agent, setagent] = useState({
     email: '',
@@ -100,6 +104,19 @@ function Login() {
           setLoading(true)
           setTimeout(() => {
             localStorage.setItem('AgentaccesToken', res.data.accesToken)
+            dispatch(
+              setAgentDetails({
+                agentname: res.data.Agent.userName,
+                id: res.data.Agent._id,
+                email: res.data.Agent.email,
+                phone: res.data.Agent.phone,
+
+              })
+            );
+
+
+
+
             navigate(RouteObjects.AgentHome, { state: { role: 'agent' } });
           }, 3000);
         } else {

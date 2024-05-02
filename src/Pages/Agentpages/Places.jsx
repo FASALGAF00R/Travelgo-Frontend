@@ -8,9 +8,18 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { Placedata, Blockplaces, UpdatePlace, States } from '../../Api/Agentapi';
-
+import { useSelector } from 'react-redux';
 // Add places
 function Places() {
+  
+  const selector = useSelector(state => state.agent.agentInfo)
+  console.log(selector,"selector");
+
+
+
+
+
+
   const [placeModalOpen, setPlaceModalOpen] = useState(false)
   const [formdata, setformdata] = useState({
     State: '',
@@ -107,7 +116,7 @@ function Places() {
       if (editingPlace) {
         await UpdatePlace(editingPlace._id, { Data: formdata });
       } else {
-        await Placedata(formdata)
+        await Placedata(formdata,selector.id)
           .then((response) => {
             console.log(response, "ll");
             setPlaces((prev) => [...prev, response.data.place]);

@@ -16,6 +16,7 @@ import Packagespage from '../../Pages/Userpages/Packagespage'
 import Packagesdetail from '../../Pages/Userpages/Packagesdetail'
 import Aboutpage from '../../Pages/Userpages/Aboutpage'
 import  Error404  from '../../Pages/Errorpages/Error404.jsx'
+import Booking from '../../Pages/Userpages/Booking.jsx'
 
 function UserRoutes() {
 
@@ -30,6 +31,7 @@ console.log("userroutes");
           <Route path='/profile' element={<Userprotected><Userprofile /></Userprotected>  } />
           <Route path='/packages' element={<Userprotected><Packagespage /></Userprotected>  } />
           <Route path='/packagedetails' element={<Userprotected><Packagesdetail /></Userprotected>  } />
+          <Route path='/booking' element={<Userprotected><Booking/></Userprotected>  } />
           <Route path='/about' element={<Aboutpage />} />
           <Route path="*" element={<Error404 />} />
 

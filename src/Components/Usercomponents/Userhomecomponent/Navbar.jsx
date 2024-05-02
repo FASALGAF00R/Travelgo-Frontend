@@ -93,7 +93,7 @@ function NavList({ userName }) {
         className="p-1 font-medium"
       >
         <a
-          href="#" className="flex items-center hover:text-black text-white"
+          href="#" className="flex items-center hover:text-red-600 text-white"
           onClick={handlelogout}
         >
           Log out

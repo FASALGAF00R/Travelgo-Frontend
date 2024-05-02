@@ -139,7 +139,7 @@ function Packagespage() {
       {packages.length === 0 && <p className="text-center text-red-500 mt-4">Sorry, there are no packages available for this location.</p>}
 
 
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center pt-4 mb-10 gap-10">
+      <div className="flex flex-col  md:flex-row md:justify-between md:items-center pt-4 mb-10 gap-10">
         <div className="w-full md:w-1/3 ml-5">
           <div className="mb-2 ml-4">Price Range: ₹{priceFilter[0]} - ₹{priceFilter[1]}</div>
           <Slider
@@ -150,17 +150,17 @@ function Packagespage() {
         </div>
         <div className="flex flex-col md:flex-row gap-5 md:items-center">
           <div>
-            <div className="mb-2">Categories:</div>
+            <div className="mb-2 text--gray-900">Categories:</div>
             <Select
-              className="border hover:border-gray-400 border-gray-500 rounded-md focus:outline-none focus:shadow-outline"
+              className="border-gray-800 hover:border-gray-400 rounded-md focus:outline-none focus:shadow-outline"
               options={categories.map(category => ({ value: category._id, label: category.Name }))}
               onChange={handleCategoryChange}
             />
           </div>
           <div className="relative inline-block text-left w-full md:w-52">
-            <div className="mb-2 ">Price Sort:</div>
+            <div className="mb-2 text-gray-800">Price Sort:</div>
             <Select
-              className="border hover:border-gray-400 border-gray-500 rounded-md focus:outline-none focus:shadow-outline"
+              className="border hover:border-gray-800  rounded-md focus:outline-none focus:shadow-outline"
               options={[
                 { value: 'highToLow', label: 'Price:High to Low' },
                 { value: 'lowToHigh', label: 'Price: Low to High' }

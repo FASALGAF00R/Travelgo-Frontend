@@ -9,13 +9,17 @@ import loginpic from '../../../Assests/Images/loginpic.jpg'
 import { RouteObjects } from '../../../Routes/RouteObject';
 import ClipLoader from "react-spinners/ClipLoader";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
+import { useDispatch } from 'react-redux';
+import { setUserDetails } from '../../../Redux/UserSlice';
 
 
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+  const [loading, setLoading] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [user, setUser] = useState([])
   const [formData, setFormData] = useState({
@@ -88,10 +92,18 @@ const Login = () => {
         toast.error('Please enter your email')
       } else {
         const res = await Userlogin(formData)
+        console.log(res, "testgttst");
         if (res.data.success === true) {
           setLoading(true)
           toast.success('User logged in successfully')
           localStorage.setItem('accesToken', res.data.accesToken)
+          dispatch(
+            setUserDetails({
+              username: res.data.Data.userName,
+              id: res.data.Data._id,
+              email: res.data.Data.email,
+            })
+          );
           setTimeout(() => {
             setLoading(false)
             navigate(RouteObjects.UserHome)
@@ -146,7 +158,7 @@ const Login = () => {
                 <input
                   className="shadow appearance-none  border-pink-500  w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline rounded-lg"
                   id="password"
-                  type={clicked ? "password" :"text"}  
+                  type={clicked ? "password" : "text"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
@@ -172,45 +184,45 @@ const Login = () => {
                   </svg>
                 </div>
               </div>
-              </div>
+            </div>
 
 
-              <div className="flex items-center justify-center">
-                {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
-              </div>
+            <div className="flex items-center justify-center">
+              {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
+            </div>
 
-              <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
 
-                {!loading && (
+              {!loading && (
 
-                  <button
-                    className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-4 font-light py-1 px-20 ml-12 rounded-lg  "
-                    type="submit"
-                  >
-                    Log In
-                  </button>
-                )}
-              </div>
-              <br></br>
+                <button
+                  className=" bg-[#dc5151] hover:bg-pink-400 hover:scale-110 text-white  mt-4 font-light py-1 px-20 ml-12 rounded-lg  "
+                  type="submit"
+                >
+                  Log In
+                </button>
+              )}
+            </div>
+            <br></br>
 
-              <button onClick={() =>
-                navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })}
-                className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
-                Forgot password  ?
-              </button>
-              <br></br>
+            <button onClick={() =>
+              navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })}
+              className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
+              Forgot password  ?
+            </button>
+            <br></br>
 
-              <br>
-              </br>
-              <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
-                Doesn't have an account ?
-                <Link to="/signup" className="text-sm  ml-3  underline hover:text-blue-700">
-                  Sign up
-                </Link>
-              </span>
-              <br />
-              <br />
-              {/* 
+            <br>
+            </br>
+            <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
+              Doesn't have an account ?
+              <Link to="/signup" className="text-sm  ml-3  underline hover:text-blue-700">
+                Sign up
+              </Link>
+            </span>
+            <br />
+            <br />
+            {/* 
           <div className="flex justify-center sm:px-0 max-w-sm  " onClick={() => Googleauth()}>
             <button className="px-6 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200  transition duration-150  hover:scale-110">
               <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg " loading="lazy" alt="google logo"></img>

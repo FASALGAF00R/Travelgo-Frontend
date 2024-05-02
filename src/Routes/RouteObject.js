@@ -22,6 +22,7 @@ export const RouteObjects = {
   AgentPlaces: "/agent/places",
   AgentActivites: "/agent/activites",
   Packages:'/agent/packages',
+  Bookings:'/agent/booking',
 
 
   // // ===========ADMIN============

@@ -64,10 +64,10 @@ export async function agentdata(data) {
 }
 
 
-export async function Placedata(data) {
-    console.log(data,"oooo");
+export async function Placedata(data,agentid) {
+    console.log(data,agentid,"oooo");
     try {
-        const result = await agentapi.post('/places', data, {
+        const result = await agentapi.post('/places',{ ...data, agentid }, {
             headers: {
                 "Content-Type": "multipart/form-data",
             }

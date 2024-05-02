@@ -214,3 +214,14 @@ export async function fetchpackagescat(placeId,categoryname) {
         console.log(error);
     }
 }
+
+
+
+export async function paymentRequest(packId) {
+    try {
+        const result = await userapi.get(`/paymentreq/${packId}`)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
