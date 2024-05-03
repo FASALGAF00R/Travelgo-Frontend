@@ -3,14 +3,15 @@ import { Button } from "@material-tailwind/react";
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { FaStripe } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { Userbookingdata } from "../../Api/Userapi";
+import { ToastContainer, toast } from 'react-toastify'
 
 
 
 
-function Paymentstripe({amount}) {
+function Paymentstripe({amount ,packageId,agentid,userid,totalAmount,formData}) {
     
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     // const stripe = useStripe();
     // const elements = useElements();
 
@@ -23,14 +24,36 @@ function Paymentstripe({amount}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-
-
     }
+
+
+    const handleSubmitaddres = async (e) => {
+        e.preventDefault();
+        try {
+         const res=  await Userbookingdata(formData, totalAmount, userid, agentid, packageId)
+         console.log(res,"resss");
+         if(res.data.status===true){
+            toast("Booked Successfully")
+            setTimeout(() => {
+                navigate('/success')  
+            }, 3000);
+         }else{
+            toast("Booking unSuccessfull")
+         }
+      
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    
+
+
+
 
 
   return (
     <>
+   
      <Button onClick={handleOpen}>Pay Now</Button>
             {open && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 backdrop-blur-sm">
@@ -75,15 +98,15 @@ function Paymentstripe({amount}) {
                             <PaymentElement />
                         </div>
                         <div className="w-auto flex justify-center mt-5" >
-                            <button onClick={handleSubmit} className="bg-blue-500 w-44 text-white font-semibold rounded-md">PAY</button>
+                            <button onClick={handleSubmitaddres} className="bg-blue-500 w-44 text-white font-semibold rounded-md">PAY</button>
                         </div>
                         <div className="w-full flex justify-center mt-10 gap-2">
                             <FaStripe className="w-6 h-7" />
                             <h1>Payments are secure and encrypted</h1>
                         </div>
                     </div>
-                    <Toaster />
-                </div>
+                    <ToastContainer />               
+                     </div>
             )}
     </>
   )

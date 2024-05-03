@@ -81,7 +81,7 @@ function NavList({ userName }) {
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a href="/userbookings" className="flex items-center hover:text-white text-white">
+        <a href="/userbookings" className="flex items-center hover:text-green-700 text-white">
           Bookings
         </a>
       </Typography>

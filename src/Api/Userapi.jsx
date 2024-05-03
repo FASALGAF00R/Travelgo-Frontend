@@ -225,3 +225,44 @@ export async function paymentRequest(packId) {
         console.log(error);
     }
 }
+
+
+export async function Userbookingdata(form,totalAmount,userid,agentid,packageId) {
+    console.log(form,"llll");
+    try {
+        const requestData = {
+            formData: form,
+            totalAmount: totalAmount,
+            userId: userid,
+            agentId: agentid,
+            packageId: packageId
+          };
+        const result = await userapi.post('/bookingdata',requestData)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
+export async function fetchBookings() {
+    try {
+        const result = await userapi.get('/fetchbookings')
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export async function CancelBookPayment(bookingid,userid) {
+    try {
+        const result = await userapi.put('/cancelbookings',{userid,bookingid})
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+

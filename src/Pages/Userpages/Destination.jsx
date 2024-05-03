@@ -76,9 +76,11 @@ function Destination() {
 
   return (
     <>
+
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
       <div className='bg-pink-50'>
         <br />
+        <div class="mt-8 bg-pink-50"></div>
         <div className="mx-auto  relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 focus-within:border-gray-300 shadow-xl">
           <input id="search-bar" placeholder="Search district name" value={search} onChange={handleInputChange} className="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white" />
           <button onClick={handleReset} className="w-full md:w-auto px-6 py-3 bg-gray-800 text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70">
@@ -116,9 +118,10 @@ function Destination() {
           <button disabled={page === 1} className="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-lg transition-colors duration-300" onClick={() => setPage(page - 1)}>Previous</button>
           <span className="text-gray-700">Page: {page}</span>
           <button className="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-lg transition-colors duration-300" onClick={() => setPage(page + 1)}>Next</button>
+      <div class="mb-20"></div>
         </div>
       </div>
-      <br />
+
     </>
   );
 }
