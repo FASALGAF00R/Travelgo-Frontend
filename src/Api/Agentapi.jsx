@@ -256,3 +256,14 @@ export async function Blockpackages(id) {
     }
 }
 
+
+
+export async function allBookings() {
+    try {
+        const result = await agentapi.get('/listbookings');
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}

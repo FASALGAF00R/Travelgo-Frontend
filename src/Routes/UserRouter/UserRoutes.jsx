@@ -19,6 +19,7 @@ import  Error404  from '../../Pages/Errorpages/Error404.jsx'
 import Booking from '../../Pages/Userpages/Booking.jsx'
 import Listbookings from '../../Pages/Userpages/Listbookings.jsx'
 import Successpage from '../../Pages/Userpages/Successpage.jsx'
+import Listwalletbookings from '../../Pages/Userpages/Listwalletbookings.jsx'
 
 function UserRoutes() {
 
@@ -36,6 +37,7 @@ console.log("userroutes");
           <Route path='/booking' element={<Userprotected><Booking/></Userprotected>  } />
           <Route path='/success' element={<Userprotected><Successpage/></Userprotected>  } />
           <Route path='/userbookings' element={<Userprotected><Listbookings/></Userprotected>  } />
+          <Route path='/wallethistory' element={<Userprotected><Listwalletbookings/></Userprotected>  } />
           <Route path='/about' element={<Aboutpage />} />
           <Route path="*" element={<Error404 />} />
 

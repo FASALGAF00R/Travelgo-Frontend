@@ -13,7 +13,6 @@ const persistConfig = {
 const rootReducer = {
   user: persistReducer(persistConfig, UserSlice),
   agent: persistReducer(persistConfig, AgentSlice),
-//   admin: persistReducer(persistConfig, adminSlice),
 };
 
 const store = configureStore({

@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Profile } from '../../Api/Userapi';
 import { resetPassword } from '../../Api/Userapi';
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getuser } from '../../Api/Userapi';
 import { RouteObjects } from '../../Routes/RouteObject';
 import { useSelector } from 'react-redux';
 import { FaFunnelDollar, FaHome, FaLock, FaMailBulk, FaMobile, FaUpload, FaUser } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-
-
 
 
 function Userprofile() {
@@ -18,16 +16,16 @@ function Userprofile() {
   console.log(selector, "selector");
   const userid = selector.id
 
-
-
+  const location = useLocation();
   const navigate = useNavigate()
+
   const [formData, setFormData] = useState({
     image: null,
     password: '',
     newPassword: '',
   })
   const [image, setimage] = useState(null)
-
+  const [wallet, Setwallet] = useState(0)
 
 
 
@@ -38,6 +36,7 @@ function Userprofile() {
       try {
         const response = await getuser(userid)
         setimage(response.data.image)
+        Setwallet(response.data.wallet)
       } catch (error) {
         console.log("error while fetching user", error);
       }
@@ -147,14 +146,17 @@ function Userprofile() {
             <h2 className="text-lg text-gray-800 font-bold text-center">
               Wallet Amount
             </h2>
-            <div className="flex justify-center items-center mt-4">
-              <span className="text-xl text-gray-800 font-semibold">$100</span>
+            <div class="flex flex-col items-center mt-4">
+              <span class="text-xl text-gray-800 font-semibold mb-4">₹ {wallet}</span>
+              <Link to={{ pathname: "/wallethistory", search: `?wallet=${wallet}` }} className="text-gray-900 mb-4 hover:underline">Check Wallet History</Link>
+              <Link to='/userbookings' className="text-gray-900 hover:underline ">My bookings</Link>
             </div>
+
           </div>
-      </div>
-      <Toaster />
-      <div class="mb-10 bg-pink-50"></div>
-    </div >
+        </div>
+        <Toaster />
+        <div class="mb-10 bg-pink-50"></div>
+      </div >
 
 
 

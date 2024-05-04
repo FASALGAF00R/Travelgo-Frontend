@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { CancelBookPayment, fetchBookings, fetchallBookings } from '../../Api/Userapi';
+import { allBookings } from '../../Api/Agentapi';
 import { useSelector } from 'react-redux';
 
-function Listbookings() {
+function Bookings() {
+    const selector = useSelector(state => state.user.userInfo)
+    const username = selector.username
+    const userid = selector.id
 
-  const selector = useSelector(state => state.user.userInfo)
-  const username = selector.username
-  const userid = selector.id
 
-  const [bookings, Setbookings] = useState([])
+
+
+
+
+ const [bookings, Setbookings] = useState([])
+
+
 
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const Res = await fetchallBookings()
+        const Res = await allBookings()
         console.log(Res, "Res");
         Setbookings(Res.data.bookings)
 
@@ -31,32 +37,16 @@ function Listbookings() {
     fetchdata()
   }, [bookings]);
 
-  console.log(bookings, "bookings");
-
-
-  const handleClick = async (bookingid, userid) => {
-    console.log(bookingid, userid);
-    try {
-      const CancelBook = await CancelBookPayment(bookingid, userid)
-      console.log(CancelBook, "Cancel book ");
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-
-
-
 
 
 
   return (
     <>
-      <div class="mt-28"></div>
+
+<div class="mt-16"></div>
       {bookings.length > 0 ? (
-        <div className="container mx-auto px-4 py-8 ml-8">
-          <h2 className="text-3xl font-bold mb-4 animate-bounce text-green-600">User Bookings</h2>
+        <div className="container mx-auto px-4 py-8 ">
+          <h2 className="text-3xl font-bold mb-4  text-gray-800">User Bookings</h2>
           <div class="mt-4"></div>
           <table className="min-w-full  rounded-xl shadow-md ">
             <thead>
@@ -83,7 +73,7 @@ function Listbookings() {
                   <td className="border border-gray-200 px-4 py-2">{booking.phone}</td>
                   <td className="border border-gray-200 px-4 py-2">₹ {booking.Amount}</td>
                   <td className="border border-gray-200 px-4 py-2">{booking.bookingStatus}</td>
-                  <td className="border border-gray-200 px-8 py-4"><button className="bg-green-500 hover:bg-green-700 text-white font-bold rounded p-4">Details</button></td>
+                  <td className="border border-gray-200 px-8 py-4"><button className="bg-gray-800 hover:bg-gray-700 text-white font-bold rounded p-4">Details</button></td>
                   {booking.isCanceled === false ? (
 
                     <td className="border border-gray-200 px-8 py-4"><button onClick={() => handleClick(booking._id, userid)} className="bg-red-500 hover:bg-red-700 text-white font-bold  rounded p-4">Cancel</button></td>
@@ -104,8 +94,15 @@ function Listbookings() {
         )}
         <div class="mb-32"></div>
 
+
+
+
+
+
+
+
     </>
   )
 }
 
-export default Listbookings
+export default Bookings

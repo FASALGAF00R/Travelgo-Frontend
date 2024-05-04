@@ -266,3 +266,52 @@ export async function CancelBookPayment(bookingid,userid) {
     }
 }
 
+// forwallet
+
+export async function fetchuserdata(id) {
+    console.log(id);
+    try {
+        const result = await userapi.get(`/userwallet/${id}`)
+        console.log(result);
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
+
+export async function walletPayment(contact, address, state,totalAmount, packageId, userid, agentid, country, city, paymentDate) {
+    console.log(state,"state",totalAmount,"totalAmount");
+    try {
+        const requestData = {
+            contact: contact,
+            address: address,
+            totalAmount: totalAmount,
+            packageId: packageId,
+            userid: userid,
+            agentid: agentid,
+            country: country,
+            city: city,
+            state:state,
+            paymentDate: paymentDate
+        };
+
+        const result = await userapi.post('/walletpayment', requestData);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export async function fetchallBookings() {
+    try {
+        const result = await userapi.get('/fetchallbookings')
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}

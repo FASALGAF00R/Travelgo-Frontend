@@ -66,7 +66,7 @@ function Packagesdetail() {
 
   const calculateTotalAmount = () => {
     const pricePerPerson = perperson;
-    const pricePerDay = 5000;
+    const pricePerDay = 1000;
     const days = endDate ? Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) : 0;
     const totalPrice = (pricePerPerson * numberOfPersons) + (pricePerDay * days);
     setTotalAmount(totalPrice);
@@ -156,30 +156,29 @@ function Packagesdetail() {
       <div className='bg-pink-50 gap-11 flex flex-col lg:flex-row justify-center items-center px-5 md:px-20'>
         <div className='w-full lg:w-[50%] mt-5 bg-white shadow-md p-6 rounded-3xl'>
           <h2 className='text-2xl font-semibold mb-2 text-gray-800'>Tour Package Details</h2>
-          <p className='text-gray-1000'>{pack.details}</p>
+          <p className='text-gray-800 overflow-hidden overflow-ellipsis'>{pack.details}</p>
           <h2 className='text-2xl font-semibold mb-2 mt-4 text-gray-800'>Activities</h2>
-          <ul className='list-disc list-inside text-gray-1000'>
+          <ul className='list-disc list-inside text-gray-800'>
             {pack.activites && pack.activites.map((el, index) => (
-              <div key={index}>
-                <p>
-                  &bull; {el}
-                </p>
-              </div>
+              <li key={index} className="mb-2">
+                <span className="mr-2">&#8226;</span>
+                <span className="overflow-hidden overflow-ellipsis">{el}</span>
+              </li>
             ))}
           </ul>
           <h2 className='text-2xl font-semibold mb-2 mt-4 text-gray-800'>Category</h2>
-          <p className='text-gray-1000'>{pack.category}</p>
+          <p className='text-gray-800'>{pack.category}</p>
           <h2 className='text-2xl font-semibold mb-2 mt-4 text-gray-800'>Amount</h2>
-          <p className='text-gray-1000'>₹  {pack.amount}</p>
+          <p className='text-gray-800'>₹ {pack.amount}</p>
         </div>
 
 
 
         <div className='w-full lg:w-[50%] mt-5 bg-white shadow-md p-6 rounded-3xl'>
-        <div class="bg-gray-100 p-4 rounded-lg shadow-md">
-          <h2 class="text-xl font-semibold text-gray-800">Travel Agent : {selector.agentname}</h2>
-          <p class="text-gray-800 font-bold">contact : {selector.phone}</p>
-        </div>
+          <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold text-gray-800">Travel Agent : {selector.agentname}</h2>
+            <p class="text-gray-800 font-bold">contact : {selector.phone}</p>
+          </div>
           <form onSubmit={handleDetailsSubmit} >
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5 mb-4'>
               <div className='bg-white mt-1 hover:bg-gray-500 outline-none p-3 rounded-md '>

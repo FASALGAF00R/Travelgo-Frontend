@@ -5,21 +5,40 @@ import { FaStripe } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Userbookingdata } from "../../Api/Userapi";
 import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
+function Paymentstripe({ amount, packageId, agentid, userid, totalAmount, formData }) {
 
-function Paymentstripe({amount ,packageId,agentid,userid,totalAmount,formData}) {
-    
     const navigate = useNavigate()
-    // const stripe = useStripe();
-    // const elements = useElements();
-
     const [open, setOpen] = useState(false);
-    
-    const handleOpen = () => setOpen((cur) => !cur);
+    const handleOpen = () => {
 
+        if (!formData.contact &&
+            !formData.address &&
+            !formData.city &&
+            !formData.state &&
+            !formData.country &&
+            !formData.paymentDate) {
+            toast.error("Please enter all fields")
+        } else if (!formData.formDataName) {
+            toast.error("Please enter your name")
+        } else if (!formData.email) {
+            toast.error("Please enter your email")
+        } else if (!formData.password) {
+            toast.error("Please enter your password")
+        } else if (!formData.confirmpassword) {
+            toast.error("Please enter your confirmpassword")
+        } else if (!validatePassword(password)) {
+            toast.error("Password: 6+ chars, letters & numbers.");
+        } else if (formData.password != formData.confirmpassword) {
+            toast.error("Passwords must match.")
+        } else {
 
+        setOpen((cur) => !cur);
+        }
+    }
 
 
     const handleSubmit = async (e) => {
@@ -30,31 +49,32 @@ function Paymentstripe({amount ,packageId,agentid,userid,totalAmount,formData}) 
     const handleSubmitaddres = async (e) => {
         e.preventDefault();
         try {
-         const res=  await Userbookingdata(formData, totalAmount, userid, agentid, packageId)
-         console.log(res,"resss");
-         if(res.data.status===true){
-            toast("Booked Successfully")
-            setTimeout(() => {
-                navigate('/success')  
-            }, 3000);
-         }else{
-            toast("Booking unSuccessfull")
-         }
-      
+
+                const res = await Userbookingdata(formData, totalAmount, userid, agentid, packageId)
+                console.log(res, "resss");
+                if (res.data.status === true) {
+                    toast.success("Booked Successfully")
+                    setTimeout(() => {
+                        navigate('/success')
+                    }, 3000);
+                } else {
+                    toast.error("Booking unSuccessfull")
+                
+            }
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
-    
+    };
 
 
 
 
 
-  return (
-    <>
-   
-     <Button onClick={handleOpen}>Pay Now</Button>
+
+    return (
+        <>
+
+            <Button onClick={handleOpen}>Pay Now</Button>
             {open && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 backdrop-blur-sm">
                     <div className="bg-white p-4 rounded-md shadow-md w-full max-w-md">
@@ -105,11 +125,11 @@ function Paymentstripe({amount ,packageId,agentid,userid,totalAmount,formData}) 
                             <h1>Payments are secure and encrypted</h1>
                         </div>
                     </div>
-                    <ToastContainer />               
-                     </div>
+                    <ToastContainer />
+                </div>
             )}
-    </>
-  )
+        </>
+    )
 }
 
 export default Paymentstripe
