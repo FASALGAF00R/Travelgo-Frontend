@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { MdModeOfTravel } from "react-icons/md";
-// import './Navbar.css'  
+
 
 
 import {
@@ -35,7 +35,7 @@ function NavList({ userName }) {
           as="li"
           variant="small"
           color="blue-gray"
-          className="p-1 font-medium cursor-pointer"
+          className="p-1 font-bold cursor-pointer"
           onClick={() => navigate('/profile')}
 
         >
@@ -47,9 +47,9 @@ function NavList({ userName }) {
             as="li"
             variant="small"
             color="blue-gray"
-            className="p-1 font-medium"
+            className="p-1 font-bold"
           >
-            <a href="/login" className="flex items-center hover:text-white text-white">
+            <a href="/login" className="flex items-center text-gray">
               login
             </a>
           </Typography>
@@ -57,9 +57,9 @@ function NavList({ userName }) {
             as="li"
             variant="small"
             color="blue-gray"
-            className="p-1 font-medium"
+            className="p-1 font-bold"
           >
-            <a href="/signup" className="flex items-center hover:text-white text-white">
+            <a href="/signup" className="flex items-center  text-gray">
               sign up
             </a>
           </Typography>
@@ -69,9 +69,9 @@ function NavList({ userName }) {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-medium"
+        className="p-1 font-bold"
       >
-        <a href="/destinations" className="flex items-center hover:text-white text-white">
+        <a href="/destinations" className="flex items-center text-gray">
           Destinations
         </a>
       </Typography>
@@ -79,9 +79,9 @@ function NavList({ userName }) {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-medium"
+        className="p-1 font-bold"
       >
-        <a href="/userbookings" className="flex items-center hover:text-green-700 text-white">
+        <a href="/userbookings" className="flex items-center hover:text-green-800 text-gray">
           Bookings
         </a>
       </Typography>
@@ -89,9 +89,9 @@ function NavList({ userName }) {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-medium"
+        className="p-1 font-bold"
       >
-        <a href="/about" className="flex items-center hover:text-white text-white">
+        <a href="/about" className="flex items-center text-gray">
           About
           {/* <span className="tooltip-text">About Page</span> */}
         </a>
@@ -100,10 +100,10 @@ function NavList({ userName }) {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-medium"
+        className="p-1 font-bold"
       >
         <a
-          href="#" className="flex items-center hover:text-red-600 text-white"
+          href="#" className="flex items-center hover:text-red-600text-gray"
           onClick={handlelogout}
         >
           Log out
@@ -161,13 +161,13 @@ function NavbarSimple() {
 
 
   return (
-    <Navbar className="bg-[#ee8e8e] mx-auto max-w-full rounded-none">
-      <div className=" flex items-center justify-between text-white  text-2xl font-serif">
-        <div className="flex justify-start gap-4  ">
+    <Navbar className="bg-[#d67777] mx-auto max-w-full rounded-none py-5">
+      <div className=" flex items-center justify-between   text-2xl font-semibold">
+        <div className="flex justify-start gap-4 text-3xl text-gray-800 ">
           Travel go
-          <MdModeOfTravel className="text-3xl" />
+          <MdModeOfTravel className="text-4xl " />
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden lg:block text-gray-900">
           <NavList userName={userName} />
         </div>
 

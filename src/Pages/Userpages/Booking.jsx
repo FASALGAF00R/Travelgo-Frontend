@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import Successpage from './Successpage';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { format } from 'date-fns';
 
 let StripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC);
 console.log(StripePromise, "pff");
@@ -22,6 +23,7 @@ function Booking() {
 
   const agentid = agentselector.id
   const userid = selector.id
+  const navigate = useNavigate()
 
   const location = useLocation()
   const packageId = location.state.packageId
@@ -38,7 +40,7 @@ function Booking() {
   const endDateFormatted = endDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
   const [success, setsuccesspage] = useState(false)
-  const [paymentDate, setPaymentDate] = useState("");
+  const [paymentDate, setPaymentDate] = useState();
   const [walletOpen, setWalletOpen] = useState(false)
   const [Wallet, Setwallet] = useState('')
   const [clientSecret, setClientSecret] = useState("");
@@ -73,19 +75,14 @@ function Booking() {
   }, [packageId]);
 
 
-
   useEffect(() => {
-    const currentDate = new Date().toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-    setPaymentDate(currentDate);
+    const currentDate = new Date();
+    const isoDate = format(currentDate, "yyyy-MM-dd");
+    setPaymentDate(isoDate);
   }, []);
 
 
-  console.log(Wallet, "Wallet");
+  console.log(paymentDate, "Wallet");
 
   const handleWallet = () => {
     setWalletOpen(!walletOpen)
@@ -116,27 +113,29 @@ function Booking() {
         !formData.address &&
         !formData.city &&
         !formData.state &&
-        !formData.country &&
-        !formData.paymentDate) {
+        !formData.country
+      ) {
         toast.error("Please enter all fields")
-      } else if (!formData.formDataName) {
-        toast.error("Please enter your name")
-      } else if (!formData.email) {
-        toast.error("Please enter your email")
-      } else if (!formData.password) {
-        toast.error("Please enter your password")
-      } else if (!formData.confirmpassword) {
-        toast.error("Please enter your confirmpassword")
-      } else if (!validatePassword(password)) {
-        toast.error("Password: 6+ chars, letters & numbers.");
-      } else if (formData.password != formData.confirmpassword) {
-        toast.error("Passwords must match.")
+      } else if (!formData.contact) {
+        toast.error("Please enter your contact")
+      } else if (!formData.address) {
+        toast.error("Please enter your address")
+      } else if (!formData.city) {
+        toast.error("Please enter your city")
+      } else if (!formData.state) {
+        toast.error("Please enter your state")
+      } else if (!formData.country) {
+        toast.error("Please enter your country");
+
       } else {
 
         const res = await walletPayment(contact, address, state, totalAmount, packageId, userid, agentid, country, city, paymentDate)
         console.log(res, "ress in handlepayment wallet");
         if (res.data.success === true) {
           toast.success(res.data.message)
+          setTimeout(() => {
+            navigate('/success')
+        }, 3000);
         } else {
           toast.error(res.data.message)
 
@@ -167,9 +166,9 @@ function Booking() {
       {success ? (<Successpage />) : (
         <>
           <h3 className='text-3xl mb-4 mt-4 text-gray-700  font-bold p-1 text-center'>Booking <span className="text-gray-700 font-bold">Details</span></h3>
-          <div className='flex justify-center items-center h-screen'>
+          <div className='flex justify-center items-center h-screen '>
             <div className='flex flex-col lg:flex-row w-[70%] rounded-2xl shadow-xl shadow-gray-800'>
-              <div className='flex flex-col  w-full lg:w-full p-8'>
+              <div className='flex flex-col  w-full lg:w-full p-8 '>
                 <div className='mb-4'>
                   <p className='text-gray-900 font-medium mb-2'>Username: {selector.username}</p>
                   <p className='text-gray-900 font-medium'>Email: {selector.email}</p>
@@ -286,7 +285,7 @@ function Booking() {
                     style={{ cursor: 'pointer' }}
                   >
                     <Elements stripe={StripePromise} options={options}>
-                      <Paymentstripe clientSecret={clientSecret}  amount={amount} formData={formData} totalAmount={totalAmount} userid={userid} agentid={agentid} packageId={packageId} />
+                      <Paymentstripe clientSecret={clientSecret} amount={amount} paymentDate={paymentDate} formData={formData} totalAmount={totalAmount} userid={userid} agentid={agentid} packageId={packageId} />
                     </Elements>
                   </div>
                 ) : ""}

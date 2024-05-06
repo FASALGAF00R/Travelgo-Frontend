@@ -132,7 +132,7 @@ function Login() {
 
   return (
     <>
-      <div className='flex justify-center h-screen items-center bg-pink-50'>
+      <div className='flex justify-center h-screen items-center '>
         <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center  rounded-md' >
           <div className='flex  justify-center gap-4 font-semibold text-lg items-center w-[50%] h-full'>
 
@@ -143,7 +143,7 @@ function Login() {
           <div className="flex  flex-col items-center justify-center shadow-2xl h-auto 2xl:mr-16">
 
             <form className="bg-#db8c8c  rounded px-8 pt-6 pb-8 mb-4 w-96 " onSubmit={handlesubmitdata}>
-              <div className="md-4  text-gray-900  font-extrabold"  >
+              <div className="md-4  text-gray-800  font-extrabold"  >
                 Agent login
                 <label className="block text-gray-900 text-sm mt-8 font-light mb-2" >
                   Email

@@ -103,8 +103,8 @@ function Userprofile() {
   return (
     <>
 
-      <div className="bg-pink-50 h-full  flex flex-col  justify-center">
-        <div class="mt-10 bg-pink-50"></div>
+      <div className=" h-full  flex flex-col  justify-center">
+        <div class="mt-10 "></div>
         <h1 className="text-3xl font-semibold mb-4 text-center">
           <span className="text-blue-600">User</span> <span className="text-pink-600">Profile</span>
         </h1>
@@ -155,7 +155,7 @@ function Userprofile() {
           </div>
         </div>
         <Toaster />
-        <div class="mb-10 bg-pink-50"></div>
+        <div class="mb-10 "></div>
       </div >
 
 

@@ -227,15 +227,16 @@ export async function paymentRequest(packId) {
 }
 
 
-export async function Userbookingdata(form,totalAmount,userid,agentid,packageId) {
-    console.log(form,"llll");
+export async function Userbookingdata(form,totalAmount,userid,agentid,packageId,paymentDate) {
+    console.log(paymentDate,"llll");
     try {
         const requestData = {
             formData: form,
             totalAmount: totalAmount,
             userId: userid,
             agentId: agentid,
-            packageId: packageId
+            packageId: packageId,
+            paymentDate:paymentDate
           };
         const result = await userapi.post('/bookingdata',requestData)
         return result
@@ -284,7 +285,7 @@ export async function fetchuserdata(id) {
 
 
 export async function walletPayment(contact, address, state,totalAmount, packageId, userid, agentid, country, city, paymentDate) {
-    console.log(state,"state",totalAmount,"totalAmount");
+    console.log(state,"state",paymentDate,"paymentDate");
     try {
         const requestData = {
             contact: contact,

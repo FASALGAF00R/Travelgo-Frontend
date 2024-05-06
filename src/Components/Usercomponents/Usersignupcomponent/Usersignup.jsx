@@ -75,7 +75,7 @@ const Usersignup = () => {
   };
   return (
     <>
-      <div className="flex items-center justify-center h-screen bg-pink-50">
+      <div className="flex items-center justify-center h-screen ">
         <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center  rounded-md' >
           <img
             className="w-1/3 h-auto mr-20 rounded-l-md  object-cover" src={signupic} alt="signup image" />

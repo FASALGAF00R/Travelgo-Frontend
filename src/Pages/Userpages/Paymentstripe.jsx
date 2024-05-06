@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-function Paymentstripe({ amount, packageId, agentid, userid, totalAmount, formData }) {
+function Paymentstripe({ amount, packageId, agentid, userid, totalAmount, formData ,paymentDate}) {
 
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
@@ -19,21 +19,20 @@ function Paymentstripe({ amount, packageId, agentid, userid, totalAmount, formDa
             !formData.address &&
             !formData.city &&
             !formData.state &&
-            !formData.country &&
-            !formData.paymentDate) {
+            !formData.country 
+            ) {
             toast.error("Please enter all fields")
-        } else if (!formData.formDataName) {
-            toast.error("Please enter your name")
-        } else if (!formData.email) {
-            toast.error("Please enter your email")
-        } else if (!formData.password) {
-            toast.error("Please enter your password")
-        } else if (!formData.confirmpassword) {
-            toast.error("Please enter your confirmpassword")
-        } else if (!validatePassword(password)) {
-            toast.error("Password: 6+ chars, letters & numbers.");
-        } else if (formData.password != formData.confirmpassword) {
-            toast.error("Passwords must match.")
+        } else if (!formData.contact) {
+            toast.error("Please enter your contact")
+        } else if (!formData.address) {
+            toast.error("Please enter your address")
+        } else if (!formData.city) {
+            toast.error("Please enter your city")
+        } else if (!formData.state) {
+            toast.error("Please enter your state")
+        } else if (!formData.country) {
+            toast.error("Please enter your country");
+        
         } else {
 
         setOpen((cur) => !cur);
@@ -49,8 +48,8 @@ function Paymentstripe({ amount, packageId, agentid, userid, totalAmount, formDa
     const handleSubmitaddres = async (e) => {
         e.preventDefault();
         try {
-
-                const res = await Userbookingdata(formData, totalAmount, userid, agentid, packageId)
+console.log(paymentDate,"paymentDate");
+                const res = await Userbookingdata(formData, totalAmount, userid, agentid, packageId,paymentDate)
                 console.log(res, "resss");
                 if (res.data.status === true) {
                     toast.success("Booked Successfully")

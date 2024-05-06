@@ -54,7 +54,7 @@ function Forgotpass() {
 
 
     return (
-        <div className='bg-pink-50 min-h-screen flex items-center justify-center'>
+        <div className=' min-h-screen flex items-center justify-center'>
             <div className="w-full sm:w-[35%] mx-10 bg-gradient-to-r from-[#bfd8e1] to-[#ee8e8e] p-8 rounded-xl shadow shadow-slate-300">
                 <h1 className="text-xl font-semibold mb-4">Forgot password</h1>
 

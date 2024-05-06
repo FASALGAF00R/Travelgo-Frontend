@@ -123,7 +123,7 @@ const Login = () => {
   };
 
   return (
-    <div className='flex justify-center items-center h-full bg-pink-50 '>
+    <div className='flex justify-center items-center h-full  '>
 
       <div className='bg-gradient-to-r from-[#8ec4d6] to-[#ee8e8e] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center mt-10 rounded-md' >
         <div className='flex  justify-center items-center w-[50%] h-full'>
@@ -134,8 +134,8 @@ const Login = () => {
         <div className="flex  flex-col items-center  shadow-2xl h-auto 2xl:mr-16 rounded-lg">
 
           <form className="bg-#db8c8c  rounded px-8 pt-6 pb-8 mb-4 w-96 " onSubmit={handleSubmit}>
-            <div className="md-4  text-gray-900  font-extrabold"  >
-              Please enter your login credentials to login
+            <div className="mt-4  font-extrabold text-gray-800"  >
+              Please enter your  credentials to login
               <label className="block text-gray-900 text-sm mt-8 font-light mb-2" htmlFor="email">
                 Email
               </label>
@@ -214,7 +214,7 @@ const Login = () => {
 
             <br>
             </br>
-            <span className="justify-center text-sm  text-center ml-10 text-gray-800 flex-items-center font-light dark:text-gray-400">
+            <span className="justify-center text-sm  text-center ml-10 text-gray-1000 flex-items-center font-light dark:text-gray-400">
               Doesn't have an account ?
               <Link to="/signup" className="text-sm  ml-3  underline hover:text-blue-700">
                 Sign up

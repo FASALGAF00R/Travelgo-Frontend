@@ -94,13 +94,13 @@ console.log(Data.password,"huhuyh");
   return (
 
 
-    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-[violet]-500  bg-pink-50">
+    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-[violet]-500  ">
       <div className='bg-gradient-to-r from-[#a0c0ca] to-[#da8484] w-auto 2xl:w-[60rem]  h-[35rem] flex justify-end items-center  rounded-md' >
          <img
             className="w-2/5 h-5/6  rounded-l-md  object-cover mr-9" src={agentsignupImage} alt="signup image" /> 
 
         <div className="flex flex-col bg- [#ee8e8e] rounded-lg  shadow-2xl dark:bg-gray-800 mr-11 lg:px-10">
-          <div className="self-center mb-5 mt-5 text-xl font-semibold text-black-800 sm:text-2xl dark:text-white">
+          <div className="self-center mb-5 mt-5 text-xl font-semibold text-gray-800 sm:text-2xl dark:text-white">
             Agent Sign up
           </div>
           <span className="justify-center text-sm text-center gap-3 font-thin text-gray-800 flex items-center dark:text-gray-400">

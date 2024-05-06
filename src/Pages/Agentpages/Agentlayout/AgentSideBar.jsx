@@ -12,7 +12,7 @@ function AgentSideBar() {
 <div>
     
 </div>
-            <div className="relative flex flex-col bg-clip-border  bg-blue-gray-700 text-gray-700 h-full w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+            <div className="relative flex flex-col bg-clip-border  bg-blue-gray-700 text-gray-700 h-screen w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
                 <div className="mb-2 p-4 ">
                     <h5 className="block antialiased tracking-normal font-sans text-xl font-extrabold leading-snug text-white">Agent home</h5>
                 </div>

@@ -128,7 +128,7 @@ function Packagesdetail() {
         <span className='text-gray-800'>THE</span> JOURNEY<span className='text-gray-800'> BEG</span>INES
       </h3>
 
-      <div className='bg-pink-50 flex flex-col lg:flex-row w-full py-5'>
+      <div className='flex flex-col lg:flex-row w-full py-5'>
         {image.length > 0 && (
           <img
             className='object-cover object-center w-full lg:w-2/3 h-64 md:h-96 lg:h-auto rounded-xl mt-0 md:mt-24 lg:mt-24 md:ml-0 lg:ml-14'
@@ -149,13 +149,13 @@ function Packagesdetail() {
         </div>
       </div>
 
-      <h1 className='text-3xl bg-pink-50 font-semibold py-8 text-center'>
+      <h1 className='text-3xl  font-semibold py-8 text-center'>
         <span className='text-gray-800'>Package </span> <span className='text-black'>details</span>
       </h1>
 
-      <div className='bg-pink-50 gap-11 flex flex-col lg:flex-row justify-center items-center px-5 md:px-20'>
-        <div className='w-full lg:w-[50%] mt-5 bg-white shadow-md p-6 rounded-3xl'>
-          <h2 className='text-2xl font-semibold mb-2 text-gray-800'>Tour Package Details</h2>
+      <div className='py-12 gap-11 flex flex-col lg:flex-row justify-center items-center px-5 md:px-20  '>
+        <div className='w-full lg:w-[50%] mt-5 bg-white shadow-md p-6 rounded-3xl shadow-gray-800'>
+          <h2 className='text-2xl font-semibold mb-2 text-gray-800  '>Tour Package Details</h2>
           <p className='text-gray-800 overflow-hidden overflow-ellipsis'>{pack.details}</p>
           <h2 className='text-2xl font-semibold mb-2 mt-4 text-gray-800'>Activities</h2>
           <ul className='list-disc list-inside text-gray-800'>
@@ -174,7 +174,7 @@ function Packagesdetail() {
 
 
 
-        <div className='w-full lg:w-[50%] mt-5 bg-white shadow-md p-6 rounded-3xl'>
+        <div className='w-full lg:w-[50%] mt-5 bg-white shadow-md p-6 rounded-3xl shadow-gray-800'>
           <div class="bg-gray-100 p-4 rounded-lg shadow-md">
             <h2 class="text-xl font-semibold text-gray-800">Travel Agent : {selector.agentname}</h2>
             <p class="text-gray-800 font-bold">contact : {selector.phone}</p>
