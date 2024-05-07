@@ -89,7 +89,7 @@ function Otppass() {
         <div className="flex flex-col justify-center space-y-5 max-w-md mx-auto mt-24">
           <form onSubmit={handlesubmit}>
             <div className="flex flex-col space-y-2 mb-5 text-center">
-        <span className="text-blue-500 text-3xl">Confirm Otp</span>
+        <span className="text-gray-900 text-3xl">Confirm Otp</span>
               <p className="text-md mb-5 md:text-xl">
                 Enter the OTP we just sent you.
               </p>

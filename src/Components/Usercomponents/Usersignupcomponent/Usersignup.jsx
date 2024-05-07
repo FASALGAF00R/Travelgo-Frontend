@@ -81,10 +81,10 @@ const Usersignup = () => {
             className="w-1/3 h-auto mr-20 rounded-l-md  object-cover" src={signupic} alt="signup image" />
 
           <div className="flex flex-col bg- [#ee8e8e] rounded-lg mt-3 shadow-lg dark:bg-gray-800 mr-11 lg:px-10">
-            <div className="self-center mb-5 mt-5 text-xl font-semibold text-black-800 sm:text-2xl dark:text-white">
+            <div className="self-center mb-5 mt-5 text-xl font-semibold text-gray-800 sm:text-2xl dark:text-white">
               Sign up
             </div>
-            <span className="justify-center text-sm text-center gap-3 font-thin text-gray-800 flex items-center dark:text-gray-400">
+            <span className="justify-center text-sm text-center gap-3 font-thin text-gray-900 flex items-center dark:text-gray-400">
               Already have an account ?
               <Link to="/login" className="text-sm  underline hover:text-blue-700">
                 Sign in

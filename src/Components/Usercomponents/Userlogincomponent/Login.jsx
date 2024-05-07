@@ -214,7 +214,7 @@ const Login = () => {
 
             <br>
             </br>
-            <span className="justify-center text-sm  text-center ml-10 text-gray-1000 flex-items-center font-light dark:text-gray-400">
+            <span className="justify-center text-sm  text-center ml-10 text-gray-900 flex-items-center font-light dark:text-gray-400">
               Doesn't have an account ?
               <Link to="/signup" className="text-sm  ml-3  underline hover:text-blue-700">
                 Sign up

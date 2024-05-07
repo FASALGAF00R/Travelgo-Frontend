@@ -62,7 +62,7 @@ function Newpass() {
         return (
             <div className='min-h-screen flex items-center justify-center'>
                 <div className="w-full sm:w-[35%] mx-10 bg-gradient-to-r from-[#bfd8e1] to-[#ee8e8e] p-8 rounded-xl shadow shadow-slate-300">
-                    <h3 ><strong>Enter new password </strong></h3>
+                    <h3 className='text-gray-900' >Enter new password </h3>
 
                     <form onSubmit={handleSubmit} className="mt-8">
                         <div className="mb-4">
