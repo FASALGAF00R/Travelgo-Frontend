@@ -197,9 +197,7 @@ function Login() {
               </div>
 
 
-              <div className="flex items-center justify-center">
-                {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
-              </div>
+         
 
 
               <div className="flex items-center  justify-between">
@@ -214,6 +212,11 @@ function Login() {
                 )}
               </div>
               <br />
+              
+                            <div className="flex items-center justify-center">
+                {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
+              </div>
+
               <button onClick={() => navigate(RouteObjects.ForgetPassword, { state: { role: 'agent' } })}
                 className="text-sm  ml-3 text-gray-800 underline hover:text-blue-700">
                 Forgot password  ?

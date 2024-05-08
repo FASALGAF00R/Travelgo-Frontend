@@ -28,7 +28,6 @@ export async function Userlogin(logindata) {
 export async function UserVerify(token) {
     try {
         const Data = await userapi.post(`/verify/${token}`)
-        console.log(Data,"jjjjjjjjjjjjjjjj");
         return Data
     } catch (error) {
         console.log(error);
@@ -53,7 +52,6 @@ export async function Forgot(forgotpassdata,role) {
     console.log(forgotpassdata,role);
     try {
         const result = await userapi.post('/forgotpass', {data:forgotpassdata,role:role})
-        console.log(result, "ggggggggggggggggggggg");
         return result
     } catch (error) {
         console.log(error);
@@ -64,10 +62,8 @@ export async function Forgot(forgotpassdata,role) {
 // otpverfication 
 
 export async function Otpdata(verifydata) {
-    console.log(verifydata,"...");
     try {
         const result = await userapi.get('/otpverify',{params:verifydata },)
-        console.log(result, "ooiiiooioo");
         return result
     } catch (error) {
         console.log(error);
@@ -76,7 +72,6 @@ export async function Otpdata(verifydata) {
 
 
 export async function Otpresend(data) {
-    console.log("ethii", data);
     try {
         const result = await userapi.post('/otpresend', data)
         return result
@@ -99,7 +94,6 @@ export async function Newpassword(data) {
 
 
 export async function Profile(data) {
-    console.log(data, "opp33333333333333333p");
     try {
         const result = await userapi.post('/profile', data, {
             headers: {
@@ -114,11 +108,8 @@ export async function Profile(data) {
 
 
 export async function resetPassword(data) {
-    console.log("okkkkkkkkkkkkkkkkk", data);
     try {
-        console.log("ethii");
         const response = await userapi.post('/resetpass', data)
-        console.log(response, "....");
         return response
 
     } catch (error) {
@@ -131,12 +122,27 @@ export async function getuser(data) {
     console.log(data);
     try {
         const result = await userapi.get(`/user/${data}`)
-        console.log(result);
         return result
     } catch (error) {
         console.log(error);
     }
 }
+
+export async function getaddress(id) {
+    console.log(id,"id");
+    try {
+        const result = await userapi.get(`/getaddress/${id}`)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
+
+
 
 
 export async function Placedata(page,limit) {
@@ -151,7 +157,6 @@ export async function Placedata(page,limit) {
 
 
 export async function Searchplaces(data) {
-    console.log(data,"llll");
     try {
         const result = await userapi.post('/searchplaces',data)
         return result
@@ -161,7 +166,6 @@ export async function Searchplaces(data) {
 }
 
 export async function UserChecking(data) {
-    console.log(data,"///////////fdf///////");
     try {
         const result = await userapi.get(`/checkinguser/${data}`);
         return result
@@ -228,7 +232,6 @@ export async function paymentRequest(packId) {
 
 
 export async function Userbookingdata(form,totalAmount,userid,agentid,packageId,paymentDate) {
-    console.log(paymentDate,"llll");
     try {
         const requestData = {
             formData: form,
@@ -270,7 +273,6 @@ export async function CancelBookPayment(bookingid,userid) {
 // forwallet
 
 export async function fetchuserdata(id) {
-    console.log(id);
     try {
         const result = await userapi.get(`/userwallet/${id}`)
         console.log(result);
@@ -285,7 +287,6 @@ export async function fetchuserdata(id) {
 
 
 export async function walletPayment(contact, address, state,totalAmount, packageId, userid, agentid, country, city, paymentDate) {
-    console.log(state,"state",paymentDate,"paymentDate");
     try {
         const requestData = {
             contact: contact,

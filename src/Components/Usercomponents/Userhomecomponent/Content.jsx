@@ -7,9 +7,9 @@ function Content() {
   return (
     <>
 
-      <div className=" min-h-screen  py-8 ">
-        <div className="w-full h-screen   flex justify-center items-center p-7 overflow-hidden ">
-          <div className="bg-gradient-to-r mt-10  from-[#8ec4d6] to-[#ee8e8e] w-full sm:max-w-[80%] h-full overflow-auto rounded-md flex flex-col lg:flex-row justify-center items-center p-5 lg:p-0 gap-5">
+      <div className=" min-h-screen  py-8  ">
+        <div className="w-full h-screen   flex justify-center items-center p-7 overflow-hidden  ">
+          <div className="bg-gradient-to-r mt-10  from-[#8ec4d6] to-[#ee8e8e] w-full sm:max-w-[80%] h-full overflow-auto rounded-md flex flex-col lg:flex-row justify-center items-center p-5 lg:p-0 gap-5  shadow-lg  shadow-gray-600">
 
             <div className="lg:w-1/2 hidden lg:flex flex-col justify-center items-center text-center relative">
               <img
@@ -19,7 +19,7 @@ function Content() {
               />        </div>
 
 
-            <div className="lg:w-1/2 w-full flex flex-col justify-around items-center p-5 md:p-10 mb-4">
+            <div className="lg:w-1/2 w-full flex flex-col justify-around items-center p-5 md:p-10 mb-4 ">
               <div className="w-full flex flex-col items-start">
                 <span className="text-5xl font-semibold text-white mb-4">Travel Booking</span>
               </div>

@@ -33,9 +33,9 @@ function NavList({ userName }) {
       {userName ? (
         <Typography
           as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-bold cursor-pointer"
+          variant="sm"
+          color="white"
+          className="p-1 font-bold cursor-pointer "
           onClick={() => navigate('/profile')}
 
         >
@@ -103,7 +103,7 @@ function NavList({ userName }) {
         className="p-1 font-bold"
       >
         <a
-          href="#" className="flex items-center hover:text-red-600text-gray"
+          href="#" className="flex items-center hover:text-red-600 text-gray"
           onClick={handlelogout}
         >
           Log out

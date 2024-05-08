@@ -3,12 +3,14 @@ import { Profile } from '../../Api/Userapi';
 import { resetPassword } from '../../Api/Userapi';
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useLocation } from 'react-router-dom';
-import { getuser } from '../../Api/Userapi';
+import { getuser, getaddress } from '../../Api/Userapi';
 import { RouteObjects } from '../../Routes/RouteObject';
 import { useSelector } from 'react-redux';
-import { FaFunnelDollar, FaHome, FaLock, FaMailBulk, FaMobile, FaUpload, FaUser } from 'react-icons/fa'
+import { FaUser } from 'react-icons/fa'
+import { GrLinkNext } from "react-icons/gr";
 import { Link } from 'react-router-dom'
-
+import { IoWalletSharp } from "react-icons/io5";
+import { CiLogout } from "react-icons/ci";
 
 function Userprofile() {
 
@@ -26,7 +28,7 @@ function Userprofile() {
   })
   const [image, setimage] = useState(null)
   const [wallet, Setwallet] = useState(0)
-
+  const [address, setaddress] = useState('')
 
 
 
@@ -37,12 +39,20 @@ function Userprofile() {
         const response = await getuser(userid)
         setimage(response.data.image)
         Setwallet(response.data.wallet)
+
+        const address = await getaddress(userid)
+        setaddress(address.data.Address)
+
+
+
       } catch (error) {
         console.log("error while fetching user", error);
       }
     }
     fetchuser()
   }, [userid])
+
+  console.log(address, "address");
 
 
 
@@ -53,13 +63,11 @@ function Userprofile() {
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append('profilepic', file);
-      formData.append('userId', Userid);
-      console.log(file, 'sssssssssssssssssssss', formData);
+      formData.append('userId', userid);
       const Response = await Profile(formData)
       if (Response.status === 200) {
         window.location.reload();
       }
-      console.log(Response, 'oooooooooooooo');
 
       // setFormData(Url);
     } catch (error) {
@@ -99,20 +107,28 @@ function Userprofile() {
   }
 
 
+  const handlelogout = () => {
+
+    localStorage.removeItem('accesToken')
+
+    navigate(RouteObjects.Userlogin)
+  }
+
+
 
   return (
     <>
 
       <div className=" h-full  flex flex-col  justify-center">
-        <div class="mt-10 "></div>
-        <h1 className="text-3xl font-semibold mb-4 text-center">
+        <div class="mt-8 "></div>
+        <h1 className="text-3xl font-semibold mb-8 text-center">
           <span className="text-blue-600">User</span> <span className="text-pink-600">Profile</span>
         </h1>
-        <div className="flex flex-row  gap-16  items-center justify-center">
-          <div className="w-full md:w-[30%] sm:w-[50%] bg-white shadow-md  shadow-pink-600 p-6 rounded-3xl">
+        <div className="flex flex-row    items-center justify-evenly  ">
+          <div className="w-full  md:w-[30%] sm:w-[50%] bg-white shadow-md  shadow-gray-800 p-6 rounded-3xl">
             <div className="flex justify-center items-center">
               <label htmlFor="upload" className="cursor-pointer">
-                <img className="w-32 h-32 mt-10 overflow-hidden rounded-full" src={image} alt="Profile" />
+                <img className="w-100 h-100 mt-3 overflow-hidden  rounded-sm" src={image} alt="Profile" />
                 <input
                   type="file"
                   id="upload"
@@ -127,13 +143,16 @@ function Userprofile() {
               </label>
 
             </div>
-            <h2 className="text-lg text-gray-800 font-bold text-center ">{selector.username}</h2>
+            <h2 className="text-lg text-gray-800 font-bold text-center ">
+              <FaUser />
+              {selector.username}</h2>
+
             <div className="pl-9 font-light flex-row flex gap-2 mt-4">
               <label htmlFor="" className='text-gray-800 font-bold'>Email :</label>
               <h2 className="mb-30  text-gray-800 font-bold  ">{selector.email}</h2>
             </div>
             <br />
-            <span className='font-serif text-pink-700 font-bold mt-3'>Change password</span>
+            <span className='font-serif text-blue-700 font-bold mt-3'>Change password</span>
             <form className="pl-2 font-semibold flex   flex-col mt-4" onSubmit={handleSubmit} >
               <label className='  text-gray-800 font-bold ' htmlFor="password" >Current Password:</label>
               <input type="password" id="password" name="password" className="border border-gray-300 rounded-md px-3 py-2 mt-1  bg-gray-300" value={formData.password} onChange={handleChange} />
@@ -142,17 +161,62 @@ function Userprofile() {
               <button type="submit" className="bg-[#dc5151] hover:bg-pink-400 text-white font-thin py-2 px-4 rounded-lg mt-4 self-center" >Change Password</button>
             </form>
           </div>
-          <div className="w-full md:w-[30%] sm:w-[50%] bg-white   shadow-md shadow-pink-600 p-6 rounded-3xl">
-            <h2 className="text-lg text-gray-800 font-bold text-center">
-              Wallet Amount
-            </h2>
-            <div class="flex flex-col items-center mt-4">
-              <span class="text-xl text-gray-800 font-semibold mb-4">₹ {wallet}</span>
-              <Link to={{ pathname: "/wallethistory", search: `?wallet=${wallet}` }} className="text-gray-900 mb-4 hover:underline">Check Wallet History</Link>
-              <Link to='/userbookings' className="text-gray-900 hover:underline ">My bookings</Link>
+
+          <div className="w-full h-[30rem] md:w-[40%] sm:w-[60%] bg-white shadow-md shadow-gray-800  rounded-3xl">
+            <div className="w-[100%] h-[5vh] bg-gray-900 rounded-md mb-4">
+
+            </div>
+            <div className="flex justify-center items-center ">
+              <IoWalletSharp />
+              <h2 className="text-lg text-gray-800 font-bold text-center ml-2">
+                Wallet Amount
+              </h2>
+            </div>
+            <div className="flex flex-col items-center mt-4 ">
+              <span className="text-xl text-gray-800 font-semibold mb-4">₹ {wallet}</span>
+              {address && (
+                <div className="text-gray-800 mb-4 flex flex-col gap-2">
+                  <div className="flex justify-between ">
+                    <span className="font-bold px-2">City:</span>
+                    <span>{address.address.city}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-bold px-2">State:</span>
+                    <span>{address.address.state}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-bold px-2">Phone:</span>
+                    <span>{address.phone}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-bold px-2">Country:</span>
+                    <span>{address.address.country}</span>
+                  </div>
+                </div>
+              )}
+              <div className="flex flex-col">
+                <div className="flex items-center py-3">
+                  <GrLinkNext />
+                  <Link to={{ pathname: "/wallethistory", search: `?wallet=${wallet}` }} className="text-gray-900 underline hover:text-blue-700 ml-2">Check Wallet History</Link>
+                </div>
+                <div className="flex items-center">
+                  <GrLinkNext />
+                  <Link to='/userbookings' className="text-gray-900 underline hover:text-blue-700 ml-2">My bookings</Link>
+                </div>
+                <div className="flex items-center py-3">
+                  <CiLogout />
+                  <a
+                    href="#" className="flex items-center hover:text-red-600 text-gray ml-2"
+                    onClick={handlelogout}
+                  >
+                    Log out
+                  </a>               
+                   </div>
+              </div>
             </div>
 
           </div>
+
         </div>
         <Toaster />
         <div class="mb-10 "></div>

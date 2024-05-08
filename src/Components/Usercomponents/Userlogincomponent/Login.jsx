@@ -134,9 +134,9 @@ const Login = () => {
         <div className="flex  flex-col items-center  shadow-2xl h-auto 2xl:mr-16 rounded-lg">
 
           <form className="bg-#db8c8c  rounded px-8 pt-6 pb-8 mb-4 w-96 " onSubmit={handleSubmit}>
-            <div className="mt-4  font-extrabold text-gray-800"  >
+            <div className="mt-4  font-extrabold "  >
               Please enter your  credentials to login
-              <label className="block text-gray-900 text-sm mt-8 font-light mb-2" htmlFor="email">
+              <label className="block  text-sm mt-8 font-light mb-2" htmlFor="email">
                 Email
               </label>
               <input
@@ -187,11 +187,9 @@ const Login = () => {
             </div>
 
 
-            <div className="flex items-center justify-center">
-              {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
-            </div>
+      
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between ">
 
               {!loading && (
 
@@ -204,6 +202,10 @@ const Login = () => {
               )}
             </div>
             <br></br>
+
+            <div className="flex items-center justify-center ">
+              {loading && <ClipLoader color="#dc5151" loading={loading} size={35} />}
+            </div>
 
             <button onClick={() =>
               navigate(RouteObjects.ForgetPassword, { state: { role: 'user' } })}
