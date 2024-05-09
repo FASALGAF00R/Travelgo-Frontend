@@ -66,7 +66,7 @@ function Packagesdetail() {
 
   const calculateTotalAmount = () => {
     const pricePerPerson = perperson;
-    const pricePerDay = 1000;
+    const pricePerDay = pack.perDAy;
     const days = endDate ? Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) : 0;
     const totalPrice = (pricePerPerson * numberOfPersons) + (pricePerDay * days);
     setTotalAmount(totalPrice);
@@ -153,7 +153,7 @@ function Packagesdetail() {
         <span className='text-gray-800'>Package </span> <span className='text-black'>details</span>
       </h1>
 
-      <div className='py-12 gap-11 flex flex-col lg:flex-row justify-center items-center px-5 md:px-20  '>
+      <div className='py-2 gap-11 flex flex-col lg:flex-row justify-center items-center px-5 md:px-20  '>
         <div className='w-full lg:w-[50%] mt-5 bg-white shadow-md p-6 rounded-3xl shadow-gray-800'>
           <h2 className='text-2xl font-semibold mb-2 text-gray-800  '>Tour Package Details</h2>
           <p className='text-gray-800 overflow-hidden overflow-ellipsis'>{pack.details}</p>
@@ -161,7 +161,7 @@ function Packagesdetail() {
           <ul className='list-disc list-inside text-gray-800'>
             {pack.activites && pack.activites.map((el, index) => (
               <li key={index} className="mb-2">
-                <span className="mr-2">&#8226;</span>
+                <span className="mr-2">                                                                                                                                                                                         </span>
                 <span className="overflow-hidden overflow-ellipsis">{el}</span>
               </li>
             ))}
@@ -179,6 +179,12 @@ function Packagesdetail() {
             <h2 class="text-xl font-semibold text-gray-800">Travel Agent : {selector.agentname}</h2>
             <p class="text-gray-800 font-bold">contact : {selector.phone}</p>
           </div>
+          <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+            <h2 class="text-lg font-semibold text-gray-800">Amount per day: <span class="text-blue-600">₹ {pack.perDAy} </span></h2>
+            <p class="text-gray-800 font-bold">Per Person: ₹ {pack.amount}</p>
+
+          </div>
+
           <form onSubmit={handleDetailsSubmit} >
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5 mb-4'>
               <div className='bg-white mt-1 hover:bg-gray-500 outline-none p-3 rounded-md '>
@@ -231,6 +237,8 @@ function Packagesdetail() {
           </form>
         </div>
       </div>
+      <div className="mb-20 "></div>
+
     </>
 
   )

@@ -184,7 +184,7 @@ function Packagespage() {
                 />
                 <div>
                   <div className=''>
-                    <h1 className='capitalize pl-5  text-xl text-gray-800'><strong>{pk.Destrictname}</strong></h1>
+                    <h1 className='capitalize pl-5  text-xl text-gray-800'><strong>{pk.category}</strong></h1>
                     <div className='flex justify-between mr-10'>
                       <h1 className='capitalize pl-5 '>{pk.State}</h1>
                       <span span className=''><MdCardTravel />   </span>
@@ -193,7 +193,7 @@ function Packagespage() {
                   </div>
 
                   <div className=' flex justify-between p-3 flex-row'>
-                    <h1 className='capitalize pl-5  text-xl'><strong>₹{pk.amount}</strong></h1>
+                    <h1 className='capitalize pl-5  text-xl'><strong>₹ {pk.amount}</strong></h1>
                     <button onClick={() => handleclick(pk._id)}
                       className=' border-2 border-gray-700 p-2 rounded-sm hover:bg-gray-800 hover:text-white text-black'
                     >View Package

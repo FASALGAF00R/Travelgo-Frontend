@@ -50,7 +50,7 @@ function Userprofile() {
       }
     }
     fetchuser()
-  }, [userid])
+  }, [userid,formData])
 
   console.log(address, "address");
 
@@ -163,7 +163,7 @@ function Userprofile() {
           </div>
 
           <div className="w-full h-[30rem] md:w-[40%] sm:w-[60%] bg-white shadow-md shadow-gray-800  rounded-3xl">
-            <div className="w-[100%] h-[5vh] bg-gray-900 rounded-md mb-4">
+            <div className="w-[100%] h-[5vh] bg-gray-800 rounded-md mb-4">
 
             </div>
             <div className="flex justify-center items-center ">

@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { FaStripe } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { Userbookingdata } from "../../Api/Userapi";
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import toasti, { Toaster } from "react-hot-toast";
 
 
 
 function Paymentstripe({ amount, packageId, agentid, userid, totalAmount, formData ,paymentDate}) {
 
+    const location = useLocation()
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -21,17 +23,17 @@ function Paymentstripe({ amount, packageId, agentid, userid, totalAmount, formDa
             !formData.state &&
             !formData.country 
             ) {
-            toast.error("Please enter all fields")
+                toasti.error("Please enter all fields")
         } else if (!formData.contact) {
-            toast.error("Please enter your contact")
+            toasti.error("Please enter your contact")
         } else if (!formData.address) {
-            toast.error("Please enter your address")
+            toasti.error("Please enter your address")
         } else if (!formData.city) {
-            toast.error("Please enter your city")
+            toasti.error("Please enter your city")
         } else if (!formData.state) {
-            toast.error("Please enter your state")
+            toasti.error("Please enter your state")
         } else if (!formData.country) {
-            toast.error("Please enter your country");
+            toasti.error("Please enter your country");
         
         } else {
 
@@ -54,7 +56,17 @@ console.log(paymentDate,"paymentDate");
                 if (res.data.status === true) {
                     toast.success("Booked Successfully")
                     setTimeout(() => {
-                        navigate('/success')
+                        navigate('/success',{state:{
+                            phone:formData.contact,
+                            address:formData.address,
+                            city:formData.city,
+                            state:formData.state,
+                            paymentDate:paymentDate,
+                            packageId:packageId,
+                            userid:userid,
+                            agentid:agentid,
+                            totalAmount:totalAmount
+                        }})
                     }, 3000);
                 } else {
                     toast.error("Booking unSuccessfull")
@@ -125,6 +137,7 @@ console.log(paymentDate,"paymentDate");
                         </div>
                     </div>
                     <ToastContainer />
+                    <Toaster/>
                 </div>
             )}
         </>

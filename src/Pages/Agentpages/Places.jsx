@@ -11,10 +11,9 @@ import { Placedata, Blockplaces, UpdatePlace, States } from '../../Api/Agentapi'
 import { useSelector } from 'react-redux';
 // Add places
 function Places() {
-  
-  const selector = useSelector(state => state.agent.agentInfo)
-  console.log(selector,"selector");
 
+  const selector = useSelector(state => state.agent.agentInfo)
+  console.log(selector, "selector");
 
 
 
@@ -28,7 +27,6 @@ function Places() {
     image: null
   })
   const [Places, setPlaces] = useState([])
-  // const [State, setState] = useState([])
   const [editingPlace, setEditingPlace] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [page, Setpages] = useState(1)
@@ -41,12 +39,21 @@ function Places() {
     try {
       Fetchplaces(page, limit)
         .then((response) => {
-          setPlaces(response.data.placelist)
+          // setPlaces(response.data.placelist)
+          const datas=response.data.placelist
+          const filteredData = datas.filter((item) => item.agentid === selector.id)
+          setPlaces(filteredData)
         });
+
     } catch (error) {
       console.log("error while fetching places", error);
     }
-  }, [page, limit])
+  }, [page, limit, Places])
+
+
+
+
+
 
 
 
@@ -101,14 +108,14 @@ function Places() {
       if (editingPlace) {
         await UpdatePlace(editingPlace._id, { Data: formdata });
       } else {
-        await Placedata(formdata,selector.id)
+        await Placedata(formdata, selector.id)
           .then((response) => {
-            console.log(response, "ll");
+            console.log(response, "response");
             setPlaces((prev) => [...prev, response.data.place]);
             const totalPages = Math.ceil((prev.length + 1) / limit);
             Setpages(totalPages);
           });
-        setPlaceModalOpen(false);
+        setPlaceModalOpen(!placeModalOpen);
         setErrorMessage('');
       }
     } catch (error) {
@@ -168,9 +175,9 @@ function Places() {
           <form onSubmit={handleSubmit}>
 
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="State">State:</label>
+              <label className="mb-2 text-blue-gray-900 font-medium" htmlFor="State">State:</label>
               <select
-                className="p-2 border border-gray-300 rounded"
+                className="p-2 border border-gray-300 rounded text-blue-gray-900 font-medium"
                 id="State"
                 name="State"
                 value={formdata.State}
@@ -184,9 +191,9 @@ function Places() {
 
 
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="Destrictname">Destrictname:</label>
+              <label className="mb-2 text-blue-gray-900 font-medium" htmlFor="Destrictname">Destrictname:</label>
               <select
-                className="p-2 border border-gray-300 rounded"
+                className="p-2 border border-gray-300 rounded text-blue-gray-900 font-medium"
                 id="Destrictname"
                 name="Destrictname"
                 value={formdata.Destrictname}
@@ -211,17 +218,17 @@ function Places() {
             </div>
 
             <div>
-              <label className='text-gray-800' htmlFor="description">Description:</label>
-              <textarea className='ml-0 w-full' id="description" name="description" value={formdata.description} onChange={handlechange} />
+              <label className='text-blue-gray-900 font-medium ' htmlFor="description">Description:</label>
+              <textarea className='ml-0 w-full text-blue-gray-900 font-medium' id="description" name="description" value={formdata.description} onChange={handlechange} />
             </div>
             <div>
-              <label className='text-gray-800' htmlFor="image">Upload image:</label>
+              <label className='text-blue-gray-900 font-medium' htmlFor="image">Upload image:</label>
               <input className='w-full' type="file" id="image" name="image" onChange={handlechange} />
             </div>
             <br />
             <Button type="submit" variant="gradient" color="green">Add</Button>
           </form>
-          {errorMessage && <p className='text-red-500 text-center'>{errorMessage}</p>} {/* Render error message here */}
+          {errorMessage && <p className='text-red-500 text-center'>{errorMessage}</p>}
         </DialogBody>
       </Dialog>
 
@@ -256,13 +263,13 @@ function Places() {
                     </div>
 
 
-                    
+
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className='text-red-700 text-center'>No places available!</p>
+            <p className='text-red-700 text-center font-bold'>No places available!</p>
           )}
         </div>
 

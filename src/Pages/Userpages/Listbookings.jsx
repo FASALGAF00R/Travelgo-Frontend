@@ -44,12 +44,12 @@ function Listbookings() {
     <>
       <div class="mt-2"></div>
       {bookings.length > 0 ? (
-        <div className="container mx-auto px-4 py-8 ml-8">
-          <h2 className="text-3xl font-bold mb-4 animate-bounce text-green-600">User Bookings</h2>
+        <div className="container mx-auto px-4 py-8 ">
+          <h2 className="text-3xl font-mono mb-4 animate-bounce text-green-600">User Bookings</h2>
           <div class="mt-4"></div>
-          <table className="min-w-full  rounded-xl shadow-md ">
+          <table className="min-w-full  rounded-lg shadow-md ">
             <thead>
-              <tr>
+              <tr className='bg-gray-500'>
                 <th className="border border-gray-200 px-4 py-2 text-gray-800 ">No</th>
                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Username</th>
                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Date</th>

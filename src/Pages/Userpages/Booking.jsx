@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { useNavigate, useLocation, } from 'react-router-dom';
 import { FaInfoCircle, FaStripe, FaWallet } from 'react-icons/fa';
 import { Elements } from '@stripe/react-stripe-js';
 import { fetchuserdata, paymentRequest, walletPayment } from '../../Api/Userapi';
@@ -7,8 +7,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import Paymentstripe from './Paymentstripe';
 import { useSelector } from 'react-redux';
 import Successpage from './Successpage';
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import toast, { Toaster } from "react-hot-toast";
 import { format } from 'date-fns';
 
 let StripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC);
@@ -24,7 +23,6 @@ function Booking() {
   const agentid = agentselector.id
   const userid = selector.id
   const navigate = useNavigate()
-
   const location = useLocation()
   const packageId = location.state.packageId
   const packagee = location.state.package
@@ -89,6 +87,9 @@ function Booking() {
   }
 
 
+
+  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "paymentDate") {
@@ -134,7 +135,17 @@ function Booking() {
         if (res.data.success === true) {
           toast.success(res.data.message)
           setTimeout(() => {
-            navigate('/success')
+            navigate('/success',{state:{    
+              phone:contact,
+              address:address,
+              city:city,
+              state:state,
+              paymentDate:paymentDate,
+              packageId:packageId,
+              userid:userid,
+              agentid:agentid,
+              totalAmount:totalAmount
+            }})
         }, 3000);
         } else {
           toast.error(res.data.message)
@@ -173,7 +184,7 @@ function Booking() {
                   <p className='text-gray-900 font-medium mb-2'>Username: {selector.username}</p>
                   <p className='text-gray-900 font-medium'>Email: {selector.email}</p>
                 </div>
-                <h3 className='text-xl mb-4 text-white rounded-sm font-medium bg-gray-700 p-1 text-center animate-pulse '>Address details</h3>
+                <h3 className='text-xl mb-4 text-white rounded-sm font-medium bg-gray-900 p-1 text-center animate-pulse '>Address details</h3>
 
                 <form >
                   <div className='mb-4'>
@@ -252,24 +263,24 @@ function Booking() {
                     <h1 className='text-3xl font-semibold mb-2 text-gray-900 '>PackageDetails</h1>
                   </div>
                   <ul className='list-disc pl-3 space-y-4'>
-                    <li className=' text-gray-900 font-mono'>Destrict: <span className='text-black font-semibold'>{packagee.Destrictname}</span></li>
-                    <li className=' text-gray-900 font-mono'>activites: <span className='text-black font-semibold'>{packagee.activites && packagee.activites.map((el, index) => (
+                    <li className=' text-black font-mono'>Destrict: <span className='text-gray-900   font-semibold'>{packagee.Destrictname}</span></li>
+                    <li className=' text-black font-mono'>activites: <span className='text-gray-900  font-semibold'>{packagee.activites && packagee.activites.map((el, index) => (
                       <div key={index}>
                         <p>
                           &bull; {el}
                         </p>
                       </div>
                     ))}</span></li>
-                    <li className='mb-2 text-gray-900 font-mono'>Day start: <span className='text-black font-semibold'>{startDateFormatted}</span></li>
-                    <li className='mb-2 text-gray-900 font-mono'>Day end: <span className='text-black font-semibold'>{endDateFormatted} </span></li>
-                    <li className='mb-2 text-gray-900 font-mono'>Persons : <span className='text-black font-semibold'>{numberOfPersons} </span></li>
-                    <li className='mb-2 text-gray-900 font-mono'>amount: <span className='text-black font-semibold'>₹ {totalAmount}</span></li>
+                    <li className='mb-2 text-gray-900 font-mono'>Day start: <span className='text-gray-900 font-semibold'>{startDateFormatted}</span></li>
+                    <li className='mb-2 text-gray-900 font-mono'>Day end: <span className='text-gray-900 font-semibold'>{endDateFormatted} </span></li>
+                    <li className='mb-2 text-gray-900 font-mono'>Persons : <span className='text-gray-900 font-semibold'>{numberOfPersons} </span></li>
+                    <li className='mb-2 text-gray-900 font-mono'>amount: <span className='text-gray-900 font-semibold'>₹ {totalAmount}</span></li>
 
                   </ul>
                 </div>
                 <div className='flex flex-row items-center mt-8 gap-2' onClick={handleWallet}>
                   <FaInfoCircle className='' />
-                  <p className='font-bold text-cyan-900'>Pay through wallet</p>
+                  <p className='font-bold text-cyan-800'>Pay through wallet</p>
                 </div>
                 {walletOpen ?
                   <div className='flex flex-row gap-4 mt-2'>
@@ -279,7 +290,6 @@ function Booking() {
                   : ""}
                 <div class="mb-9"></div>
                 {clientSecret ? (
-                  // <div onClick={handleSubmitaddres}
                   <div
                     className=''
                     style={{ cursor: 'pointer' }}
@@ -291,7 +301,7 @@ function Booking() {
                 ) : ""}
               </div>
             </div>
-            <ToastContainer />
+            <Toaster />
           </div>
           <div class="mb-32"></div>
 

@@ -47,9 +47,13 @@ const totalPages = Math.ceil(edit.length / perpage);
 
   useEffect(() => {
     try {
-      Fetchactivies().then((res) =>
-        setEdit(res.data)
-      );
+      Fetchactivies().then((res) =>{
+        const datas=res.data
+      const filteredData = datas.filter((item) => item.agentid === selector.id)
+      setEdit(filteredData)
+
+
+    });
     } catch (error) {
       console.log("error occurred while fetching activities", error);
     }
@@ -183,7 +187,7 @@ const totalPages = Math.ceil(edit.length / perpage);
           <tbody>
             {edit.length === 0 ? (
               <tr>
-                <td colSpan="3" className="p-4 border-b border-blue-gray-50 text-center text-red-500 font-extralight">
+                <td colSpan="3" className="p-4 border-b border-blue-gray-50 text-center text-red-500 font-bold">
                   No activities available !
                 </td>
               </tr>

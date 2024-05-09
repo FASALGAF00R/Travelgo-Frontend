@@ -25,7 +25,7 @@ function Packages() {
 
 
   const selector = useSelector(state => state.agent.agentInfo)
-  console.log(selector,"selectoruuuuuuuuuu");
+  console.log(selector, "selectoruuuuuuuuuu");
 
 
 
@@ -47,7 +47,9 @@ function Packages() {
     category: '',
     description: '',
     activities: [],
-    amount: ''
+    amount: '',
+    perDAy: ''
+
   });
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -148,9 +150,6 @@ function Packages() {
         console.log(Res, "res");
         Setpackage(Res.data.pack)
 
-
-
-
       } catch (error) {
         console.log("Error while fetching category/activity:", error);
       }
@@ -158,6 +157,8 @@ function Packages() {
 
     fetchData();
   }, [refresh]);
+
+
 
 
 
@@ -169,7 +170,7 @@ function Packages() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === 'amount') {
+    if (name === 'amount' || name === 'perDay') {
       if (!isNaN(value) && parseFloat(value) >= 0) {
         setFormData({
           ...formData,
@@ -214,7 +215,7 @@ function Packages() {
         image: previewSource
       }
 
-      const res = await Addpackagedata(data,selector.id);
+      const res = await Addpackagedata(data, selector.id);
       console.log(res);
     } catch (error) {
       console.log("error while submitting form", error);
@@ -226,7 +227,8 @@ function Packages() {
       category: '',
       description: '',
       activities: [],
-      amount: ''
+      amount: '',
+      perDay: ''
     });
     setOpen(false);
   };
@@ -272,9 +274,9 @@ function Packages() {
           <form onSubmit={handleSubmit}>
 
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="State">state</label>
+              <label className="mb-2 text-blue-gray-800 font-bold" htmlFor="State">state</label>
               <select
-                className="p-2 border border-gray-300 rounded"
+                className="p-2 border border-gray-300 rounded text-blue-gray-800 font-bold"
                 type="text"
                 id="State"
                 name="State"
@@ -292,9 +294,9 @@ function Packages() {
 
 
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="State">district name</label>
+              <label className="mb-2 text-blue-gray-800 font-bold" htmlFor="State">district name</label>
               <select
-                className="p-2 border border-gray-300 rounded"
+                className="p-2 border border-gray-300 rounded text-blue-gray-800 font-bold"
                 type="text"
                 id="Destrictname"
                 name="Destrictname"
@@ -314,9 +316,9 @@ function Packages() {
 
 
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="imageUpload">Image Upload:</label>
+              <label className="mb-2 text-blue-gray-800 font-bold" htmlFor="imageUpload">Image Upload:</label>
               <input
-                className="p-2 border border-gray-300 rounded"
+                className="p-2 border border-gray-300 rounded text-blue-gray-800 font-bold"
                 type="file"
                 id="images"
                 name="images"
@@ -326,9 +328,9 @@ function Packages() {
             </div>
 
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="category">Category:</label>
+              <label className="mb-2 text-blue-gray-800 font-bold" htmlFor="category">Category:</label>
               <select
-                className="p-2 border border-gray-300 rounded"
+                className="p-2 border border-gray-300 rounded text-blue-gray-800 font-bold"
                 type="text"
                 id="category"
                 name="category"
@@ -344,9 +346,9 @@ function Packages() {
             </div>
 
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="description">Description:</label>
+              <label className="mb-2 text-blue-gray-800 font-bold" htmlFor="description">Description:</label>
               <textarea
-                className="p-2 border border-gray-300 rounded"
+                className="p-2 border border-gray-300 rounded text-blue-gray-800 font-bold"
                 id="description"
                 name="description"
                 value={formData.description}
@@ -355,9 +357,9 @@ function Packages() {
             </div>
 
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="activities">Activities:</label>
+              <label className="mb-2 text-blue-gray-800 font-bold" htmlFor="activities">Activities:</label>
               {activity.map(act => (
-                <div key={act._id} className="flex items-center">
+                <div key={act._id} className="flex items-center ">
                   <Checkbox
                     id={act._id}
                     name={act.Activity}
@@ -366,15 +368,15 @@ function Packages() {
                     onClick={handleclick}
 
                   />
-                  <label htmlFor={act._id} className="ml-2">{act.Activity}</label>
+                  <label htmlFor={act._id} className="ml-2 text-blue-gray-800 font-bold">{act.Activity}</label>
                 </div>
               ))}
             </div>
 
             <div className="flex flex-col mb-4">
-              <label className="mb-2" htmlFor="amount">Amount:</label>
+              <label className="mb-2 text-blue-gray-800 font-bold" htmlFor="amount">Amount:</label>
               <input
-                className="p-2 border border-gray-300 rounded"
+                className="p-2 border border-gray-300 rounded text-blue-gray-800 font-bold"
                 type="text"
                 id="amount"
                 name="amount"
@@ -382,6 +384,19 @@ function Packages() {
                 onChange={handleChange}
               />
             </div>
+
+            <div className="flex flex-col mb-4">
+              <label className="mb-2 text-blue-gray-800 font-bold" htmlFor="amount">Amount perday:</label>
+              <input
+                className="p-2 border border-gray-300 rounded text-blue-gray-800 font-bold"
+                type="text"
+                id="amount"
+                name="perDAy"
+                value={formData.perDAy}
+                onChange={handleChange}
+              />
+            </div>
+
           </form>
         </DialogBody>
 
@@ -422,8 +437,11 @@ function Packages() {
                 </div>
                 <br />
                 <br />
-                <div className=' flex justify-between p-3'>
-                  <h1 className='capitalize pl-5  text-xl'><strong>${pk.amount}</strong></h1>
+                <div className=' flex justify-end p-3'>
+                  <div className="mr-4">
+                    <h1 className='capitalize pl-5  text-xl'><strong>₹ {pk.amount}</strong></h1>
+                    <h1 className='capitalize pl-5  text-xl'><strong>₹ Perday :{pk.perDAy}</strong></h1>
+                  </div>
                   {!pk.isBlock ? (
                     <button onClick={() => handleblock(pk._id)}
                       className='bg-white border-2 border-[#000000] p-2 rounded-sm hover:bg-black hover:text-white'
@@ -440,7 +458,7 @@ function Packages() {
           ))}
         </div>
       ) : (
-        <p className='text-red-700 text-center'>No Packages available!</p>
+        <p className='text-red-700 text-center font-bold'>No Packages available!</p>
 
       )}
 

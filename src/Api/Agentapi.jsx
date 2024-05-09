@@ -96,7 +96,7 @@ export async function States() {
 export async function Fetchplaces(page,limit) {
 
     try {
-        const result = await agentapi.get(`/getplaces?page=${page}&limit=${limit}`,);
+        const result = await agentapi.get(`/getplaces?page=${page}&limit=${limit}&`,);
         console.log(result,"lllllll");
         return result
     } catch (error) {
