@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { allBookings } from '../../Api/Agentapi';
 import { useSelector } from 'react-redux';
+import {
+    Button,
+    Dialog,
+    DialogHeader,
+    DialogBody,
+    DialogFooter,
+} from "@material-tailwind/react";
 
 function Bookings() {
     const selector = useSelector(state => state.user.userInfo);
@@ -11,13 +18,20 @@ function Bookings() {
 
     const [bookings, setBookings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5); 
+    const [itemsPerPage] = useState(5);
+    const [open, setOpen] = useState(false);
+
+
+    const handleOpen = () => setOpen(!open);
+
+
+
 
     useEffect(() => {
         const fetchdata = async () => {
             try {
                 const Res = await allBookings();
-                const datas=Res.data.bookings
+                const datas = Res.data.bookings
                 const filteredData = datas.filter((item) => item.agentId === agentselector.id)
                 setBookings(filteredData)
 
@@ -41,7 +55,7 @@ function Bookings() {
                 <div className="container mx-auto px-4 py-8 ">
                     <h2 className="text-3xl font-bold mb-4  text-gray-800">User Bookings</h2>
                     <div class="mt-10"></div>
-                    
+
                     <table className="min-w-full  rounded-xl shadow-md  ml-2">
                         <thead>
                             <tr className='bg-gray-500'>
@@ -64,7 +78,14 @@ function Bookings() {
                                     <td className="border border-gray-200 px-4 py-2">{booking.payment_type}</td>
                                     <td className="border border-gray-200 px-4 py-2">{booking.phone}</td>
                                     <td className="border border-gray-200 px-4 py-2">₹ {booking.Amount}</td>
-                                    <td className="border border-gray-200 px-8 py-4"><button className="bg-gray-800 hover:bg-gray-700 text-white font-bold rounded p-4">Details</button></td>
+                                    <td className="border border-gray-200 px-8 py-4">
+                                        <Button onClick={handleOpen} variant="gradient">
+                                            Details
+                                        </Button>
+
+
+
+                                    </td>
                                     {booking.isCanceled === false ? (
                                         <td className="border border-gray-200 px-8 py-4 text-green-80 text-green-800 font-bold">{booking.bookingStatus}</td>
                                     ) : (
@@ -76,19 +97,55 @@ function Bookings() {
                     </table>
                     <div class="mb-20"></div>
 
-            <div className="flex justify-center mt-4">
-                {[...Array(Math.ceil(bookings.length / itemsPerPage))].map((_, index) => (
-                    <button key={index} onClick={() => paginate(index + 1)} className="bg-gray-800  text-white font-bold py-2 px-4 mx-1 rounded">
-                        {index + 1}
-                    </button>
-                ))}
-            </div>
+                    <div className="flex justify-center mt-4">
+                        {[...Array(Math.ceil(bookings.length / itemsPerPage))].map((_, index) => (
+                            <button key={index} onClick={() => paginate(index + 1)} className="bg-gray-800  text-white font-bold py-2 px-4 mx-1 rounded">
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             ) : (
                 <span className="flex justify-center text-red-600 text-xl font-bold ">There are no bookings available</span>
             )}
-            </>
+
+
+
+
+
+
+      <Dialog open={open} handler={handleOpen}>
+        <DialogHeader>Its a simple dialog.</DialogHeader>
+        <DialogBody>
+          The key to more success is to have a lot of pillows. Put it this way,
+          it took me twenty five years to get these plants, twenty five years of
+          blood sweat and tears, and I&apos;m never giving up, I&apos;m just
+          getting started. I&apos;m up to something. Fan luv.
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpen}
+            className="mr-1"
+          >
+            <span>Cancel</span>
+          </Button>
+          <Button variant="gradient" color="green" onClick={handleOpen}>
+            <span>Confirm</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
+
+
+
+
+        </>
     );
+
+
+    
+
 }
 
 export default Bookings;

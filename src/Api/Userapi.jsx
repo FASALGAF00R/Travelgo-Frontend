@@ -317,3 +317,34 @@ export async function fetchallBookings() {
         console.log(error);
     }
 }
+
+
+
+
+
+export async function displayPackageDetails(packageId) {
+    try {
+        const result = await userapi.get(`/fetchpackagedetails/${packageId}`)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+export async function submitReview(packageId,agentId, userId, reviewText, rating) {
+    try {
+        const result = await userapi.post('/submitReview', {
+            packageId: packageId,
+            agentId:agentId,
+            userId: userId,
+            reviewText: reviewText,
+            rating: rating
+        });
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error; 
+    }
+}

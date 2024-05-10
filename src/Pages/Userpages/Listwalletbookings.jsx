@@ -3,6 +3,13 @@ import { CancelBookPayment, fetchBookings } from '../../Api/Userapi';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa';
+import {
+    Button,
+    Dialog,
+    DialogHeader,
+    DialogBody,
+    DialogFooter,
+} from "@material-tailwind/react";
 
 function Listwalletbookings() {
     const location = useLocation();
@@ -15,8 +22,20 @@ function Listwalletbookings() {
     const username = selector.username
     const userid = selector.id
 
+    const [open, setOpen] = useState(false);
     const [Walletbookings, SetWalletbookings] = useState([])
     const currentDate = new Date().toLocaleDateString();
+
+
+
+    const handleOpen = () => setOpen(!open);
+
+
+
+
+
+
+
 
     useEffect(() => {
         const fetchdata = async () => {
@@ -77,9 +96,11 @@ function Listwalletbookings() {
                                     <td className="border border-gray-200 px-4 py-2">₹ {walletAmount}</td>
                                     <td className="border border-gray-200 px-4 py-2 font-bold text-green-500">{booking.bookingStatus}</td>
                                     <td className="border border-gray-200 px-4 py-2">
-                                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold rounded px-2 py-1">Details</button>
+                                        <Button onClick={handleOpen} variant="gradient">
+                                           Details
+                                        </Button>
                                     </td>
-                                    <td className="border border-gray-200 px-4 py-2 font-bold text-red-500">₹ {-booking.Amount}</td>
+                                    <td className="border border-gray-200 px-11 py-2 font-bold text-red-500">₹ {-booking.Amount}</td>
                                 </tr>
                             ))}
 
@@ -105,6 +126,40 @@ function Listwalletbookings() {
                     </td>
                 </tr>
             )}
+
+            {/* modal */}
+
+
+            <Dialog open={open} handler={handleOpen}>
+                <DialogHeader>Its a simple dialog.</DialogHeader>
+                <DialogBody>
+                    The key to more success is to have a lot of pillows. Put it this way,
+                    it took me twenty five years to get these plants, twenty five years of
+                    blood sweat and tears, and I&apos;m never giving up, I&apos;m just
+                    getting started. I&apos;m up to something. Fan luv.
+                </DialogBody>
+                <DialogFooter>
+                    <Button
+                        variant="text"
+                        color="red"
+                        onClick={handleOpen}
+                        className="mr-1"
+                    >
+                        <span>Cancel</span>
+                    </Button>
+                    <Button variant="gradient" color="green" onClick={handleOpen}>
+                        <span>Confirm</span>
+                    </Button>
+                </DialogFooter>
+            </Dialog>
+
+
+
+
+
+
+
+
         </>
     )
 }

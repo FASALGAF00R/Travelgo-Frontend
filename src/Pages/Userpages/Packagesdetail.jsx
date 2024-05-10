@@ -239,6 +239,53 @@ function Packagesdetail() {
           </form>
         </div>
       </div>
+      <div className="p-7">
+        <div className="bg-gray-700 py-10 mt-16  rounded-lg">
+          <div className="container mx-auto px-4 ">
+            <h2 className="text-3xl font-bold text-gray-300 mb-4 text-center">Customer Reviews & Ratings</h2>
+            {/* Assuming reviews and ratings are fetched from somewhere */}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+
+              <div className="bg-white rounded-lg p-6 shadow-md">
+                <p className="text-gray-800 mb-4 ">hdhgfdshfghgggggggggggggggggggggggggg</p>
+                <div className="flex items-center">
+                  {/* Assuming rating is out of 5 */}
+                  <div className="flex">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+
+                  </div>
+                  <span className="text-gray-600 ml-2">ju</span>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
       <div className="mb-20 "></div>
 
     </>
