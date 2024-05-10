@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { allBookings } from '../../Api/Agentapi';
+import { useSelector } from 'react-redux';
 
 function Sales() {
+
+    const agentselector = useSelector(state => state.agent.agentInfo)
+
+
+
+
     const [bookings, setBookings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(2);
@@ -11,8 +18,9 @@ function Sales() {
         const fetchdata = async () => {
             try {
                 const Res = await allBookings();
-                console.log(Res, "Res");
-                setBookings(Res.data.bookings);
+               const datas=Res.data.bookings
+                const filteredData = datas.filter((item) => item.agentId === agentselector.id)
+                setBookings(filteredData);
             } catch (error) {
                 console.error('Error fetching bookings:', error);
             }
@@ -73,7 +81,7 @@ function Sales() {
             </div>
                 </div>
             ) : (
-                <span className="flex justify-center text-red-600 text-3xl font-bold ">There are no Sales available</span>
+                <span className="flex justify-center text-red-600 text-xl font-bold ">There are no Sales available</span>
             )}
          
 

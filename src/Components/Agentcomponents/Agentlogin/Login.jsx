@@ -114,9 +114,6 @@ function Login() {
               })
             );
 
-
-
-
             navigate(RouteObjects.AgentHome, { state: { role: 'agent' } });
           }, 3000);
         } else {

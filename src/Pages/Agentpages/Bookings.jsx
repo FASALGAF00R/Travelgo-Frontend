@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 
 function Bookings() {
     const selector = useSelector(state => state.user.userInfo);
+    const agentselector = useSelector(state => state.agent.agentInfo)
+
     const username = selector.username;
     const userid = selector.id;
 
@@ -15,8 +17,10 @@ function Bookings() {
         const fetchdata = async () => {
             try {
                 const Res = await allBookings();
-                console.log(Res, "Res");
-                setBookings(Res.data.bookings);
+                const datas=Res.data.bookings
+                const filteredData = datas.filter((item) => item.agentId === agentselector.id)
+                setBookings(filteredData)
+
             } catch (error) {
                 console.error('Error fetching bookings:', error);
             }
@@ -83,7 +87,7 @@ function Bookings() {
             </div>
                 </div>
             ) : (
-                <span className="flex justify-center text-red-600 text-3xl font-bold ">There are no bookings available</span>
+                <span className="flex justify-center text-red-600 text-xl font-bold ">There are no bookings available</span>
             )}
             </>
     );

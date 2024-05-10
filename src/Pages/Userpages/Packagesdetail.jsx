@@ -178,6 +178,8 @@ function Packagesdetail() {
           <div class="bg-gray-100 p-4 rounded-lg shadow-md">
             <h2 class="text-xl font-semibold text-gray-800">Travel Agent : {selector.agentname}</h2>
             <p class="text-gray-800 font-bold">contact : {selector.phone}</p>
+            <h2 class="text-xl font-semibold text-gray-800">chat </h2>
+
           </div>
           <div class="bg-gray-100 p-4 rounded-lg shadow-md">
             <h2 class="text-lg font-semibold text-gray-800">Amount per day: <span class="text-blue-600">₹ {pack.perDAy} </span></h2>

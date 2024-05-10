@@ -233,9 +233,9 @@ function Places() {
       </Dialog>
 
 
+          {Places && Places.length > 0 ? (
       <div>
         <div className='flex flex-col'>
-          {Places && Places.length > 0 ? (
             <div className='flex flex-wrap justify-center gap-5'>
               {Places.map((place) => (
                 <div key={place._id}>
@@ -268,9 +268,7 @@ function Places() {
                 </div>
               ))}
             </div>
-          ) : (
-            <p className='text-red-700 text-center font-bold'>No places available!</p>
-          )}
+      
         </div>
 
 
@@ -294,10 +292,12 @@ function Places() {
             </div>
           </button>
         </div>
-
-
-
       </div>
+    ) : (
+      <p className='text-red-700 text-center font-bold'>No places available!</p>
+    )}
+
+
     </>
   )
 }

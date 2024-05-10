@@ -12,6 +12,7 @@ import Agentpublic from '../../Utils/Protected/Agentpublic'
 import Agentprotect from '../../Utils/Protected/Agentprotect'
 import Bookings from '../../Pages/Agentpages/Bookings'
 import Sales from '../../Pages/Agentpages/Sales'
+import Agenterrorpage from '../../Pages/Errorpages/Agenterrorpage'
 
 
 
@@ -37,6 +38,7 @@ function AgentRoutes() {
           <Route path='/packages' element={<Agentprotect>  <Packages /> </Agentprotect>} />
           <Route path='/booking' element={<Agentprotect>  <Bookings /> </Agentprotect>} />
           <Route path='/sales' element={<Agentprotect>  <Sales /> </Agentprotect>} />
+          <Route path="*" element={<Agenterrorpage />} />
 
         </Route>
       </Routes>
