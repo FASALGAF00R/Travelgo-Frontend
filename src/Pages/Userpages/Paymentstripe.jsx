@@ -52,7 +52,6 @@ function Paymentstripe({ amount, packageId, agentid, userid, totalAmount, formDa
         try {
 console.log(paymentDate,"paymentDate");
                 const res = await Userbookingdata(formData, totalAmount, userid, agentid, packageId,paymentDate)
-                console.log(res, "resss");
                 if (res.data.status === true) {
                     toast.success("Booked Successfully")
                     setTimeout(() => {

@@ -261,9 +261,9 @@ export async function fetchBookings() {
 }
 
 
-export async function CancelBookPayment(bookingid,userid) {
+export async function CancelBookPayment(bookingid,userid,agentid) {
     try {
-        const result = await userapi.put('/cancelbookings',{userid,bookingid})
+        const result = await userapi.put('/cancelbookings',{userid,bookingid,agentid})
         return result
     } catch (error) {
         console.log(error);

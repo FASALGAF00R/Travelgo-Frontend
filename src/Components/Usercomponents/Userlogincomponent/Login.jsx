@@ -134,13 +134,13 @@ const Login = () => {
         <div className="flex  flex-col items-center  shadow-2xl h-auto 2xl:mr-16 rounded-lg">
 
           <form className="bg-#db8c8c  rounded px-8 pt-6 pb-8 mb-4 w-96 " onSubmit={handleSubmit}>
-            <div className="mt-4  font-extrabold "  >
+            <div className="mt-4  font-extrabold  text-gray-800"  >
               Please enter your  credentials to login
-              <label className="block  text-sm mt-8 font-light mb-2" htmlFor="email">
+              <label className="block text-black text-sm mt-8 font-light mb-2" htmlFor="email">
                 Email
               </label>
               <input
-                className="shadow appearance-none border-pink-500  w-full py-2 px-3 text-black leading-tight font-light rounded-lg"
+                className="shadow appearance-none border-pink-500  w-full py-2 px-3  leading-tight font-light rounded-lg"
                 id="email"
                 type="text"
                 name="email"
@@ -177,9 +177,9 @@ const Login = () => {
                     className="cursor-pointer"
                   >
                     {clicked ? (
-                      <FaEyeSlash onClick={() => setClicked(false)} />
+                      <FaRegEye onClick={() => setClicked(false)} />
                     ) : (
-                      <FaRegEye onClick={() => setClicked(true)} />
+                      <FaEyeSlash onClick={() => setClicked(true)} />
                     )}
                   </svg>
                 </div>

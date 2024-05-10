@@ -11,7 +11,7 @@ function Bookings() {
 
     const [bookings, setBookings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(2); 
+    const [itemsPerPage] = useState(5); 
 
     useEffect(() => {
         const fetchdata = async () => {
@@ -42,9 +42,9 @@ function Bookings() {
                     <h2 className="text-3xl font-bold mb-4  text-gray-800">User Bookings</h2>
                     <div class="mt-10"></div>
                     
-                    <table className="min-w-full  rounded-xl shadow-md ">
+                    <table className="min-w-full  rounded-xl shadow-md  ml-2">
                         <thead>
-                            <tr className='bg-gray-600'>
+                            <tr className='bg-gray-500'>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800 ">No</th>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Username</th>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Date</th>
@@ -53,7 +53,6 @@ function Bookings() {
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Amount</th>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Status</th>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Details</th>
-                                <th className="border border-gray-200 px-4 py-2 text-gray-800">Cancel</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,10 +64,9 @@ function Bookings() {
                                     <td className="border border-gray-200 px-4 py-2">{booking.payment_type}</td>
                                     <td className="border border-gray-200 px-4 py-2">{booking.phone}</td>
                                     <td className="border border-gray-200 px-4 py-2">₹ {booking.Amount}</td>
-                                    <td className="border border-gray-200 px-4 py-2">{booking.bookingStatus}</td>
                                     <td className="border border-gray-200 px-8 py-4"><button className="bg-gray-800 hover:bg-gray-700 text-white font-bold rounded p-4">Details</button></td>
                                     {booking.isCanceled === false ? (
-                                        <td className="border border-gray-200 px-8 py-4"><button onClick={() => handleClick(booking._id, userid)} className="bg-red-500 hover:bg-red-700 text-white font-bold  rounded p-4">Cancel</button></td>
+                                        <td className="border border-gray-200 px-8 py-4 text-green-80 text-green-800 font-bold">{booking.bookingStatus}</td>
                                     ) : (
                                         <td className="border border-gray-200 px-4 py-2 text-red-800 font-bold">Canceled</td>
                                     )}
@@ -76,7 +74,7 @@ function Bookings() {
                             ))}
                         </tbody>
                     </table>
-                    <div class="mb-28"></div>
+                    <div class="mb-20"></div>
 
             <div className="flex justify-center mt-4">
                 {[...Array(Math.ceil(bookings.length / itemsPerPage))].map((_, index) => (

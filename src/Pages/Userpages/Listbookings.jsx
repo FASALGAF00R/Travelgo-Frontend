@@ -9,7 +9,7 @@ function Listbookings() {
 
   const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2); 
+  const [itemsPerPage] = useState(5); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,10 +30,10 @@ function Listbookings() {
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
-  const handleClick = async (bookingid, userid) => {
-    console.log(bookingid, userid);
+  const handleClick = async (bookingid, userid,agentid) => {
+    console.log(bookingid, userid,agentid,"agentId");
     try {
-      const CancelBook = await CancelBookPayment(bookingid, userid);
+      const CancelBook = await CancelBookPayment(bookingid, userid,agentid);
       console.log(CancelBook, "Cancel book ");
     } catch (error) {
       console.log(error);
@@ -45,7 +45,7 @@ function Listbookings() {
       <div class="mt-2"></div>
       {bookings.length > 0 ? (
         <div className="container mx-auto px-4 py-8 ">
-          <h2 className="text-3xl font-mono mb-4 animate-bounce text-green-600">User Bookings</h2>
+          <h2 className="text-3xl font-semibold mb-4 animate-bounce text-green-600">User Bookings</h2>
           <div class="mt-4"></div>
           <table className="min-w-full  rounded-lg shadow-md ">
             <thead>
@@ -73,7 +73,7 @@ function Listbookings() {
                   <td className="border border-gray-200 px-4 py-2 text-green-700 font-bold">{booking.bookingStatus}</td>
                   <td className="border border-gray-200 px-8 py-4"><button className="bg-green-500 hover:bg-green-700 text-white font-bold rounded p-4">Details</button></td>
                   {booking.isCanceled === false ? (
-                    <td className="border border-gray-200 px-8 py-4"><button onClick={() => handleClick(booking._id, userid)} className="bg-red-500 hover:bg-red-700 text-white font-bold  rounded p-4">Cancel</button></td>
+                    <td className="border border-gray-200 px-8 py-4"><button onClick={() => handleClick(booking._id, userid ,booking.agentId)} className="bg-red-500 hover:bg-red-700 text-white font-bold  rounded p-4">Cancel</button></td>
                   ) : (
                     <td className="border border-gray-200 px-4 py-2 text-red-800 font-bold">Canceled</td>
                   )}

@@ -131,7 +131,6 @@ function Booking() {
       } else {
 
         const res = await walletPayment(contact, address, state, totalAmount, packageId, userid, agentid, country, city, paymentDate)
-        console.log(res, "ress in handlepayment wallet");
         if (res.data.success === true) {
           toast.success(res.data.message)
           setTimeout(() => {
@@ -285,7 +284,7 @@ function Booking() {
                 {walletOpen ?
                   <div className='flex flex-row gap-4 mt-2'>
                     <h1 className='font-bold'>Your wallet: <span className='text-gray-800'>₹ {Wallet}</span></h1>
-                    <button onClick={() => handlePaymentWallet(formData.contact, formData.address, formData.city, formData.state, formData.country, formData.paymentDate)} className='border-2 border-black  rounded-lg hover:bg-gray-700 hover:text-white'>Pay Now</button>
+                    <button onClick={() => handlePaymentWallet(formData.contact, formData.address, formData.city, formData.state, formData.country, formData.paymentDate)} className='border-2 border-white rounded-lg p-1 hover:scale-110 shadow-md shadow-cyan-700  bg-gray-800 text-white'>Pay Now</button>
                   </div>
                   : ""}
                 <div class="mb-9"></div>

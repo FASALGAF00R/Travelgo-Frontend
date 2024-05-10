@@ -29,10 +29,10 @@ function Listwalletbookings() {
             }
         }
         fetchdata()
-    }, [Walletbookings]);
+    }, []);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(2);
+    const [itemsPerPage] = useState(5);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -46,15 +46,15 @@ function Listwalletbookings() {
 
     return (
         <>
-            <div class="mt-16"></div>
+            <div class="mt-9"></div>
             {Walletbookings.length > 0 ? (
                 <div className="container mx-auto px-8 py-4">
                     <h2 className="text-3xl font-bold mb-2 animate-bounce text-green-600">Wallet Bookings</h2>
                     <div className="flex justify-end text-lg font-bold mb-2">Current Wallet Amount:</div>
                     <div className="flex justify-end text-xl font-bold text-green-600 mb-4">₹ {walletAmount}</div>
-                    <table className="w-full rounded-xl shadow-md">
+                    <table className="w-full rounded-xl shadow-md ">
                         <thead>
-                            <tr>
+                            <tr className='bg-gray-500'>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">No</th>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Username</th>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Date</th>
@@ -74,7 +74,7 @@ function Listwalletbookings() {
                                     <td className="border border-gray-200 px-4 py-2">{currentDate}</td>
                                     <td className="border border-gray-200 px-4 py-2">{booking.payment_type}</td>
                                     <td className="border border-gray-200 px-4 py-2">{booking.phone}</td>
-                                    <td className="border border-gray-200 px-4 py-2">₹ {walletAmount + parseFloat(booking.Amount)}</td>
+                                    <td className="border border-gray-200 px-4 py-2">₹ {walletAmount}</td>
                                     <td className="border border-gray-200 px-4 py-2 font-bold text-green-500">{booking.bookingStatus}</td>
                                     <td className="border border-gray-200 px-4 py-2">
                                         <button className="bg-green-500 hover:bg-green-700 text-white font-bold rounded px-2 py-1">Details</button>

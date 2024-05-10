@@ -184,9 +184,9 @@ function Login() {
                       className="cursor-pointer"
                     >
                       {clicked ? (
-                        <FaEyeSlash onClick={() => setClicked(false)} />
+                        <FaRegEye onClick={() => setClicked(false)} />
                       ) : (
-                        <FaRegEye onClick={() => setClicked(true)} />
+                        <FaEyeSlash onClick={() => setClicked(false)} />
                       )}
                     </svg>
                   </div>
