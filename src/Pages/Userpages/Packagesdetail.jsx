@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
-import { fetchdata } from '../../Api/Userapi';
+import { fetchdata, fetchreview } from '../../Api/Userapi';
 import {
   Button,
   Rating,
@@ -34,35 +34,39 @@ function Packagesdetail() {
   const [endDate, setEndDate] = useState(null);
   const [numberOfPersons, setNumberOfPersons] = useState(1);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [review, Setreview] = useState(null)
+
 
   useEffect(() => {
-    const fetch = async () => {
-      const res = await fetchdata(packageId).then((response) => {
-        console.log(response, 'pppppppppppppppppppppphh');
-        const images = response.data.placespackage.Image
-        Setimages(images)
-        console.log(images, "images");
-        Setpack(response.data.placespackage)
+    const fetchData = async () => {
+      try {
+        const response = await fetchdata(packageId);
+        const images = response.data.placespackage.Image;
+        Setimages(images);
+        Setpack(response.data.placespackage);
+        const reviewData = await fetchreview(packageId);
+        Setreview(reviewData.data.Reviewdetails);
+      } catch (error) {
+        console.error('Error fetching packages:', error);
+      }
+    };
 
-      })
-        .catch((error) => {
-          console.error('Error fetching packages:', error);
-        });
+    fetchData();
+  }, []);
 
-    }
-    fetch()
-  }, [])
 
-  console.log(pack, "Setpack");
+
+
   const perperson = pack.amount
-  console.log(perperson, "perperson");
-  console.log(totalAmount, "totalAmount");
 
 
   useEffect(() => {
     calculateTotalAmount();
-  }, [startDate, endDate, numberOfPersons]);
+  }, [startDate, endDate, numberOfPersons, review]);
 
+
+
+  console.log(review, "review");
 
   const calculateTotalAmount = () => {
     const pricePerPerson = perperson;
@@ -93,6 +97,7 @@ function Packagesdetail() {
       setNumberOfPersons(prevCount => prevCount - 1);
     }
   };
+
 
 
 
@@ -239,51 +244,36 @@ function Packagesdetail() {
           </form>
         </div>
       </div>
-      <div className="p-7">
-        <div className="bg-gray-700 py-10 mt-16  rounded-lg">
-          <div className="container mx-auto px-4 ">
-            <h2 className="text-3xl font-bold text-gray-300 mb-4 text-center">Customer Reviews & Ratings</h2>
-            {/* Assuming reviews and ratings are fetched from somewhere */}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-
-              <div className="bg-white rounded-lg p-6 shadow-md">
-                <p className="text-gray-800 mb-4 ">hdhgfdshfghgggggggggggggggggggggggggg</p>
-                <div className="flex items-center">
-                  {/* Assuming rating is out of 5 */}
-                  <div className="flex">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-
-                  </div>
-                  <span className="text-gray-600 ml-2">ju</span>
+<div className="p-7">
+  <div className="shadow-lg py-10 mt-10 rounded-lg shadow-gray-800">
+    <div className="container mx-auto px-4">
+      {review && review.length > 0 ? (
+        <>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">Customer Reviews & Ratings</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {review.map((el, index) => (
+              <div key={index} className="bg-gray-300 rounded-lg p-6 mt-5 shadow-md">
+                <div className="ml-2 text-gray-900 font-semibold  mb-1">User: {el.userName}</div>
+                <span className="ml-2 text-gray-900 font-semibold  mb-6">Date: {new Date(el.date).toLocaleDateString()}</span>
+                <div>
+                  <p className="text-gray-800 mb-3 overflow-hidden overflow-ellipsis max-h-24" style={{ wordWrap: 'break-word' }}>{el.content}</p>
                 </div>
+                <div className="flex items-center">
+                      <div className="flex justify-center mt-6">
+                        <Rating value={el.rating}  readOnly={true} />
+                        <span className="ml-2">{el.rating} / 5</span>
+                      </div>
+                    </div>
               </div>
-
-            </div>
-
-
-
+            ))}
           </div>
-        </div>
-      </div>
-
-
-
-
-
-
+        </>
+      ) : (
+        <span className="flex justify-center text-red-30000 font-bold text-3xl">No reveiws & ratings yet!</span>
+      )}
+    </div>
+  </div>
+</div>
 
 
       <div className="mb-20 "></div>
@@ -294,3 +284,4 @@ function Packagesdetail() {
 }
 
 export default Packagesdetail
+

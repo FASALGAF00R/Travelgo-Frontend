@@ -348,3 +348,17 @@ export async function submitReview(packageId,agentId, userId, reviewText, rating
         throw error; 
     }
 }
+
+
+
+
+
+export async function fetchreview(id) {
+    try {
+        const result = await userapi.get(`/reviewdetails/${id}`)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+

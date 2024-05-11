@@ -25,7 +25,6 @@ function Listbookings() {
   const [rating, setRating] = useState(0);
 
 
-
   const handleOpen = () => setOpen(!open);
 
 
@@ -198,9 +197,8 @@ console.log(userid,"userid");
             <input type="text" placeholder="Write a review..." value={reviewText} onChange={(e) => setReviewText(e.target.value)} className="flex-grow border text-gray-800 border-gray-900 rounded-lg p-2 mr-2" />
             <Button onClick={handleReviewSubmit } variant="text" color="gray">Submit</Button>
             </div>
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center mt-6 font-bold">Ratings : 
             <Rating value={rating} onChange={(value) => setRating(value)} />
-              <span className="ml-2 text-gray-900 font-semibold">Average Rating: 8</span>
             </div>
             <div>
             </div>
