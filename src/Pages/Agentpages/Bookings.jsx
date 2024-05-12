@@ -20,7 +20,7 @@ function Bookings() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
     const [open, setOpen] = useState(false);
-
+    const [user, Setname] = useState('')
 
     const handleOpen = () => setOpen(!open);
 
@@ -32,8 +32,10 @@ function Bookings() {
             try {
                 const Res = await allBookings();
                 const datas = Res.data.bookings
+              
                 const filteredData = datas.filter((item) => item.agentId === agentselector.id)
                 setBookings(filteredData)
+        
 
             } catch (error) {
                 console.error('Error fetching bookings:', error);
@@ -42,6 +44,8 @@ function Bookings() {
 
         fetchdata();
     }, []);
+
+
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -65,15 +69,15 @@ function Bookings() {
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Payment Type</th>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Mobile</th>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Amount</th>
-                                <th className="border border-gray-200 px-4 py-2 text-gray-800">Status</th>
                                 <th className="border border-gray-200 px-4 py-2 text-gray-800">Details</th>
+                                <th className="border border-gray-200 px-4 py-2 text-gray-800">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentItems.map((booking, index) => (
                                 <tr key={index} className="transition  duration-500 ease-in-out transform hover:bg-gray-100">
                                     <td className="border border-gray-200 px-4 py-2">{index + 1}</td>
-                                    <td className="border border-gray-200 px-4 py-2">{username}</td>
+                                    <td className="border border-gray-200 px-4 py-2">{booking.userName}</td>
                                     <td className="border border-gray-200 px-4 py-2">{new Date(booking.Date).toLocaleDateString()}</td>
                                     <td className="border border-gray-200 px-4 py-2">{booking.payment_type}</td>
                                     <td className="border border-gray-200 px-4 py-2">{booking.phone}</td>
@@ -106,7 +110,7 @@ function Bookings() {
                     </div>
                 </div>
             ) : (
-                <span className="flex justify-center text-red-600 text-xl font-bold ">There are no bookings available</span>
+                <span className="flex justify-center text-red-600 text-xl font-bold mt-48">There are no bookings available !</span>
             )}
 
 
@@ -114,28 +118,28 @@ function Bookings() {
 
 
 
-      <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Its a simple dialog.</DialogHeader>
-        <DialogBody>
-          The key to more success is to have a lot of pillows. Put it this way,
-          it took me twenty five years to get these plants, twenty five years of
-          blood sweat and tears, and I&apos;m never giving up, I&apos;m just
-          getting started. I&apos;m up to something. Fan luv.
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
+            <Dialog open={open} handler={handleOpen}>
+                <DialogHeader>Its a simple dialog.</DialogHeader>
+                <DialogBody>
+                    The key to more success is to have a lot of pillows. Put it this way,
+                    it took me twenty five years to get these plants, twenty five years of
+                    blood sweat and tears, and I&apos;m never giving up, I&apos;m just
+                    getting started. I&apos;m up to something. Fan luv.
+                </DialogBody>
+                <DialogFooter>
+                    <Button
+                        variant="text"
+                        color="red"
+                        onClick={handleOpen}
+                        className="mr-1"
+                    >
+                        <span>Cancel</span>
+                    </Button>
+                    <Button variant="gradient" color="green" onClick={handleOpen}>
+                        <span>Confirm</span>
+                    </Button>
+                </DialogFooter>
+            </Dialog>
 
 
 
@@ -144,7 +148,7 @@ function Bookings() {
     );
 
 
-    
+
 
 }
 

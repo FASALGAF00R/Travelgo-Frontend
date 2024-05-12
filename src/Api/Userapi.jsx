@@ -156,15 +156,6 @@ export async function Placedata(page,limit) {
 
 
 
-export async function Searchplaces(data) {
-    try {
-        const result = await userapi.post('/searchplaces',data)
-        return result
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 export async function UserChecking(data) {
     try {
         const result = await userapi.get(`/checkinguser/${data}`);
@@ -251,9 +242,9 @@ export async function Userbookingdata(form,totalAmount,userid,agentid,packageId,
 
 
 
-export async function fetchBookings() {
+export async function fetchBookings(userid) {
     try {
-        const result = await userapi.get('/fetchbookings')
+        const result = await userapi.get(`/fetchbookings/${userid}`)
         return result
     } catch (error) {
         console.log(error);
@@ -309,9 +300,9 @@ export async function walletPayment(contact, address, state,totalAmount, package
 }
 
 
-export async function fetchallBookings() {
+export async function fetchallBookings(id) {
     try {
-        const result = await userapi.get('/fetchallbookings')
+        const result = await userapi.get(`/fetchallbookings/${id}`)
         return result
     } catch (error) {
         console.log(error);
@@ -362,3 +353,13 @@ export async function fetchreview(id) {
     }
 }
 
+
+
+export async function fetchrating() {
+    try {
+        const result = await userapi.get('/toprating')
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}

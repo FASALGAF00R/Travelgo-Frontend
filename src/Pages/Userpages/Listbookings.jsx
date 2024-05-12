@@ -31,7 +31,7 @@ function Listbookings() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const Res = await fetchallBookings();
+        const Res = await fetchallBookings(userid);
         setBookings(Res.data.bookings);
 
       } catch (error) {
@@ -131,7 +131,11 @@ console.log(userid,"userid");
                   <td className="border border-gray-200 px-4 py-2">{booking.payment_type}</td>
                   <td className="border border-gray-200 px-4 py-2">{booking.phone}</td>
                   <td className="border border-gray-200 px-4 py-2">₹ {booking.Amount}</td>
+                  {booking.isCanceled === true ? (
+                    <td className="border border-gray-200 px-8 py-4 text-red-500 font-bold  rounded p-4">Returned</td>
+                  ):(
                   <td className="border border-gray-200 px-4 py-2 text-green-700 font-bold">{booking.bookingStatus}</td>
+                  )}
                   <td className="border border-gray-200 px-8 py-4">
                     <Button onClick={() => handleDetailsButtonClick(booking.packageId)} variant="gradient">
                       Details
@@ -139,7 +143,7 @@ console.log(userid,"userid");
                   {booking.isCanceled === false ? (
                     <td className="border border-gray-200 px-8 py-4"><button onClick={() => handleClick(booking._id, userid, booking.agentId)} className="bg-red-500 hover:bg-red-700 text-white font-bold  rounded p-4">Cancel</button></td>
                   ) : (
-                    <td className="border border-gray-200 px-11 py-2 text-red-800 font-bold">Canceled</td>
+                    <td className=" border border-gray-200 px-11 py-2 text-red-800 font-bold">Canceled</td>
                   )}
                 </tr>
               ))}
@@ -154,7 +158,7 @@ console.log(userid,"userid");
           </div>
         </div>
       ) : (
-        <span className="flex justify-center text-red-600 text-3xl font-bold ">There are no bookings for this user</span>
+        <span className="flex justify-center text-red-600 text-3xl font-bold mt-48">There are no bookings for this user!</span>
       )}
 
 

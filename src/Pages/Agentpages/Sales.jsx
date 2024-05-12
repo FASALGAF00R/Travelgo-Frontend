@@ -106,7 +106,7 @@ function Sales() {
                     </div>
                 </div>
             ) : (
-                <span className="flex justify-center text-red-600 text-xl font-bold ">There are no Sales available</span>
+                <span className="flex justify-center text-red-600 text-xl font-bold mt-48">There are no sales available !</span>
             )}
 
 

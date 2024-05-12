@@ -36,11 +36,11 @@ function Listwalletbookings() {
 
 
 
-
+// for wallet
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const Res = await fetchBookings()
+                const Res = await fetchBookings(userid)
                 console.log(Res, "Res");
                 SetWalletbookings(Res.data.bookings)
             } catch (error) {
@@ -94,13 +94,20 @@ function Listwalletbookings() {
                                     <td className="border border-gray-200 px-4 py-2">{booking.payment_type}</td>
                                     <td className="border border-gray-200 px-4 py-2">{booking.phone}</td>
                                     <td className="border border-gray-200 px-4 py-2">₹ {walletAmount}</td>
-                                    <td className="border border-gray-200 px-4 py-2 font-bold text-green-500">{booking.bookingStatus}</td>
+                                    {booking.isCanceled === true ? (
+                                        <td className="border border-gray-200 px-8 py-4 text-red-500 font-bold  rounded p-4">failed</td>
+
+                                    ) : (
+
+                                        <td className="border border-gray-200 px-4 py-2 font-bold text-green-500">{booking.bookingStatus}</td>
+                                    )}
+
                                     <td className="border border-gray-200 px-4 py-2">
                                         <Button onClick={handleOpen} variant="gradient">
-                                           Details
+                                            Details
                                         </Button>
                                     </td>
-                                    <td className="border border-gray-200 px-11 py-2 font-bold text-red-500">₹ {-booking.Amount}</td>
+                                    <td className="border border-gray-200 px-11 py-2 font-bold text-red-500">₹ {- booking.Amount}</td>
                                 </tr>
                             ))}
 
@@ -120,11 +127,11 @@ function Listwalletbookings() {
 
                 </div>
             ) : (
-                <tr>
-                    <td colSpan="9" className="font-bold text-2xl flex justify-center items-center  py-4 text-red-600">
-                        There are no wallet bookings for this user
-                    </td>
-                </tr>
+
+                <span className="flex justify-center font-bold text-3xl  items-center  py-4 text-red-600">
+                    There are no wallet bookings for this user!
+                </span>
+
             )}
 
             {/* modal */}
