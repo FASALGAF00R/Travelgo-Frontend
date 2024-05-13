@@ -4,9 +4,8 @@ import Content from '../../Components/Usercomponents/Userhomecomponent/content'
 function Home() {
   return (
     <>
-   
-     <Content/>
-
+    <Content/>
+     
     </>
   )
 }
