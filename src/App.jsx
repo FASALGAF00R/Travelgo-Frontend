@@ -10,9 +10,9 @@ function App() {
         <div className='App'>        
             <Router>
                 <Routes>
-                    <Route path='/*' element={<UserRoutes />}/>
-                    <Route path='/agent*' element={<AgentRoutes />}/>
-                    <Route path='/admin*' element={<AdminRoutes />}/>               
+                    <Route path='/*' element={<UserRoutes/>}/>
+                    <Route path='/agent*' element={<AgentRoutes/>}/>
+                    <Route path='/admin*' element={<AdminRoutes/>}/>               
                 </Routes>
                 </Router>     
         </div >
