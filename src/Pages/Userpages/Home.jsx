@@ -1,5 +1,5 @@
 import React from 'react'
-import Content from '../../Components/Usercomponents/Userhomecomponent/content'
+import Content from '../../../src/Components/Usercomponents/Userhomecomponent/Content'
 
 function Home() {
   return (
