@@ -58,21 +58,19 @@ const Usersignup = () => {
         toast.error("Passwords must match.")
       } else {
         const userData = await signupData(user);
-        if (userData.data.success === false) {
-          toast.error(userData.data.message)
-        } else {
+        console.log(userData,"userDatauserDatauserDatauserData");
+        if (userData.data.success === true) {
           toast.success(userData.data.message)
+        } else {
+          toast.error(userData.data.message)
         }
       }
-
 
     } catch (err) {
       toast.error("Signup failed: " + err.message);
     }
-
-
-
   };
+
   return (
     <>
       <div className="flex items-center justify-center h-screen ">
