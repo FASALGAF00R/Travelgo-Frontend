@@ -3,9 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchpackages, FetchCategory, fetchpackagescat, fetchrating } from '../../Api/Userapi';
 import Background from '../../../src/Assests/Images/mountain-6968913_1280.jpg'
 import { MdCardTravel } from "react-icons/md";
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import Select from "react-select";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+
+
 
 function Packagespage() {
   const min = 500,
@@ -197,15 +202,18 @@ function Packagespage() {
                   </div>
                 </div>
                 <div className='flex justify-between p-3 flex-row'>
-                  <div className='flex  items-center gap-4'>
+                  <div className='flex  items-center gap-10'>
                     <div className="flex flex-col ">
                       <h1 className='capitalize  text-xl '><strong>₹ {pk.amount}</strong></h1>
                       {sortedPackages.map((pk) => {
                         const rating = review.find(r => r.packageId === pk._id);
                         averageRating = rating ? rating.averageRating : 'Not Rated';
                       })}
-                      <p className='mr-1 mt-4 mb-2'>Average Rating: {averageRating} </p>
+                      <p className='mr-1 mt-4 mb-2 text-yellow-800'>
+                        <FontAwesomeIcon icon={faStar} /> Ratings : {averageRating}
+                      </p>
                     </div>
+
                     <button onClick={() => handleclick(pk._id)}
                       className='border-2 border-gray-700 p-2 rounded-sm hover:bg-gray-800 hover:text-white text-black'
                     >View Package
