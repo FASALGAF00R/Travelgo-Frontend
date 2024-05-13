@@ -18,13 +18,6 @@ import Agenterrorpage from '../../Pages/Errorpages/Agenterrorpage'
 
 function AgentRoutes() {
 
- 
-
-
-
-
-
-
   return (
     <div>
       <Routes>
