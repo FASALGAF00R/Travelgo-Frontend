@@ -11,8 +11,8 @@ function App() {
             <Router>
                 <Routes>
                     <Route path='/*' element={<UserRoutes/>}/>
-                    <Route path='/agent/*' element={<AgentRoutes/>}/>
-                    <Route path='/admin/*' element={<AdminRoutes/>}/>               
+                    <Route path='/agent*' element={<AgentRoutes/>}/>
+                    <Route path='/admin*' element={<AdminRoutes />}/>               
                 </Routes>
                 </Router>     
         </div >

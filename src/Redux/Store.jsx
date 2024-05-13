@@ -15,10 +15,10 @@ const rootReducer = {
   agent: persistReducer(persistConfig, AgentSlice),
 };
 
-const store = configureStore({
+const Store = configureStore({
   reducer: rootReducer,
 });
 
-const persistor = persistStore(store);
+const persistor = persistStore(Store);
 
-export default { store, persistor };
+export  { Store, persistor };
