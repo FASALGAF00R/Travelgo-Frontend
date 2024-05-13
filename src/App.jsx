@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
-import UserRoutes from './Routes/UserRouter/userRoutes';
-import AgentRoutes from './Routes/AgentRouter/AgentRoutes';
-import AdminRoutes from './Routes/AdminRouter/AdminRoutes';
+import UserRoutes from '../src/Routes/UserRouter/UserRoutes';
+import AgentRoutes from '../src/Routes/AgentRouter/AgentRoutes';
+import AdminRoutes from '../src/Routes/AdminRouter/AdminRoutes'
 
 
 function App() {

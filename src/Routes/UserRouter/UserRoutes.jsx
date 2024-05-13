@@ -68,4 +68,4 @@ console.log("userroutes");
   )
 }
                                                                                                                                                                                                                                                                                                                                                                                                                               
-export default {UserRoutes}
+export default UserRoutes
