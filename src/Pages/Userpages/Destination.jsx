@@ -63,18 +63,21 @@ function Destination() {
           ) : (
             filteredPlaces.map((place) => (
               <div
-                key={place._id}
-                onClick={() => handleClick(place._id)}
-                className="group bg-white shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md shadow-gray-500"
-              >
-                <div className="overflow-hidden card transform transition-transform duration-200 hover:scale-105">
-                  <img src={place.Image} alt={place.Destrictname} className="object-cover h-40 w-full" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                  </div>
+              key={place._id}
+              onClick={() => handleClick(place._id)}
+              className="group bg-white shadow-lg rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md shadow-gray-500"
+            >
+              <div className="overflow-hidden card transform transition-transform duration-200 hover:scale-105">
+                <img src={place.Image} alt={place.Destrictname} className="object-cover h-40 w-full" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
                 </div>
-                <p className="text-gray-900 ml-3 text-lg font-medium">{place.Destrictname}</p>
-                <p className="text-gray-900 p-1 mt-2 overflow-hidden overflow-ellipsis">{place.Description}</p>
               </div>
+              <div className="p-4">
+                <p className="text-gray-900 text-lg font-semibold">{place.Destrictname}</p>
+                <p className="text-gray-900 mt-2 overflow-hidden overflow-ellipsis">{place.Description.length > 100 ? `${place.Description.substring(0, 100)}...` : place.Description}</p>
+              </div>
+            </div>
+            
             ))
           )}
         </div>

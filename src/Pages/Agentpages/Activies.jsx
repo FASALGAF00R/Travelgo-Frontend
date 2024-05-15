@@ -235,7 +235,7 @@ const totalPages = Math.ceil(edit.length / perpage);
                 {Array.from({ length: totalPages }, (_, index) => (
                     <button
                         key={index}
-                        className={`mx-1 px-3 py-1 rounded-lg ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+                        className={`mx-1 px-3 py-1 rounded-lg ${currentPage === index + 1 ? 'bg-gray-700 text-white' : 'bg-gray-200 text-gray-800'
                             }`}
                         onClick={() => onPageChange(index + 1)}
                     >

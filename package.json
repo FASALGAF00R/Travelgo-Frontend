@@ -42,6 +42,7 @@
         "react-spinners": "^0.13.8",
         "react-toastify": "^10.0.5",
         "redux-persist": "^6.0.0",
+        "rumble-charts": "^5.0.0",
         "slick-carousel": "^1.8.1",
         "tailwindcss-animate": "^1.0.7",
         "use-places-autocomplete": "^4.0.1"

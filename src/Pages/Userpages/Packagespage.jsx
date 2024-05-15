@@ -207,7 +207,7 @@ function Packagespage() {
                       <h1 className='capitalize  text-xl '><strong>₹ {pk.amount}</strong></h1>
                       {sortedPackages.map((pk) => {
                         const rating = review.find(r => r.packageId === pk._id);
-                        averageRating = rating ? rating.averageRating : 'Not Rated';
+                        averageRating = rating ? rating.averageRating : '0';
                       })}
                       <p className='mr-1 mt-4 mb-2 text-yellow-800'>
                         <FontAwesomeIcon icon={faStar} /> Ratings : {averageRating}

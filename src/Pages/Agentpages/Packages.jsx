@@ -61,7 +61,7 @@ function Packages() {
     setCurrentPage(pageNumber);
   };
 
-console.log(state,"state");
+  console.log(state, "state");
   const totalPages = Math.ceil(pack.length / perpage);
 
 
@@ -70,18 +70,16 @@ console.log(state,"state");
 
   const handleImageUpload = async (e) => {
     const file = e.target.files;
+    console.log(file, "file");
     try {
       const urls = await uploadImage(file);
       setPreviewSource(urls)
-
-
     } catch (error) {
       console.error("Error uploading images:", error);
-
     }
 
-
   };
+
 
   const uploadImage = async (files) => {
     try {
@@ -153,7 +151,7 @@ console.log(state,"state");
 
 
 
-  
+
 
 
 
@@ -209,35 +207,35 @@ console.log(state,"state");
     //   return;
     // }else {
 
-      try {
-        const data = {
-          ...formData,
-          image: previewSource
-        }
-
-        const res = await Addpackagedata(data, selector.id);
-        Setpackage(prevPack => [...prevPack, res.data]);
-      } catch (error) {
-        console.log("error while submitting form", error);
+    try {
+      const data = {
+        ...formData,
+        image: previewSource
       }
 
-      setFormData({
-        placeName: '',
-        image: null,
-        category: '',
-        description: '',
-        activities: [],
-        amount: '',
-        perDay: ''
-      });
-      setOpen(false);
-    
+      const res = await Addpackagedata(data, selector.id);
+      Setpackage(prevPack => [...prevPack, res.data]);
+    } catch (error) {
+      console.log("error while submitting form", error);
+    }
+
+    setFormData({
+      placeName: '',
+      image: null,
+      category: '',
+      description: '',
+      activities: [],
+      amount: '',
+      perDay: ''
+    });
+    setOpen(false);
+
   }
 
 
 
 
-  
+
   const handleblock = async (packid) => {
     const Response = await Blockpackages(packid)
     Setpackage(prevpack => {
@@ -253,7 +251,7 @@ console.log(state,"state");
   }
 
 
-console.log(pack,"pack");
+  console.log(pack, "pack");
 
 
 
@@ -290,7 +288,7 @@ console.log(pack,"pack");
                 onClick={handleclick}
               >
                 <option value="" >select state</option>
-                <option value="Kerala" >Kerala</option> 
+                <option value="Kerala" >Kerala</option>
               </select>
 
             </div>
@@ -426,7 +424,7 @@ console.log(pack,"pack");
 
             <div key={pk._id} className="shadow-lg shadow-gray-400 border-2  border-gray-400 rounded-lg overflow-hidden card transform transition-transform duration-200 hover:scale-105 hover:shadow-md">
               <img
-                src={pk.Image[0]}
+                src={pk.Image?.[0]}
                 alt={pk.Destrictname}
                 className="object-cover w-full h-40"
               />
@@ -470,7 +468,7 @@ console.log(pack,"pack");
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index}
-            className={`mx-1 px-3 py-1 rounded-lg ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+            className={`mx-1 px-3 py-1 rounded-lg ${currentPage === index + 1 ? 'bg-gray-700 text-white' : 'bg-gray-200 text-gray-800'
               }`}
             onClick={() => onPageChange(index + 1)}
           >

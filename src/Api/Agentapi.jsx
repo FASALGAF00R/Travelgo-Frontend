@@ -269,3 +269,37 @@ export async function allBookings() {
 }
 
 
+export async function Userscount(agentid) {
+    try {
+        const result = await agentapi.get(`/numberofusers/${agentid}`);
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+
+
+export async function Packagescount(agentid) {
+    try {
+        const result = await agentapi.get(`/numberofpackages/${agentid}`);
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+
+export async function MonthlyAmount(agentid) {
+    try {
+        const result = await agentapi.get(`/montlyamount/${agentid}`);
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}

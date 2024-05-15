@@ -97,7 +97,7 @@ function Sales() {
                     </table>
                     <div class="mb-20"></div>
 
-                    <div className="flex justify-center mt-4">
+                    <div className="flex justify-center mt-64">
                         {[...Array(Math.ceil(bookings.length / itemsPerPage))].map((_, index) => (
                             <button key={index} onClick={() => paginate(index + 1)} className="bg-gray-800  text-white font-bold py-2 px-4 mx-1 rounded">
                                 {index + 1}

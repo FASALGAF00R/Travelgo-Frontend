@@ -5,7 +5,7 @@ const userapi = Userinterception
 
 
 export async function signupData(data) {
-    console.log(data);
+    console.log(data,"dataa in user apiii signupp");
     try {
         const userdata = await userapi.post('/signup', data)
         return userdata

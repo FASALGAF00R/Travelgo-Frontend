@@ -31,8 +31,6 @@ function Booking() {
   const startDate = location.state.startDate
   const endDate = location.state.endDate
 
-  // console.log(packageId, "packageIdfd");
-  // console.log(packagee.Destrictname, "packagee");
 
   const startDateFormatted = startDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   const endDateFormatted = endDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });

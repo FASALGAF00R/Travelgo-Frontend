@@ -58,7 +58,7 @@ const Usersignup = () => {
         toast.error("Passwords must match.")
       } else {
         const userData = await signupData(user);
-        console.log(userData,"userDatauserDatauserDatauserData");
+        console.log(user,"user");
         if (userData.data.success === true) {
           toast.success(userData.data.message)
         } else {

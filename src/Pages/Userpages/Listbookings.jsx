@@ -23,7 +23,7 @@ function Listbookings() {
   const [packageDetails, setPackageDetails] = useState(null); // State to store package details
   const [reviewText, setReviewText] = useState(""); // State to store user review text
   const [rating, setRating] = useState(0);
-
+ const[refresh,Setrefresh]=useState(false)
 
   const handleOpen = () => setOpen(!open);
 
@@ -33,14 +33,14 @@ function Listbookings() {
       try {
         const Res = await fetchallBookings(userid);
         setBookings(Res.data.bookings);
-
+        Setrefresh(false)
       } catch (error) {
         console.error('Error fetching bookings:', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [refresh]);
 
 
 
@@ -56,6 +56,7 @@ function Listbookings() {
   const handleClick = async (bookingid, userid, agentid) => {
     try {
       const CancelBook = await CancelBookPayment(bookingid, userid, agentid);
+      Setrefresh(!refresh)
     } catch (error) {
       console.log(error);
     }

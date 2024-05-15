@@ -240,9 +240,9 @@ function Places() {
                 <div key={place._id}>
                   <div className="flex justify-center">
                     {!place.isBlock ? (
-                      <Button className='bg-red-800 hover:scale-110' onClick={() => handleBlock(place._id)}>Block</Button>
-                    ) : (
                       <Button className='bg-green-800 hover:scale-110' onClick={() => handleBlock(place._id)}>unBlock</Button>
+                    ) : (
+                      <Button className='bg-red-800 hover:scale-110' onClick={() => handleBlock(place._id)}>Block</Button>
                     )}
                   </div>
                   <div onClick={() => handleEdit(place)} className='mt-8 ml-2 w-72 shadow-2xl h-[400px] rounded-xl overflow-hidden card transform transition-transform duration-200 hover:scale-95 hover:shadow-md'>
