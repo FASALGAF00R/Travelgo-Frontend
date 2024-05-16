@@ -185,7 +185,8 @@ function Bookings() {
             </Dialog>
 
 
-
+            <div className=" mt-96">
+      </div>
         </>
     );
 

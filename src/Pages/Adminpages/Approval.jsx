@@ -83,7 +83,7 @@ function Approval() {
                 )}
             </div>
 
-            <div className="flex justify-center mt-80">
+            <div className="flex justify-center mt-96">
                 <ul className="flex">
                     {[...Array(Math.ceil(agents.length / agentsPerPage))].map((_, index) => (
                         <li key={index}>

@@ -279,7 +279,7 @@ function Packagecategory() {
                 )}
             </Card>
 
-            <div className="flex justify-center mt-64">
+            <div className="flex justify-center mt-96">
                 {Array.from({ length: totalPages }, (_, index) => (
                     <button
                         key={index}

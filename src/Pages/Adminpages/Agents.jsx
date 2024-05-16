@@ -104,7 +104,7 @@ function Agents() {
                 )}
 
             </div>
-            <ul className="flex justify-center mt-80">
+            <ul className="flex justify-center mt-96">
                 {Array.from({ length: Math.ceil(agents.length / agentsPerPage) }).map((_, index) => (
                     <li key={index} className="mr-3">
                         <button onClick={() => paginate(index + 1)} className="bg-blue-gray-700 hover:bg-blue-gray-600 px-5 py-1 text-white rounded-md">{index + 1}</button>

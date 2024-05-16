@@ -92,7 +92,7 @@ function Dashboard() {
         };
 
         fetchData();
-    }, [agentid]);
+    }, [userCount,packCount,monthlyAmounts]);
 
 
     console.log(packCount, "packCount");
@@ -110,7 +110,7 @@ function Dashboard() {
                             {userCount > 0 ? (
                                 <p className="text-2xl text-sky-700"> {userCount} </p>
                             ) : (
-                                <p className="text-2xl text-sky-700">₹: 0 </p>
+                                <p className="text-2xl text-sky-700"> 0 </p>
                             )}
 
                         </div>
@@ -167,6 +167,8 @@ function Dashboard() {
             <div className="bg-blue-gray-50 shadow-xl p-5 py-12 relative" style={{ maxWidth: '80%', margin: '0 auto' }}>
                 <ReactApexChart options={chartOptions} series={doughnutChartData.series} type="donut" height={350} />
             </div> */}
+                        <div className=" mt-96"></div>
+
         </>
     );
 }

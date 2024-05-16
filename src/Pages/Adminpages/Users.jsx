@@ -106,7 +106,7 @@ function Users() {
           <p className='text-red-700'>No users available !</p>
         )}
       </div>
-      <div className="flex justify-center mt-80">
+      <div className="flex justify-center mt-96">
         <ul className="flex">
           {Array.from({ length: Math.ceil(users.length / usersPerPage) }).map((_, index) => (
             <li key={index} className="mr-3">

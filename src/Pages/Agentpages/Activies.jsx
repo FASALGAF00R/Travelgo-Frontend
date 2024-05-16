@@ -17,12 +17,12 @@ import { useSelector } from 'react-redux';
 function Activities() {
 
   const selector = useSelector(state => state.agent.agentInfo)
-  console.log(selector,"selectoractivity");
+  console.log(selector, "selectoractivity");
 
 
 
 
-  
+
   const [open, setOpen] = useState(false);
   const [form, setFormdata] = useState('');
   const [edit, setEdit] = useState([]);
@@ -30,30 +30,30 @@ function Activities() {
   const [errorMessage, setErrorMessage] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  
-  const perpage =5
+
+  const perpage = 5
   const indexoflastitem = currentPage * perpage;
   const firstindexofitem = indexoflastitem - perpage;
-  
+
 
   const currentItems = edit.slice(firstindexofitem, indexoflastitem);
 
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-};
+  };
 
-const totalPages = Math.ceil(edit.length / perpage);
+  const totalPages = Math.ceil(edit.length / perpage);
 
 
   useEffect(() => {
     try {
-      Fetchactivies().then((res) =>{
-        const datas=res.data
-      const filteredData = datas.filter((item) => item.agentid === selector.id)
-      setEdit(filteredData)
+      Fetchactivies().then((res) => {
+        const datas = res.data
+        const filteredData = datas.filter((item) => item.agentid === selector.id)
+        setEdit(filteredData)
 
 
-    });
+      });
     } catch (error) {
       console.log("error occurred while fetching activities", error);
     }
@@ -92,7 +92,7 @@ const totalPages = Math.ceil(edit.length / perpage);
       if (selectedActivity) {
         await UpdateActivity(selectedActivity._id, { form: form });
       } else {
-        await Addactivity( form,selector.id );
+        await Addactivity(form, selector.id);
       }
       Fetchactivies().then((res) => setEdit(res.data));
     } catch (error) {
@@ -123,8 +123,8 @@ const totalPages = Math.ceil(edit.length / perpage);
         <div className='flex justify-center'>
           <span className='font-extrabold text-blue-gray-700'>ACTIVITIES</span>
           <span className='font-extrabold text-gray-600'> MANAGEMENT</span>
-        </div>        
         </div>
+      </div>
       <div className="w-[100%] flex justify-end">
         <button onClick={() => handleOpen(null)} className="bg-blue-gray-700 p-2  mt-10 mr-5 text-cyan-50 rounded-lg">Add activity
         </button>
@@ -233,17 +233,20 @@ const totalPages = Math.ceil(edit.length / perpage);
         </table>
       </Card>
       <div className="flex justify-center mt-4">
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <button
-                        key={index}
-                        className={`mx-1 px-3 py-1 rounded-lg ${currentPage === index + 1 ? 'bg-gray-700 text-white' : 'bg-gray-200 text-gray-800'
-                            }`}
-                        onClick={() => onPageChange(index + 1)}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
-            </div>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            className={`mx-1 px-3 py-1 rounded-lg ${currentPage === index + 1 ? 'bg-gray-700 text-white' : 'bg-gray-200 text-gray-800'
+              }`}
+            onClick={() => onPageChange(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+
+      <div className=" mt-96">
+      </div>
     </>
   );
 }
