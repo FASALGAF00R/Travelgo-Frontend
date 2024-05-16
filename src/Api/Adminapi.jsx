@@ -137,3 +137,60 @@ export async function Placedata(data) {
         console.log(error);
     }
 }
+
+
+export async function adminUserscount() {
+    try {
+        const result = await Adminapi.get('/numberofusers/admin');
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+export async function adminAgentscount() {
+    try {
+        const result = await Adminapi.get('/numberofagents/admin');
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+
+
+export async function adminPackagescount() {
+    try {
+        const result = await Adminapi.get('/numberofpackages/admin');
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+export async function adminMonthlyAmount() {
+    try {
+        const result = await Adminapi.get('/montlyamount/admin');
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+export async function adminpaymenttypes() {
+    try {
+        const result = await Adminapi.get('/paymenttypes/admin');
+        return result
+    } catch (error) {
+        console.log(error);
+
+    }
+}
