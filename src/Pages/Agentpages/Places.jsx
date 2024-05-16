@@ -102,16 +102,15 @@ function Places() {
       if (editingPlace) {
         await UpdatePlace(editingPlace._id, { Data: formdata });
       } else {
-        await Placedata(formdata, selector.id)
-          .then((response) => {
-            console.log(response.data.place, "response");
-            setPlaces((prevPlaces) => {
-              const newPlaces = [...prevPlaces, response.data.place];
-              const totalPages = Math.ceil(newPlaces.length / limit);
-              Setpages(totalPages);
-              return newPlaces;
-          });
-          });
+        const response = await Placedata(formdata, selector.id)
+        console.log(response.data.place, "response");
+        setPlaces((prevPlaces) => {
+          const newPlaces = [...prevPlaces, response.data.place];
+          const totalPages = Math.ceil(newPlaces.length / limit);
+          Setpages(totalPages);
+          return newPlaces;
+        });
+
         setPlaceModalOpen(!placeModalOpen);
         setErrorMessage('');
       }
@@ -169,7 +168,7 @@ function Places() {
       <Dialog open={placeModalOpen} handler={openModal}>
         <DialogHeader>{editingPlace ? 'Edit Place' : 'Add Place'}</DialogHeader>
         <DialogBody>
-          <form   onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
 
             <div className="flex flex-col mb-4">
               <label className="mb-2 text-blue-gray-900 font-medium" htmlFor="State">State:</label>
@@ -230,7 +229,7 @@ function Places() {
       </Dialog>
 
 
-      { Places.length > 0 ? (
+      {Places.length > 0 ? (
         <div>
           <div className='flex flex-col'>
             <div className='flex flex-wrap justify-center gap-5'>
