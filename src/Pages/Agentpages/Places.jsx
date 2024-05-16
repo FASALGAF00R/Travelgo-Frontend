@@ -45,14 +45,13 @@ function Places() {
     } catch (error) {
       console.log("error while fetching places", error);
     }
-  }, [page, limit])
+  }, [page, limit,Places])
 
 
 
 
   // for opening and closing the modals
   const openModal = () => {
-    setRefresh(true)
 
     setEditingPlace(null);
     setformdata({
@@ -78,14 +77,11 @@ function Places() {
   };
 
 
-  const handleclick = () => {
-    refresh === true ? setRefresh(false) : setRefresh(true);
-  }
+
 
 
 
   const handleSubmit = async (e) => {
-    setRefresh(false)
     e.preventDefault();
     try {
       if (!formdata.Destrictname.trim() || !formdata.description.trim()) {
