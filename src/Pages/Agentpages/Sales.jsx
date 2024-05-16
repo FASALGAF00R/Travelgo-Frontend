@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { allBookings } from '../../Api/Agentapi';
+import { allBookings, displayagentPackageDetails } from '../../Api/Agentapi';
 import { useSelector } from 'react-redux';
 import {
     Button,
@@ -7,7 +7,7 @@ import {
     DialogHeader,
     DialogBody,
     DialogFooter,
-  } from "@material-tailwind/react";
+} from "@material-tailwind/react";
 
 
 function Sales() {
@@ -19,8 +19,10 @@ function Sales() {
     const [itemsPerPage] = useState(5);
     const [amount, Setamount] = useState([])
     const [open, setOpen] = useState(false);
+    const [selectedBooking, setSelectedBooking] = useState(null);
+    const [packageDetails, setPackageDetails] = useState(null);
 
-    // const totalAmount = amount.reduce((acc, curr) => acc + curr, 0);
+
     const handleOpen = () => setOpen(!open);
 
 
@@ -54,7 +56,20 @@ function Sales() {
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
+    const handleDetailsButtonClick = async (packageId) => {
 
+        const selectedBooking = bookings.find(booking => booking.packageId === packageId);
+        setSelectedBooking(selectedBooking);
+        try {
+            const packageDetails = await displayagentPackageDetails(selectedBooking.packageId);
+            console.log(packageDetails, "packageDetails");
+            setPackageDetails(packageDetails.data.packagedetails);
+        } catch (error) {
+            console.error('Error fetching package details:', error);
+        }
+
+        handleOpen();
+    };
 
 
     return (
@@ -88,8 +103,8 @@ function Sales() {
                                     ) : (
                                         <td className="border font-bold text-green-800 border-gray-200 px-4 py-2">{booking.bookingStatus}</td>
                                     )}
-                                    <td className="border border-gray-200  px-9 py-2 "> <Button onClick={handleOpen} variant="gradient">
-                                       Details
+                                    <td className="flex justify-center border border-gray-200 py-4 "> <Button onClick={() => handleDetailsButtonClick(booking.packageId)} variant="gradient">
+                                        Details
                                     </Button></td>
                                 </tr>
                             ))}
@@ -111,28 +126,49 @@ function Sales() {
 
 
 
-      <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Its a simple dialog.</DialogHeader>
-        <DialogBody>
-          The key to more success is to have a lot of pillows. Put it this way,
-          it took me twenty five years to get these plants, twenty five years of
-          blood sweat and tears, and I&apos;m never giving up, I&apos;m just
-          getting started. I&apos;m up to something. Fan luv.
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
+            <Dialog open={open} handler={handleOpen}>
+                <DialogHeader>Booking Details</DialogHeader>
+                <DialogBody>
+                    {packageDetails ? (
+                        <div>
+                            <div className="grid grid-cols-3 gap-4">
+                                {packageDetails.Image.map((imageUrl, index) => (
+                                    <div key={index} className="bg-white p-2 shadow-md rounded-lg">
+                                        <img src={imageUrl} alt={`Image ${index + 1}`} className="w-full h-auto" />
+                                    </div>
+                                ))}
+                            </div>
+
+                            <h3>{packageDetails.Destrictname}, {packageDetails.State}</h3>
+                            <p><strong>Category:</strong> {packageDetails.category}</p>
+                            <p><strong>Details:</strong> {packageDetails.details}</p>
+                            <p><strong>Activities:</strong></p>
+                            <ul>
+                                {packageDetails.activites.map((activity, index) => (
+                                    <li key={index}>{activity}</li>
+                                ))}
+                            </ul>
+                            <p><strong>Amount per Day:</strong> ₹{packageDetails.perDAy}</p>
+                            <p><strong>Amount:</strong> ₹{packageDetails.amount}</p>
+
+
+                        </div>
+                    ) : (
+                        <p>Loading package details...</p>
+                    )}
+                </DialogBody>
+                <DialogFooter>
+                    <Button
+                        variant="text"
+                        color="red"
+                        onClick={handleOpen}
+                        className="mr-1"
+                    >
+                        <span>Close</span>
+                    </Button>
+
+                </DialogFooter>
+            </Dialog>
 
 
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { allBookings } from '../../Api/Agentapi';
+import { allBookings, displayagentPackageDetails } from '../../Api/Agentapi';
 import { useSelector } from 'react-redux';
 import {
     Button,
@@ -21,6 +21,8 @@ function Bookings() {
     const [itemsPerPage] = useState(5);
     const [open, setOpen] = useState(false);
     const [user, Setname] = useState('')
+    const [selectedBooking, setSelectedBooking] = useState(null); 
+    const [packageDetails, setPackageDetails] = useState(null);
 
     const handleOpen = () => setOpen(!open);
 
@@ -53,6 +55,27 @@ function Bookings() {
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
+
+
+    const handleDetailsButtonClick = async (packageId) => {
+
+        const selectedBooking = bookings.find(booking => booking.packageId === packageId);
+        setSelectedBooking(selectedBooking);
+        try {
+          const packageDetails = await displayagentPackageDetails(selectedBooking.packageId);
+          setPackageDetails(packageDetails.data.packagedetails);
+        } catch (error) {
+          console.error('Error fetching package details:', error);
+        }
+    
+        handleOpen();
+      };
+
+
+
+
+
+
     return (
         <>
             {bookings.length > 0 ? (
@@ -83,7 +106,7 @@ function Bookings() {
                                     <td className="border border-gray-200 px-4 py-2">{booking.phone}</td>
                                     <td className="border border-gray-200 px-4 py-2">₹ {booking.Amount}</td>
                                     <td className="border border-gray-200 px-8 py-4">
-                                        <Button onClick={handleOpen} variant="gradient">
+                                        <Button onClick={() => handleDetailsButtonClick(booking.packageId)} variant="gradient">
                                             Details
                                         </Button>
 
@@ -117,14 +140,36 @@ function Bookings() {
 
 
 
-
-            <Dialog open={open} handler={handleOpen}>
-                <DialogHeader>Its a simple dialog.</DialogHeader>
+<Dialog open={open} handler={handleOpen}>
+                <DialogHeader>Booking Details</DialogHeader>
                 <DialogBody>
-                    The key to more success is to have a lot of pillows. Put it this way,
-                    it took me twenty five years to get these plants, twenty five years of
-                    blood sweat and tears, and I&apos;m never giving up, I&apos;m just
-                    getting started. I&apos;m up to something. Fan luv.
+                    {packageDetails ? (
+                        <div>
+                            <div className="grid grid-cols-3 gap-4">
+                                {packageDetails.Image.map((imageUrl, index) => (
+                                    <div key={index} className="bg-white p-2 shadow-md rounded-lg">
+                                        <img src={imageUrl} alt={`Image ${index + 1}`} className="w-full h-auto" />
+                                    </div>
+                                ))}
+                            </div>
+
+                            <h3>{packageDetails.Destrictname}, {packageDetails.State}</h3>
+                            <p><strong>Category:</strong> {packageDetails.category}</p>
+                            <p><strong>Details:</strong> {packageDetails.details}</p>
+                            <p><strong>Activities:</strong></p>
+                            <ul>
+                                {packageDetails.activites.map((activity, index) => (
+                                    <li key={index}>{activity}</li>
+                                ))}
+                            </ul>
+                            <p><strong>Amount per Day:</strong> ₹{packageDetails.perDAy}</p>
+                            <p><strong>Amount:</strong> ₹{packageDetails.amount}</p>
+
+                    
+                        </div>
+                    ) : (
+                        <p>Loading package details...</p>
+                      )}
                 </DialogBody>
                 <DialogFooter>
                     <Button
@@ -133,14 +178,11 @@ function Bookings() {
                         onClick={handleOpen}
                         className="mr-1"
                     >
-                        <span>Cancel</span>
+                        <span>Close</span>
                     </Button>
-                    <Button variant="gradient" color="green" onClick={handleOpen}>
-                        <span>Confirm</span>
-                    </Button>
+
                 </DialogFooter>
             </Dialog>
-
 
 
 

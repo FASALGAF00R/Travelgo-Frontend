@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CancelBookPayment, fetchBookings } from '../../Api/Userapi';
+import { CancelBookPayment, fetchBookings, walletPackageDetails } from '../../Api/Userapi';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa';
@@ -13,10 +13,8 @@ import {
 
 function Listwalletbookings() {
     const location = useLocation();
-    console.log(location, "ggggggggg");
     const searchParams = new URLSearchParams(location.search);
     const walletAmount = parseFloat(searchParams.get('wallet'));
-    console.log(walletAmount, "'wallet");
 
     const selector = useSelector(state => state.user.userInfo)
     const username = selector.username
@@ -24,6 +22,10 @@ function Listwalletbookings() {
 
     const [open, setOpen] = useState(false);
     const [Walletbookings, SetWalletbookings] = useState([])
+    const [packageDetails, setPackageDetails] = useState(null);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(5);
     const currentDate = new Date().toLocaleDateString();
 
 
@@ -36,13 +38,13 @@ function Listwalletbookings() {
 
 
 
-// for wallet
+    // for wallet
     useEffect(() => {
         const fetchdata = async () => {
             try {
                 const Res = await fetchBookings(userid)
-                console.log(Res, "Res");
                 SetWalletbookings(Res.data.bookings)
+
             } catch (error) {
                 console.error('Error fetching bookings:', error)
             }
@@ -50,8 +52,7 @@ function Listwalletbookings() {
         fetchdata()
     }, []);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5);
+
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -62,6 +63,21 @@ function Listwalletbookings() {
     const calculateDebitedAmount = booking => {
         return walletAmount - parseFloat(booking.Amount);
     };
+
+
+    const handleDetailsClick = async (packageid) => {
+        try {
+            const walpackageDetailsRes = await walletPackageDetails(packageid);
+            setPackageDetails(walpackageDetailsRes.data.walletpackagedetails)
+
+
+        } catch (error) {
+            console.error('Error fetching package details:', error);
+
+        }
+        handleOpen();
+    };
+
 
     return (
         <>
@@ -103,7 +119,7 @@ function Listwalletbookings() {
                                     )}
 
                                     <td className="border border-gray-200 px-4 py-2">
-                                        <Button onClick={handleOpen} variant="gradient">
+                                        <Button onClick={() => handleDetailsClick(booking.packageId)} variant="gradient">
                                             Details
                                         </Button>
                                     </td>
@@ -138,12 +154,35 @@ function Listwalletbookings() {
 
 
             <Dialog open={open} handler={handleOpen}>
-                <DialogHeader>Its a simple dialog.</DialogHeader>
+                <DialogHeader>Booking Details</DialogHeader>
                 <DialogBody>
-                    The key to more success is to have a lot of pillows. Put it this way,
-                    it took me twenty five years to get these plants, twenty five years of
-                    blood sweat and tears, and I&apos;m never giving up, I&apos;m just
-                    getting started. I&apos;m up to something. Fan luv.
+                    {packageDetails ? (
+                        <div>
+                            <div className="grid grid-cols-3 gap-4">
+                                {packageDetails.Image.map((imageUrl, index) => (
+                                    <div key={index} className="bg-white p-2 shadow-md rounded-lg">
+                                        <img src={imageUrl} alt={`Image ${index + 1}`} className="w-full h-auto" />
+                                    </div>
+                                ))}
+                            </div>
+
+                            <h3>{packageDetails.Destrictname}, {packageDetails.State}</h3>
+                            <p><strong>Category:</strong> {packageDetails.category}</p>
+                            <p><strong>Details:</strong> {packageDetails.details}</p>
+                            <p><strong>Activities:</strong></p>
+                            <ul>
+                                {packageDetails.activites.map((activity, index) => (
+                                    <li key={index}>{activity}</li>
+                                ))}
+                            </ul>
+                            <p><strong>Amount per Day:</strong> ₹{packageDetails.perDAy}</p>
+                            <p><strong>Amount:</strong> ₹{packageDetails.amount}</p>
+
+                    
+                        </div>
+                    ) : (
+                        <p>Loading package details...</p>
+                      )}
                 </DialogBody>
                 <DialogFooter>
                     <Button
@@ -154,13 +193,9 @@ function Listwalletbookings() {
                     >
                         <span>Cancel</span>
                     </Button>
-                    <Button variant="gradient" color="green" onClick={handleOpen}>
-                        <span>Confirm</span>
-                    </Button>
+
                 </DialogFooter>
             </Dialog>
-
-
 
 
 

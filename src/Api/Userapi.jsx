@@ -363,3 +363,13 @@ export async function fetchrating() {
         console.log(error);
     }
 }
+
+
+export async function walletPackageDetails(packageid) {
+    try {
+        const result = await userapi.get(`/walletbookingsdetails/${packageid}`)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}

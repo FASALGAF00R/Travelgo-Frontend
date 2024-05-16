@@ -303,3 +303,17 @@ export async function MonthlyAmount(agentid) {
 
     }
 }
+
+
+
+export async function displayagentPackageDetails(packageId) {
+    console.log(packageId,"packageId");
+    try {
+        const result = await agentapi.get(`/fetchagentpackagedetails/${packageId}`)
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+

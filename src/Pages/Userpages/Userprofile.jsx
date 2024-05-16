@@ -15,8 +15,9 @@ import { CiLogout } from "react-icons/ci";
 function Userprofile() {
 
   const selector = useSelector(state => state.user.userInfo)
-  console.log(selector, "selector");
+  console.log(selector,"selector");
   const userid = selector.id
+  const email=selector.email
 
   const location = useLocation();
   const navigate = useNavigate()
@@ -92,7 +93,7 @@ function Userprofile() {
       const response = await resetPassword({ email, formData });
       console.log(response);
       if (response.data.success === true) {
-        toast.success("updated")
+        toast.success("password updated")
         setTimeout(() => {
           navigate(RouteObjects.UserProfile)
 

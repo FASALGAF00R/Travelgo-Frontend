@@ -9,6 +9,8 @@ import {
   DialogFooter,
   Rating
 } from "@material-tailwind/react";
+import toast, { Toaster } from "react-hot-toast";
+
 
 function Listbookings() {
   const selector = useSelector(state => state.user.userInfo);
@@ -20,10 +22,14 @@ function Listbookings() {
   const [itemsPerPage] = useState(5);
   const [open, setOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null); // State to store selected booking
-  const [packageDetails, setPackageDetails] = useState(null); // State to store package details
-  const [reviewText, setReviewText] = useState(""); // State to store user review text
+  const [packageDetails, setPackageDetails] = useState(null);
+  const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
- const[refresh,Setrefresh]=useState(false)
+  const [refresh, Setrefresh] = useState(false)
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true); // State to track if submit button should be disabled
+
+
+
 
   const handleOpen = () => setOpen(!open);
 
@@ -44,7 +50,6 @@ function Listbookings() {
 
 
 
-  console.log(bookings, "bookings");
 
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -63,14 +68,12 @@ function Listbookings() {
   };
 
 
-console.log(userid,"userid");
 
 
 
   const handleDetailsButtonClick = async (packageId) => {
 
     const selectedBooking = bookings.find(booking => booking.packageId === packageId);
-    console.log(selectedBooking, "selectedBooking");
     setSelectedBooking(selectedBooking);
     try {
       const packageDetails = await displayPackageDetails(selectedBooking.packageId);
@@ -84,14 +87,25 @@ console.log(userid,"userid");
 
 
   const handleReviewSubmit = async () => {
-    try {
-      const response = await submitReview(selectedBooking.packageId,selectedBooking.agentId, userid, reviewText, rating);
-      console.log("Review submitted successfully:", response);
-    } catch (error) {
-      console.error('Error submitting review:', error);
-    }
-  };
+    if (reviewText && rating) {
 
+      try {
+        const response = await submitReview(selectedBooking.packageId, selectedBooking.agentId, userid, reviewText, rating);
+        toast.success("Review submitted successfully!")
+        setReviewText("");
+        setRating(0);
+        setIsSubmitDisabled(true);
+
+      } catch (error) {
+        console.error('Error submitting review:', error);
+        toast.error("Failed to submit review. Please try again!")
+
+      }
+    } else {
+      toast.error("Please provide both review and rating!")
+
+    }
+  }
 
 
 
@@ -104,7 +118,7 @@ console.log(userid,"userid");
 
   return (
     <>
-      <div class="mt-2"></div>
+    <div class="mt-2"></div>
       {bookings.length > 0 ? (
         <div className="container mx-auto px-4 py-8 ">
           <h2 className="text-3xl font-semibold mb-4 animate-bounce text-green-600">User Bookings</h2>
@@ -134,8 +148,8 @@ console.log(userid,"userid");
                   <td className="border border-gray-200 px-4 py-2">₹ {booking.Amount}</td>
                   {booking.isCanceled === true ? (
                     <td className="border border-gray-200 px-8 py-4 text-red-500 font-bold  rounded p-4">Returned</td>
-                  ):(
-                  <td className="border border-gray-200 px-4 py-2 text-green-700 font-bold">{booking.bookingStatus}</td>
+                  ) : (
+                    <td className="border border-gray-200 px-4 py-2 text-green-700 font-bold">{booking.bookingStatus}</td>
                   )}
                   <td className="border border-gray-200 px-8 py-4">
                     <Button onClick={() => handleDetailsButtonClick(booking.packageId)} variant="gradient">
@@ -161,16 +175,14 @@ console.log(userid,"userid");
       ) : (
         <span className="flex justify-center text-red-600 text-3xl font-bold mt-48">There are no bookings for this user!</span>
       )}
-
-
+  
       {/* modal */}
-
-      <Dialog open={open} handler={handleOpen} style={{ width: '100vw', maxWidth: '1300px', height: '300vh', margin: '0 auto', padding: 0 }}  >
-        <DialogBody className="overflow-y-auto max-h-[70vh] text-gray-800">
-          <DialogHeader>what a Journey</DialogHeader>
+  
+      <Dialog open={open} handler={handleOpen} style={{ width: '100vw', maxWidth: '1300px', height: '300vh', margin: '0 auto', padding: 0 }}>
+        <DialogBody className="overflow-y-auto max-h-[70vh] text-gray-900">
+          <DialogHeader>Booking Details</DialogHeader>
           {packageDetails ? (
             <div>
-
               <div className="grid grid-cols-3 gap-4">
                 {packageDetails.Image.map((imageUrl, index) => (
                   <div key={index} className="bg-white p-2 shadow-md rounded-lg">
@@ -178,7 +190,7 @@ console.log(userid,"userid");
                   </div>
                 ))}
               </div>
-
+  
               <h3>{packageDetails.Destrictname}, {packageDetails.State}</h3>
               <p><strong>Category:</strong> {packageDetails.category}</p>
               <p><strong>Details:</strong> {packageDetails.details}</p>
@@ -190,48 +202,40 @@ console.log(userid,"userid");
               </ul>
               <p><strong>Amount per Day:</strong> ₹{packageDetails.perDAy}</p>
               <p><strong>Amount:</strong> ₹{packageDetails.amount}</p>
-
+  
+              <div className="mt-4">
+                <h4 className="flex justify-center mb-5 text-lg font-semibold">Add Reviews</h4>
+                <div className="flex items-center mb-2">
+                  <input type="text" placeholder="Write a review..." value={reviewText} onChange={(e) => setReviewText(e.target.value)} className="flex-grow border text-gray-800 border-gray-900 rounded-lg p-2 mr-2" />
+                </div>
+                <div className="flex flex-col items-center">
+                  <Button className='bg-green-700 ' onClick={handleReviewSubmit} variant="text" >Submit</Button>
+                  <div className="font-bold mt-6">Ratings:</div>
+                  <div className="mb-4">
+                    <Rating value={rating} onChange={(value) => setRating(value)} />
+                  </div>
+                </div>
+              </div>
             </div>
           ) : (
             <p>Loading package details...</p>
           )}
-
-          <div className="mt-4">
-            <h4 className="flex justify-center mb-5 text-lg font-semibold">Add Reviews</h4>
-            <div className="flex items-center mb-2">
-            <input type="text" placeholder="Write a review..." value={reviewText} onChange={(e) => setReviewText(e.target.value)} className="flex-grow border text-gray-800 border-gray-900 rounded-lg p-2 mr-2" />
-            <Button onClick={handleReviewSubmit } variant="text" color="gray">Submit</Button>
-            </div>
-            <div className="flex justify-center mt-6 font-bold">Ratings : 
-            <Rating value={rating} onChange={(value) => setRating(value)} />
-            </div>
-            <div>
-            </div>
-          </div>
-
-
-
         </DialogBody>
-
+  
         <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>close</span>
+          <Button variant="text" color="red" onClick={handleOpen} className="mr-1">
+            <span>Close</span>
           </Button>
           <Button variant="gradient" color="green" onClick={handleOpen}>
             <span>Confirm</span>
           </Button>
         </DialogFooter>
       </Dialog>
-
-
-      <div className="mb-32"></div>
+      <Toaster/>
+  
     </>
-  );
+  
+      );
 }
 
-export default Listbookings;
+      export default Listbookings;

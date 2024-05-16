@@ -39,7 +39,7 @@ function Dashboard() {
                 const monthlyData = responseMonthly.data.monthlyCount;
                 setTotalRevenue(totalAmount);
 
-            
+
                 // Initialize an array to hold monthly revenue data for all months
                 const updatedData = Array.from({ length: 12 }, () => 0);
 
@@ -67,7 +67,7 @@ function Dashboard() {
         };
 
         fetchData();
-    }, [Usercount, Agentcount, packCount]);
+    }, [Usercount, Agentcount, packCount, totalRevenue]);
 
 
 
@@ -92,7 +92,11 @@ function Dashboard() {
                                 <FaUsers className='text-gray-800 size-14' />
                                 <div className=" p-6 text-lg">
                                     Total users
-                                    <p>{Usercount}</p>
+                                    {Usercount > 0 ? (
+                                        <p className="text-2xl text-sky-700"> {Usercount} </p>
+                                    ) : (
+                                        <p className="text-2xl text-sky-700">₹: 0 </p>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -103,8 +107,12 @@ function Dashboard() {
                                 <IoBag className='text-gray-800 size-14 ' />
                                 <div className="p-6 text-lg">
                                     Total packages
-                                    <p className="text-2xl text-sky-700">{packCount}</p>
-                                </div>
+                                    {packCount === 0 ? (
+                                        <p className="text-2xl text-sky-700"> 0 </p>
+
+                                    ) : (
+                                        <p className="text-2xl text-sky-700"> {packCount} </p>
+                                    )}                                </div>
                             </div>
                         </div>
                     </div>
@@ -114,7 +122,12 @@ function Dashboard() {
                                 <FaCashRegister className='text-green-900 size-14' />
                                 <div className="p-6 text-lg">
                                     Total Revenue
-                                    <p className="text-2xl text-sky-700">{Number(totalRevenue)}</p>
+                                    {totalRevenue === 0 ? (
+                                        <p className="text-2xl text-sky-700">₹: 0 </p>
+
+                                    ) : (
+                                        <p className="text-2xl text-sky-700">₹: {Number(totalRevenue)} </p>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -125,8 +138,12 @@ function Dashboard() {
                                 <FaUsers className='text-green-900 size-14' />
                                 <div className="p-6 text-lg">
                                     Total agents
-                                    <p className="text-2xl text-sky-700">{Agentcount}</p>
-                                </div>
+                                    {Agentcount > 0 ? (
+                                        <p className="text-2xl text-sky-700"> {Agentcount} </p>
+                                    ) : (
+                                        <p className="text-2xl text-sky-700">₹: 0 </p>
+                                    )}                             
+                                       </div>
                             </div>
                         </div>
                     </div>

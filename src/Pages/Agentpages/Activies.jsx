@@ -123,7 +123,8 @@ const totalPages = Math.ceil(edit.length / perpage);
         <div className='flex justify-center'>
           <span className='font-extrabold text-blue-gray-700'>ACTIVITIES</span>
           <span className='font-extrabold text-gray-600'> MANAGEMENT</span>
-        </div>        </div>
+        </div>        
+        </div>
       <div className="w-[100%] flex justify-end">
         <button onClick={() => handleOpen(null)} className="bg-blue-gray-700 p-2  mt-10 mr-5 text-cyan-50 rounded-lg">Add activity
         </button>
@@ -161,7 +162,7 @@ const totalPages = Math.ceil(edit.length / perpage);
         </DialogFooter>
       </Dialog>
 
-      <Card className="h-[50%] ml-20 w-[80%] overflow-scroll shadow-lg mt-20 shadow-gray-800">
+      <Card className="h-[50%] ml-20 w-[80%] overflow-scroll shadow-lg mt-14 shadow-gray-800">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
