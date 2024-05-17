@@ -58,7 +58,6 @@ function Dashboard() {
     };
 
 
-    
 
 
     const chartSeries = [{
@@ -79,12 +78,8 @@ function Dashboard() {
                 setpackCount(responsePackages.data);
 
                 const responseMonthly = await MonthlyAmount(agentid);
+                console.log(responseMonthly,"responseMonthly");
                 setMonthlyAmounts(responseMonthly.data.monthlyAmounts);
-
-         
-
-      
-
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -92,7 +87,7 @@ function Dashboard() {
         };
 
         fetchData();
-    }, [userCount,packCount,monthlyAmounts]);
+    }, [agentid]);
 
 
     console.log(packCount, "packCount");

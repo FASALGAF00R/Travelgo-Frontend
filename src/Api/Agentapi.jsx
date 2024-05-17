@@ -65,7 +65,6 @@ export async function agentdata(data) {
 
 
 export async function Placedata(data,agentid) {
-    console.log(data,agentid,"oooo");
     try {
         const result = await agentapi.post('/places',{ ...data, agentid }, {
             headers: {

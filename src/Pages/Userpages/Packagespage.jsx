@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchpackages, FetchCategory, fetchpackagescat, fetchrating } from '../../Api/Userapi';
-import Background from '../../../src/Assests/Images/mountain-6968913_1280.jpg'
+import Background from '../../Assests/Images/mountain-6968913_1280.jpg'
 import { MdCardTravel } from "react-icons/md";
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import Select from "react-select";

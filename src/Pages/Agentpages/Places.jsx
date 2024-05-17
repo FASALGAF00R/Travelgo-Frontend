@@ -102,6 +102,7 @@ function Places() {
       if (editingPlace) {
         await UpdatePlace(editingPlace._id, { Data: formdata });
       } else {
+        console.log(formdata,"formdata");
         const response = await Placedata(formdata, selector.id)
         console.log(response.data.place, "response");
         setPlaces((prevPlaces) => {
@@ -118,7 +119,6 @@ function Places() {
       console.log(error);
     }
   };
-
 
 
   const handlechange = (e) => {
