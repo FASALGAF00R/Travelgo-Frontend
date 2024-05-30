@@ -6,19 +6,26 @@ import { UserChecking } from '../../Api/Userapi';
 
 function Userprotected(props) {
 
-    console.log("userroutesprotected");
-
     const navigate =useNavigate()
     const token = localStorage.getItem('accesToken')
-    const decodedtoken = jwtDecode(token)
-    console.log(decodedtoken,"jj");
-    const userid = decodedtoken.id
+    let userid;
+    let decodedtoken;
+    if(token){
+
+        console.log(token,"token");
+         decodedtoken = jwtDecode(token)
+         userid = decodedtoken.id
+    }else{
+        navigate(RouteObjects.Userlogin)
+    }
 
 
     useEffect(() => {
         const Userblockchecking = async () => {
             try {
                 console.log("hi bro");
+                
+
                 const response = await UserChecking(userid);
                 console.log(response,"ovvops!");
                 if(response.data.success===false){
@@ -39,7 +46,7 @@ function Userprotected(props) {
         return props.children
     } else {
 
-        return <Navigate to='/' />
+        return <Navigate to='/login' />
     }
 
 }
