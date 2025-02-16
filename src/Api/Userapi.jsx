@@ -161,6 +161,8 @@ export async function Placedata(page,limit) {
 
 
 export async function UserChecking(data) {
+    console.log("id",data);
+    
     try {
         const result = await userapi.get(`/checkinguser/${data}`);
         return result
@@ -314,6 +316,16 @@ export async function fetchallBookings(id) {
 }
 
 
+
+
+export async function fetchpackagesabout() {
+    try {
+        const result = await userapi.get("/fetchallpackage")
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 
