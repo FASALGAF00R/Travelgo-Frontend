@@ -50,7 +50,7 @@ function Aboutpage() {
                         </h3>
                         <h1 className="text-sm sm:text-4xl lg:text-5xl font-serif">
                             <span className="text-white">
-                                <span className="text-black">Welcome to Travelgo,</span> your trusted platform for discovering and booking the best travel packages in your state!
+                                <span className="text-red">Welcome to Travelgo,</span> your trusted platform for discovering and booking the best travel packages in your state!
                             </span>
                             {/* <br /> */}
                             {/* <span className="text-[#ffffff] block mt-7 ">
