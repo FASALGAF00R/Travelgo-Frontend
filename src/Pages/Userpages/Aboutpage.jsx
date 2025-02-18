@@ -46,7 +46,7 @@ function Aboutpage() {
                 <div className="flex flex-row w-full h-90">
                     <div className="w-1/2 sm:content lg:w-1/2 mr-4 p-7 pl-7 mt-16 ml-12 h-[100%] rounded-2xl bg-pink-200 shadow shadow-violet-900">
                         <h3 className="text-[#ffffff] ml-2 font-prompt-semibold text-2xl">
-                            About Us
+                            About Us ussss
                         </h3>
                         <h1 className="text-sm sm:text-4xl lg:text-5xl font-serif">
                             <span className="text-white">
