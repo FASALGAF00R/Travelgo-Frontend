@@ -95,7 +95,7 @@ function Aboutpage() {
                                     <div className="flex flex-row p-4">
                                         <p className="ml-1 mb-2 text-base">{pk.Destrictname}</p>
                                     </div>
-                                    <div key={pk.packageid} className="p-4">
+                                    <div key={pk.packageId} className="p-4">
                                         <p className="mr-1 mt-4 mb-2 text-yellow-800">
                                             <FontAwesomeIcon icon={faStar} /> Ratings: {pk.averageRating || "0"}
                                         </p>

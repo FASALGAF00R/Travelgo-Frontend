@@ -11,6 +11,7 @@ import toasti, { Toaster } from "react-hot-toast";
 
 
 function Paymentstripe({ amount, packageId, agentid, userid, totalAmount, formData ,paymentDate}) {
+console.log( amount, packageId, agentid, userid, totalAmount, formData ,paymentDate,";;;;;;;;;;;;");
 
     const location = useLocation()
     const navigate = useNavigate()

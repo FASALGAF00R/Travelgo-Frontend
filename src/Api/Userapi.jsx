@@ -221,6 +221,8 @@ export async function fetchpackagescat(placeId,categoryname) {
 export async function paymentRequest(packId) {
     try {
         const result = await userapi.get(`/paymentreq/${packId}`)
+        console.log("result",result);
+        
         return result
     } catch (error) {
         console.log(error);
