@@ -52,11 +52,7 @@ function Aboutpage() {
                             <span className="text-white">
                                 <span className="text-black">Welcome to Travelgooo,</span> your trusted platform for discovering and booking the best travel packages in your state!
                             </span>
-                            {/* <br /> */}
-                            {/* <span className="text-[#ffffff] block mt-7 ">
-                                lllll
-                            </span> */}
-                            {/* <span className="text-[#000000] block mt-4 ">uuuu</span> */}
+        
                         </h1>
                     </div>
 
