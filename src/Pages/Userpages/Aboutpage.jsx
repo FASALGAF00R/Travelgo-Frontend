@@ -37,6 +37,8 @@ function Aboutpage() {
 
     }, [review])
 
+    console.log("hiiiiiiiiiiiiiiiiiii");
+    
 
     let averageRating
 
